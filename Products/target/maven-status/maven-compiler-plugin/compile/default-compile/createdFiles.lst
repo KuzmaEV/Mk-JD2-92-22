@@ -1,0 +1,11 @@
+by\market\products\core\DTO\ProductCreateDTO.class
+by\market\products\storages\api\IStorageFactory.class
+by\market\products\storages\StorageFactory.class
+by\market\products\services\api\IProductsService.class
+by\market\products\storages\entity\ProductBuilder.class
+by\market\products\services\ProductsService.class
+by\market\products\contollers\ui\UiProductsServlet.class
+by\market\products\storages\entity\Product.class
+by\market\products\storages\ProductsStorage.class
+by\market\products\storages\api\IProductsStorage.class
+by\market\products\contollers\api\ProductsServlet.class

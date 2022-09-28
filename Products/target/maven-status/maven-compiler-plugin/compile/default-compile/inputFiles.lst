@@ -1,0 +1,11 @@
+C:\YauheniKuzma\IT_Academy\Products\src\main\java\by\market\products\storages\api\IProductsStorage.java
+C:\YauheniKuzma\IT_Academy\Products\src\main\java\by\market\products\storages\StorageFactory.java
+C:\YauheniKuzma\IT_Academy\Products\src\main\java\by\market\products\services\api\IProductsService.java
+C:\YauheniKuzma\IT_Academy\Products\src\main\java\by\market\products\contollers\api\ProductsServlet.java
+C:\YauheniKuzma\IT_Academy\Products\src\main\java\by\market\products\storages\api\IStorageFactory.java
+C:\YauheniKuzma\IT_Academy\Products\src\main\java\by\market\products\services\ProductsService.java
+C:\YauheniKuzma\IT_Academy\Products\src\main\java\by\market\products\storages\entity\Product.java
+C:\YauheniKuzma\IT_Academy\Products\src\main\java\by\market\products\storages\entity\ProductBuilder.java
+C:\YauheniKuzma\IT_Academy\Products\src\main\java\by\market\products\contollers\ui\UiProductsServlet.java
+C:\YauheniKuzma\IT_Academy\Products\src\main\java\by\market\products\storages\ProductsStorage.java
+C:\YauheniKuzma\IT_Academy\Products\src\main\java\by\market\products\core\DTO\ProductCreateDTO.java
