@@ -4,7 +4,6 @@ import by.market.products.core.DTO.ProductCreateDTO;
 import by.market.products.storages.StorageFactory;
 import by.market.products.storages.entity.Product;
 import by.market.products.services.api.IProductsService;
-import by.market.products.storages.ProductsStorage;
 import by.market.products.storages.api.IProductsStorage;
 import by.market.products.storages.entity.ProductBuilder;
 

@@ -7,10 +7,10 @@ public class StorageFactory implements IStorageFactory {
 
     private static final IStorageFactory instance = new StorageFactory();
 
-    private IProductsStorage productsStorage;
+    private final IProductsStorage productsStorage;
 
     public StorageFactory() {
-        this.productsStorage = new ProductsStorage();
+        this.productsStorage = new FileProductStorage();
     }
 
     @Override
