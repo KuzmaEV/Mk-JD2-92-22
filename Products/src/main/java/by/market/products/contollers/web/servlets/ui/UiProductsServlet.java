@@ -13,14 +13,16 @@ import java.io.IOException;
 @WebServlet(name = "UiProductsServlet", urlPatterns = "/")
 public class UiProductsServlet extends HttpServlet {
 
-    private final IProductsService service = ProductsService.getInstance();
+    private final IProductsService service;
 
-
+    public UiProductsServlet() {
+        this.service = ProductsService.getInstance();
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
-        req.setAttribute("products", service.get());
+        req.setAttribute("products", this.service.get());
         req.getRequestDispatcher("/view/main.jsp").forward(req, resp);
 
 
