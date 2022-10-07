@@ -3,11 +3,12 @@ package by.market.products.storages;
 import by.market.products.storages.entity.Product;
 import by.market.products.storages.entity.ProductBuilder;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-public class FileProductStorageTest {
- //   @Test
+public class    FileProductStorageTest {
+    @Test
     public void save(){
 
         System.out.println(System.getProperty("java.io.tmpdir"));
@@ -32,7 +33,7 @@ public class FileProductStorageTest {
 
     }
 
-  //  @Test
+    @Test
 
     public void get(){
 

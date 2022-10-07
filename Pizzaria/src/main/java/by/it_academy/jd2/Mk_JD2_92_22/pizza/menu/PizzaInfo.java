@@ -8,30 +8,29 @@ public class PizzaInfo implements IPizzaInfo {
     private String description;
     private int size;
 
+    public PizzaInfo() {
+    }
+
     public PizzaInfo(String name, String description, int size) {
         this.name = name;
         this.description = description;
         this.size = size;
     }
 
-    //    public PizzaInfo(String name, String description, int size) {
-//        this.name = name;
-//        this.description = description;
-//        this.size = size;
-//    }
+
 
     @Override
     public String getName() {
-        return null;
+        return name;
     }
 
     @Override
     public String getDescription() {
-        return null;
+        return description;
     }
 
     @Override
     public int getSize() {
-        return 0;
+        return size;
     }
 }

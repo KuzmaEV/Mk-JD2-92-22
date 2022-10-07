@@ -1,6 +1,7 @@
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.storages;
 
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IPizzaInfo;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.menu.PizzaInfo;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.storages.api.IPizzaInfoStorage;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -28,7 +29,7 @@ public class FilePizzaInfoStorage implements IPizzaInfoStorage {
         try(BufferedReader reader = new BufferedReader(new FileReader(this.pathToFile))) {
             String line;
             while ((line = reader.readLine()) != null){
-                pizzaInfoList.add(mapper.readValue(line,IPizzaInfo.class));
+                pizzaInfoList.add(mapper.readValue(line, PizzaInfo.class));
             }
             return pizzaInfoList;
 
@@ -43,7 +44,7 @@ public class FilePizzaInfoStorage implements IPizzaInfoStorage {
 
             String line;
             while ((line = reader.readLine()) != null){
-                IPizzaInfo pizzaInfo = mapper.readValue(line, IPizzaInfo.class);
+                IPizzaInfo pizzaInfo = mapper.readValue(line, PizzaInfo.class);
                 if (pizzaInfo.getName().equals(name)){
                     return pizzaInfo;
                 }
