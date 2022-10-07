@@ -64,8 +64,8 @@ public class ProductsServlet extends HttpServlet {
         service.validate(createDTO);
         req.setAttribute("added", "Product added");
 //        resp.sendRedirect(req.getContextPath() + "/addProduct.jsp");
-        resp.setStatus(201);
         req.getRequestDispatcher("view/addProduct.jsp").forward(req, resp);
+        resp.setStatus(201);
 
     }
 }

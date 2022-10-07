@@ -13,7 +13,7 @@ public class MemoryProductsStorage implements IProductsStorage {
 
 //    private static final ProductsStorage instance = new ProductsStorage();
 //    List<Product> data = new ArrayList<>();
-    Map<Long, Product> data = new HashMap<>();
+    private final Map<Long, Product> data = new HashMap<>();
 
 
 

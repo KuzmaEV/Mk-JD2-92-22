@@ -27,7 +27,7 @@ public class FileProductStorage implements IProductsStorage {
     }
 
     public FileProductStorage(String pathToDir) {
-        File f = new File(pathToDir);
+         File f = new File(pathToDir);
         if (!f.isDirectory()){
             throw new IllegalArgumentException("требуется передать путь к папке");
         }

@@ -17,7 +17,7 @@ public interface ITicket {
      * Когда заказ получен
      * @return
      */
-    LocalDateTime getCreatAt();
+    LocalDateTime getCreateAt();
 
     /**
      * Заказ для которого выдали квиток
