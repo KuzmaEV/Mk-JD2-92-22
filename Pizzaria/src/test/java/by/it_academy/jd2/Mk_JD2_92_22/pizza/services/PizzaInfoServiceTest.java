@@ -11,9 +11,11 @@ public class PizzaInfoServiceTest {
     public void get(){
         PizzaInfoService service = PizzaInfoService.getInstance();
 
+        service.validate(new PizzaInfo("Margarita", "tomatoes, cheese", 40));
+
         IPizzaInfo pizzaInfo = service.get("Margarita");
 
-        Assertions.assertEquals("tomatoes", pizzaInfo.getDescription());
+        Assertions.assertEquals("tomatoes, cheese", pizzaInfo.getDescription());
     }
 
     @Test
