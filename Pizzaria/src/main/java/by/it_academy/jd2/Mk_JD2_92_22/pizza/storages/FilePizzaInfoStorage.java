@@ -73,7 +73,7 @@ public class FilePizzaInfoStorage implements IPizzaInfoStorage {
     }
 
     @Override
-    public void delete(IPizzaInfo item) {
+    public void delete(String name) {
 
 
         List<IPizzaInfo> pizzaInfoList = this.get();
@@ -82,7 +82,7 @@ public class FilePizzaInfoStorage implements IPizzaInfoStorage {
 
             StringBuilder str = new StringBuilder();
             for (IPizzaInfo pizzaInfo : pizzaInfoList) {
-                if (!pizzaInfo.getName().equals(item.getName())){
+                if (!pizzaInfo.getName().equals(name)){
                     str.append(this.mapper.writeValueAsString(pizzaInfo)).append('\n');
                 }
             }

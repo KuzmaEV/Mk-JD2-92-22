@@ -19,7 +19,7 @@ public class FilePizzaInfoStorageTest {
 
         Assertions.assertEquals(pizzaInfo.getName(), storage.get("SaveStorage").getName());
 
-        storage.delete(storage.get("SaveStorage"));
+        storage.delete("SaveStorage");
     }
 
 
@@ -44,7 +44,7 @@ public class FilePizzaInfoStorageTest {
         Assertions.assertNotNull(storage.get());
         Assertions.assertEquals(beforeSize.size() + 1,afterSize.size());
 
-        storage.delete(storage.get("StorageGet"));
+        storage.delete("StorageGet");
     }
 
     @Test
@@ -57,7 +57,7 @@ public class FilePizzaInfoStorageTest {
 
         int sizeBefore = storage.get().size();
 
-        storage.delete(pizzaHunting);
+        storage.delete(pizzaHunting.getName());
 
         int sizeAfter = storage.get().size();
 

@@ -33,6 +33,11 @@ public class PizzaInfoService implements IPizzaInfoService {
         this.storage.save(item);
     }
 
+    @Override
+    public void delete(String name) {
+
+    }
+
     public static PizzaInfoService getInstance(){
         return instance;
     }
