@@ -14,13 +14,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet(name = "PizzaInfoServlet", urlPatterns = "/pizzaInfo")
-public class PizzaInfoServlet extends HttpServlet {
+@WebServlet(name = "DeletePizzaInfoServlet", urlPatterns = "/pizzaInfo/delete")
+public class DeletePizzaInfoServlet extends HttpServlet {
 
     private final IPizzaInfoService service;
     private final ObjectMapper mapper;
 
-    public PizzaInfoServlet() {
+    public DeletePizzaInfoServlet() {
 
         this.service = PizzaInfoService.getInstance();
         this.mapper = new ObjectMapper();
@@ -40,13 +40,9 @@ public class PizzaInfoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         req.setCharacterEncoding("UTF-8");
 
-        IPizzaInfo pizzaInfo = this.mapper.readValue(req.getInputStream(), PizzaInfo.class);
+        IPizzaInfo pizzaInfo = mapper.readValue(req.getInputStream(), PizzaInfo.class);
 
-        String name = pizzaInfo.getName();
-
-        IPizzaInfo getPizzaInfo = this.service.get(name);
-        PrintWriter writer =resp.getWriter();
-        writer.write(this.mapper.writeValueAsString(getPizzaInfo));
+        service.delete(pizzaInfo.getName());
 
         resp.setStatus(201);
     }

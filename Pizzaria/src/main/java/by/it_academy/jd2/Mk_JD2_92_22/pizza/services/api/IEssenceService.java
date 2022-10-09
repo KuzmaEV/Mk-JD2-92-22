@@ -7,4 +7,5 @@ public interface IEssenceService<T> {
     List<T> get();
     T get(String name);
     void validate(T item);
+    void delete(String name);
 }
