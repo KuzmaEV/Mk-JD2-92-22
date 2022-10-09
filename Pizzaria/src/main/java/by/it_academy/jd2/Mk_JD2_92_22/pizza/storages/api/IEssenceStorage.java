@@ -6,4 +6,5 @@ public interface IEssenceStorage <T>{
     List<T> get();
     T get (String name);
     void save(T item);
+    void delete(T item);
 }

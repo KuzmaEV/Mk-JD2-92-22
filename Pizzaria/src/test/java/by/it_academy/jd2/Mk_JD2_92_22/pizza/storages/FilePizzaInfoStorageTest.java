@@ -13,11 +13,13 @@ public class FilePizzaInfoStorageTest {
     public void save(){
         System.out.println(System.getenv("CATALINA_HOME"));
         FilePizzaInfoStorage storage = new FilePizzaInfoStorage();
-        IPizzaInfo pizzaInfo = new PizzaInfo("Pepperoni", "Клбаса, сыр", 40);
+        IPizzaInfo pizzaInfo = new PizzaInfo("SaveStorage", "save pizzaInfo", 1);
         storage.save(pizzaInfo);
         System.out.println(pizzaInfo.getName());
 
-        Assertions.assertEquals(pizzaInfo.getName(), storage.get("Pepperoni").getName());
+        Assertions.assertEquals(pizzaInfo.getName(), storage.get("SaveStorage").getName());
+
+        storage.delete(storage.get("SaveStorage"));
     }
 
 
@@ -26,19 +28,42 @@ public class FilePizzaInfoStorageTest {
         FilePizzaInfoStorage storage = new FilePizzaInfoStorage();
         List<IPizzaInfo> beforeSize = storage.get();
 
-        storage.save(new PizzaInfo("Four cheeses", "cheese", 40));
+        storage.save(new PizzaInfo("StorageGet", "getList", 1));
 
         for (IPizzaInfo pizzaInfo : storage.get()) {
             System.out.println("pizza: " + pizzaInfo.getName());
             System.out.println("description: " + pizzaInfo.getDescription());
             System.out.println("size: " + pizzaInfo.getSize() + " cm");
+            System.out.println();
         }
 
+        System.out.println("=".repeat(40));
 
         List<IPizzaInfo> afterSize = storage.get();
 
         Assertions.assertNotNull(storage.get());
         Assertions.assertEquals(beforeSize.size() + 1,afterSize.size());
+
+        storage.delete(storage.get("StorageGet"));
+    }
+
+    @Test
+    public void delete(){
+
+        FilePizzaInfoStorage storage = new FilePizzaInfoStorage();
+
+        PizzaInfo pizzaHunting = new PizzaInfo("Delete", "delete", 1);
+        storage.save(pizzaHunting);
+
+        int sizeBefore = storage.get().size();
+
+        storage.delete(pizzaHunting);
+
+        int sizeAfter = storage.get().size();
+
+        Assertions.assertEquals(sizeBefore - 1,sizeAfter);
+
+
     }
 
 }
