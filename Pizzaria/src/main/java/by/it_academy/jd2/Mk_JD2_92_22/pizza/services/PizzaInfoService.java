@@ -1,7 +1,6 @@
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.services;
 
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IPizzaInfo;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.services.api.IMenuService;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.services.api.IPizzaInfoService;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.storages.api.IPizzaInfoStorage;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.storages.entity.factory.PizzaInfoFactory;
@@ -30,12 +29,18 @@ public class PizzaInfoService implements IPizzaInfoService {
     @Override
     public void validate(IPizzaInfo item) {
 
-        this.storage.save(item);
+        if(storage.get(item.getName()) == null) {
+            this.storage.save(item);
+        }
+        else throw new IllegalArgumentException("PizzaInfo is existed");
     }
 
     @Override
     public void delete(String name) {
-
+        if(storage.get(name) != null) {
+            this.storage.delete(name);
+        }
+        else throw new IllegalArgumentException("PizzaInfo hasn't existed");
     }
 
     public static PizzaInfoService getInstance(){
