@@ -1,7 +1,7 @@
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.controllers.web.servlets.pizzaInfo;
 
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IPizzaInfo;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.menu.PizzaInfo;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.storages.entity.PizzaInfo;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.services.PizzaInfoService;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.services.api.IPizzaInfoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -33,7 +33,7 @@ public class AddPizzaInfoServlet extends HttpServlet {
 
         List<IPizzaInfo> pizzaInfoList = this.service.get();
         PrintWriter writer = resp.getWriter();
-        writer.write("hello");
+        writer.write("add a new PizzaInfo");
         writer.write(mapper.writeValueAsString(pizzaInfoList));
     }
 
