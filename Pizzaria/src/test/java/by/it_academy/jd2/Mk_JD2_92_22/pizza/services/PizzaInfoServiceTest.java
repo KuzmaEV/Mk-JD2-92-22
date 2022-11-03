@@ -1,7 +1,8 @@
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.services;
 
+import by.it_academy.jd2.Mk_JD2_92_22.garbage.services.PizzaInfoService;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IPizzaInfo;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.storages.entity.PizzaInfo;
+import by.it_academy.jd2.Mk_JD2_92_22.garbage.storages.entity.PizzaInfo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
