@@ -25,6 +25,7 @@ public class PizzaInfo implements IPizzaInfo {
         this.size = size;
     }
 
+    @Override
     public long getId() {
         return id;
     }

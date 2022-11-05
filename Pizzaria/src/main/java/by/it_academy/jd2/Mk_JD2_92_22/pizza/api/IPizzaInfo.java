@@ -8,6 +8,24 @@ import java.time.LocalDateTime;
 public interface IPizzaInfo {
 
     /**
+     * @return id PizzaInfo
+     */
+
+    long getId();
+
+    /**
+     * @return Date create PizzaInfo
+     */
+
+    LocalDateTime getDtCreate();
+
+    /**
+     * @return Date update PizzaInfo
+     */
+
+    LocalDateTime getDtUpdate();
+
+    /**
      * @return Название пиццы
      */
     String getName();
@@ -21,16 +39,4 @@ public interface IPizzaInfo {
      * @return Итоговый размер пиццы которую приготовят
      */
     int getSize();
-
-    /**
-     * @return Date create PizzaInfo
-     */
-
-    LocalDateTime getDtCreate();
-
-    /**
-     * @return Date update PizzaInfo
-     */
-
-    LocalDateTime getDtUpdate();
 }
