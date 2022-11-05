@@ -12,7 +12,7 @@ public class DataSourceCreator {
     public DataSourceCreator() throws PropertyVetoException {
         cpdc = new ComboPooledDataSource();
         cpdc.setDriverClass("org.postgresql.Driver");
-        cpdc.setJdbcUrl("jdbc:postgres://localhost:5432/company");
+        cpdc.setJdbcUrl("jdbc:postgresql://localhost:5432/company");
         cpdc.setUser("postgres");
         cpdc.setPassword("375256477485");
         cpdc.setMinPoolSize(5);

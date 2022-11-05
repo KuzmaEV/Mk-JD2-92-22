@@ -3,7 +3,7 @@ package by.it_academy.jd2.Mk_JD2_92_22.garbage.services;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IPizzaInfo;
 import by.it_academy.jd2.Mk_JD2_92_22.garbage.services.api.IPizzaInfoService;
 import by.it_academy.jd2.Mk_JD2_92_22.garbage.storages.api.IPizzaInfoStorage;
-import by.it_academy.jd2.Mk_JD2_92_22.garbage.storages.entity.factory.PizzaInfoFactory;
+import by.it_academy.jd2.Mk_JD2_92_22.garbage.factory.PizzaInfoFactory;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
-package by.it_academy.jd2.Mk_JD2_92_22.garbage.storages.entity.factory;
+package by.it_academy.jd2.Mk_JD2_92_22.garbage.factory;
 
+import by.it_academy.jd2.Mk_JD2_92_22.garbage.factory.api.IPizzaInfoFactory;
 import by.it_academy.jd2.Mk_JD2_92_22.garbage.storages.FilePizzaInfoStorage;
-import by.it_academy.jd2.Mk_JD2_92_22.garbage.storages.entity.factory.api.IPizzaInfoFactory;
 import by.it_academy.jd2.Mk_JD2_92_22.garbage.storages.api.IPizzaInfoStorage;
 
 public class PizzaInfoFactory implements IPizzaInfoFactory {

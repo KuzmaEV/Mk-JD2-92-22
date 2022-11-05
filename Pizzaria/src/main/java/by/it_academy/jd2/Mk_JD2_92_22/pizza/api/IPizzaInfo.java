@@ -1,25 +1,36 @@
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.api;
 
+import java.time.LocalDateTime;
+
 /**
  * Информация о пицце
  */
 public interface IPizzaInfo {
 
     /**
-     * Название пиццы
-     * @return
+     * @return Название пиццы
      */
     String getName();
 
     /**
-     * Описание/состав пиццы
-     * @return
+     * @return Описание/состав пиццы
      */
     String getDescription();
 
     /**
-     * Итоговый размер пиццы которую приготовят
-     * @return
+     * @return Итоговый размер пиццы которую приготовят
      */
     int getSize();
+
+    /**
+     * @return Date create PizzaInfo
+     */
+
+    LocalDateTime getDtCreate();
+
+    /**
+     * @return Date update PizzaInfo
+     */
+
+    LocalDateTime getDtUpdate();
 }
