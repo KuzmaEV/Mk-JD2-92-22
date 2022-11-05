@@ -109,8 +109,7 @@ public class PizzaInfoDao implements IPizzaInfoDao {
             int countUpdatedRows = stm.executeUpdate();
             if (countUpdatedRows != 1){
                 if (countUpdatedRows == 0){
-                    System.out.println("Несмогли обновить запись!");
-                    //throw new IllegalArgumentException( "Несмогли обновить запись!");
+                    throw new IllegalArgumentException( "Несмогли обновить запись!");
                 }else {
                     throw new IllegalArgumentException("Обнавили более одной записи!");
                 }
