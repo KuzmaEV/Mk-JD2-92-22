@@ -1,7 +1,6 @@
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.services;
 
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IPizzaInfo;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.PizzaInfoDaoSingleton;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.api.IPizzaInfoDao;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.entity.PizzaInfo;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.services.api.IPizzaInfoService;
@@ -13,8 +12,8 @@ public class PizzaInfoService implements IPizzaInfoService {
 
     private final IPizzaInfoDao dao;
 
-    public PizzaInfoService() {
-        this.dao = PizzaInfoDaoSingleton.getInstance();
+    public PizzaInfoService(IPizzaInfoDao dao) {
+        this.dao = dao;
     }
 
     @Override
