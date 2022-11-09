@@ -1,6 +1,7 @@
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.services;
 
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IPizzaInfo;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto.DtoPizzaInfoServlet;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.api.IPizzaInfoDao;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.entity.PizzaInfo;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.services.api.IPizzaInfoService;
@@ -29,7 +30,7 @@ public class PizzaInfoService implements IPizzaInfoService {
     }
 
     @Override
-    public IPizzaInfo create(IPizzaInfo item) {
+    public IPizzaInfo create(DtoPizzaInfoServlet item) {
 
 
 
@@ -43,7 +44,7 @@ public class PizzaInfoService implements IPizzaInfoService {
 
     @Override
     public IPizzaInfo update(long id, LocalDateTime dtUpdate/*дата последнено изменения*/,
-                             IPizzaInfo item/* dto БЕЗ ид и дт, только параметры для изменения*/) {
+                             DtoPizzaInfoServlet item/* dto БЕЗ ид и дт, только параметры для изменения*/) {
         IPizzaInfo read = dao.read(id);
 
         if (read == null){

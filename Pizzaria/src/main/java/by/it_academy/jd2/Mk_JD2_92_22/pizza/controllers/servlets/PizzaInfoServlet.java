@@ -1,8 +1,7 @@
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.controllers.servlets;
 
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IPizzaInfo;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto.DtoCreatePizzaInfo;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.entity.PizzaInfo;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto.DtoPizzaInfoServlet;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.services.PizzaInfoServiceSingleton;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.services.api.IPizzaInfoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -75,7 +74,7 @@ public class PizzaInfoServlet extends HttpServlet {
         resp.setContentType(CONTENT_TYPE);
         resp.setCharacterEncoding(ENCODING);
 
-        DtoCreatePizzaInfo dto = mapper.readValue(req.getInputStream(), DtoCreatePizzaInfo.class);
+        DtoPizzaInfoServlet dto = mapper.readValue(req.getInputStream(), DtoPizzaInfoServlet.class);
         if (dto.getName() == null){
             throw new IllegalStateException("При создании пиццы, нужно ввести Имя");
         }
@@ -85,13 +84,10 @@ public class PizzaInfoServlet extends HttpServlet {
         if (dto.getSize() == 0){
             throw new IllegalStateException("При создании пиццы, нужно ввести Размер");
         }
-        IPizzaInfo pizzaInfo = new PizzaInfo(0, null, null,
-                dto.getName(),
-                dto.getDescription(),
-                dto.getSize());
 
 
-        String pizzaInfoCreate = mapper.writeValueAsString(service.create(pizzaInfo));
+
+        String pizzaInfoCreate = mapper.writeValueAsString(service.create(dto));
         resp.getWriter().write(pizzaInfoCreate);
 
         resp.setStatus(HttpServletResponse.SC_CREATED);
@@ -114,7 +110,7 @@ public class PizzaInfoServlet extends HttpServlet {
 
         LocalDateTime dtUpdate = mapper.readValue(req.getParameter("dtUpdate"), LocalDateTime.class);
 
-        DtoCreatePizzaInfo dto = mapper.readValue(req.getInputStream(), DtoCreatePizzaInfo.class);
+        DtoPizzaInfoServlet dto = mapper.readValue(req.getInputStream(), DtoPizzaInfoServlet.class);
 
         if (dto.getName() == null){
             dto.setName(read.getName());
@@ -126,12 +122,7 @@ public class PizzaInfoServlet extends HttpServlet {
             dto.setSize(read.getSize());
         }
 
-        IPizzaInfo pizzaInfo = new PizzaInfo(0, null, null,
-                dto.getName(),
-                dto.getDescription(),
-                dto.getSize());
-
-        String pizzaInfoUpdate = mapper.writeValueAsString(service.update(id, dtUpdate, pizzaInfo));
+        String pizzaInfoUpdate = mapper.writeValueAsString(service.update(id, dtUpdate, dto));
         resp.getWriter().write(pizzaInfoUpdate);
 
         resp.setStatus(HttpServletResponse.SC_OK);
