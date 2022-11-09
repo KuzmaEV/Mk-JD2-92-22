@@ -1,6 +1,7 @@
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.services;
 
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IPizzaInfo;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto.DtoPizzaInfoService;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto.DtoPizzaInfoServlet;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.api.IPizzaInfoDao;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.entity.PizzaInfo;
@@ -32,10 +33,7 @@ public class PizzaInfoService implements IPizzaInfoService {
     @Override
     public IPizzaInfo create(DtoPizzaInfoServlet item) {
 
-
-
-        return dao.create(new PizzaInfo(0,
-                LocalDateTime.now(),
+        return dao.create(new DtoPizzaInfoService(
                 LocalDateTime.now(),
                 item.getName(),
                 item.getDescription(),
@@ -54,8 +52,7 @@ public class PizzaInfoService implements IPizzaInfoService {
             throw new IllegalArgumentException("Пицца кем-то отредактирована");
         }
 
-        IPizzaInfo updatePizza = new PizzaInfo(0,
-                read.getDtCreate(),
+        DtoPizzaInfoService updatePizza = new DtoPizzaInfoService(
                 LocalDateTime.now(),
                 item.getName(),
                 item.getDescription(),

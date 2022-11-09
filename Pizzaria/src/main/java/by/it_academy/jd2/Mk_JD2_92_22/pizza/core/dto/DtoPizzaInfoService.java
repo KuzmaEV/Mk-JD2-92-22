@@ -1,11 +1,31 @@
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto;
 
-public class DtoPizzaInfoServlet {
+import java.time.LocalDateTime;
 
+public class DtoPizzaInfoService {
+
+    private LocalDateTime dtUpdate;
     private String name;
     private String description;
     private int size;
 
+    public DtoPizzaInfoService() {
+    }
+
+    public DtoPizzaInfoService(LocalDateTime dtUpdate, String name, String description, int size) {
+        this.dtUpdate = dtUpdate;
+        this.name = name;
+        this.description = description;
+        this.size = size;
+    }
+
+    public LocalDateTime getDtUpdate() {
+        return dtUpdate;
+    }
+
+    public void setDtUpdate(LocalDateTime dtUpdate) {
+        this.dtUpdate = dtUpdate;
+    }
 
     public String getName() {
         return name;

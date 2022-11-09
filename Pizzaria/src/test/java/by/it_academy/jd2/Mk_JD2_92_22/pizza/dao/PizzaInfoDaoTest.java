@@ -1,9 +1,8 @@
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.dao;
 
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IPizzaInfo;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.PizzaInfoDaoSingleton;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto.DtoPizzaInfoService;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.api.IPizzaInfoDao;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.entity.PizzaInfo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +17,7 @@ public class PizzaInfoDaoTest {
 
         IPizzaInfoDao data = PizzaInfoDaoSingleton.getInstance();
 
-        IPizzaInfo pizzaInfo = new PizzaInfo(0, LocalDateTime.now(), LocalDateTime.now(),
+        DtoPizzaInfoService pizzaInfo = new DtoPizzaInfoService(LocalDateTime.now(),
                 "createPizza", "Create pizzaInfo for CREATE", 40);
 
         IPizzaInfo savedPizzaInfo = data.create(pizzaInfo);
@@ -37,8 +36,7 @@ public class PizzaInfoDaoTest {
 
         IPizzaInfoDao data = PizzaInfoDaoSingleton.getInstance();
 
-        IPizzaInfo createdPizza = data.create(new PizzaInfo(0,   //Создал и сохранл пиццу в БД
-                LocalDateTime.now(),
+        IPizzaInfo createdPizza = data.create(new DtoPizzaInfoService(   //Создал и сохранл пиццу в БД
                 LocalDateTime.now(),
                 "readPizza",
                 "Create for testing READ",
@@ -61,7 +59,7 @@ public class PizzaInfoDaoTest {
         IPizzaInfoDao data = PizzaInfoDaoSingleton.getInstance();
         List<IPizzaInfo> beforeSize = data.get();
 
-        IPizzaInfo pizzaForTestGet = data.create(new PizzaInfo(0, LocalDateTime.now(),
+        IPizzaInfo pizzaForTestGet = data.create(new DtoPizzaInfoService(
                 LocalDateTime.now(),
                 "PizzaForTestGet",
                 "Create new pizzaInfo",
@@ -87,15 +85,13 @@ public class PizzaInfoDaoTest {
 
         IPizzaInfoDao data = PizzaInfoDaoSingleton.getInstance();
 
-        IPizzaInfo createdPizza = data.create(new PizzaInfo(0, // Создал и добавил пиццу в БД
-                LocalDateTime.now(),
+        IPizzaInfo createdPizza = data.create(new DtoPizzaInfoService(// Создал и добавил пиццу в БД
                 LocalDateTime.now(),
                 "createdPizza",
                 "Create for testing Update",
                 41));
 
-        IPizzaInfo updatePizza = new PizzaInfo(0, // Создал пиццу для обнавления
-                createdPizza.getDtCreate(),
+        DtoPizzaInfoService updatePizza = new DtoPizzaInfoService( // Создал пиццу для обнавления
                 LocalDateTime.now(),
                 "PizzaUpdate",
                 "Update For testing Update",
@@ -134,15 +130,13 @@ public class PizzaInfoDaoTest {
 
         IPizzaInfoDao data = PizzaInfoDaoSingleton.getInstance();
 
-        IPizzaInfo createdPizza = data.create(new PizzaInfo(0,   //Создал и сохранл пиццу в БД
-                LocalDateTime.now(),
+        IPizzaInfo createdPizza = data.create(new DtoPizzaInfoService(  //Создал и сохранл пиццу в БД
                 LocalDateTime.now(),
                 "deletePizza",
                 "Create for testing DELETE",
                 45));
 
-        IPizzaInfo updatePizza = new PizzaInfo(0,   //создал экземпляр пиццы для обнавления
-                createdPizza.getDtCreate(),
+        DtoPizzaInfoService updatePizza = new DtoPizzaInfoService(   //создал экземпляр пиццы для обнавления
                 LocalDateTime.now(),
                 "PizzaUpdate",
                 "Update For testing DELETE",
