@@ -31,12 +31,14 @@ public class PizzaInfoService implements IPizzaInfoService {
     @Override
     public IPizzaInfo create(IPizzaInfo item) {
 
-        return new PizzaInfo(0,
+
+
+        return dao.create(new PizzaInfo(0,
                 LocalDateTime.now(),
                 LocalDateTime.now(),
                 item.getName(),
                 item.getDescription(),
-                item.getSize());
+                item.getSize()));
     }
 
     @Override
@@ -47,8 +49,8 @@ public class PizzaInfoService implements IPizzaInfoService {
         if (read == null){
             throw new IllegalArgumentException("Пицца не найдена");
         }
-        if (read.getDtUpdate().isEqual(dtUpdate)){
-            throw new IllegalArgumentException("Пицца к сожелению кем-то отредактирована");
+        if (!read.getDtUpdate().isEqual(dtUpdate)){
+            throw new IllegalArgumentException("Пицца кем-то отредактирована");
         }
 
         IPizzaInfo updatePizza = new PizzaInfo(0,

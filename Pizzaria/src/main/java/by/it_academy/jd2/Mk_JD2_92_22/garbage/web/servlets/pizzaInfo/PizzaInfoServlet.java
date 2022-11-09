@@ -12,9 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 
-@WebServlet(name = "PizzaInfoServlet", urlPatterns = "/pizzaInfo")
+//@WebServlet(name = "PizzaInfoServlet", urlPatterns = "/pizzaInfo")
 public class PizzaInfoServlet extends HttpServlet {
 
     private final IPizzaInfoService service;
@@ -28,12 +27,17 @@ public class PizzaInfoServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        req.setCharacterEncoding("UTF-8");
-        resp.setContentType("application/json");
+//        req.setCharacterEncoding("UTF-8");
+//        resp.setContentType("application/json");
 
-        List<IPizzaInfo> pizzaInfoList = this.service.get();
-        PrintWriter writer = resp.getWriter();
-        writer.write(mapper.writeValueAsString(pizzaInfoList));
+//        List<IPizzaInfo> pizzaInfoList = this.service.get();
+//        PrintWriter writer = resp.getWriter();
+//        writer.write(mapper.writeValueAsString(pizzaInfoList));
+
+        resp.setContentType("text/html");
+        resp.setCharacterEncoding("UTF-8");
+
+        resp.getWriter().write("hello");
     }
 
     @Override

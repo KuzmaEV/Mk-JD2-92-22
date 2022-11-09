@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet(name = "AddPizzaInfoServlet", urlPatterns = "/pizzaInfo/add")
+//@WebServlet(name = "AddPizzaInfoServlet", urlPatterns = "/pizzaInfoNo/addNo")
 public class AddPizzaInfoServlet extends HttpServlet {
 
     private final IPizzaInfoService service;

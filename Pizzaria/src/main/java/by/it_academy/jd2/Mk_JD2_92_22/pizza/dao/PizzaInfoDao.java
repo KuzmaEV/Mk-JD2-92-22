@@ -130,7 +130,7 @@ public class PizzaInfoDao implements IPizzaInfoDao {
             stm.setLong(1, id);
             stm.setObject(2, dtUpdate);
 
-            final int countDeletedRows = stm.executeUpdate();
+            int countDeletedRows = stm.executeUpdate();
             if (countDeletedRows != 1){
                 if (countDeletedRows == 0){
                     throw new IllegalArgumentException("Не смогли обновить запись!");
