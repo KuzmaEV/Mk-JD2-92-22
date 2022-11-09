@@ -33,11 +33,7 @@ public class PizzaInfoService implements IPizzaInfoService {
     @Override
     public IPizzaInfo create(DtoPizzaInfoServlet item) {
 
-        return dao.create(new DtoPizzaInfoService(
-                LocalDateTime.now(),
-                item.getName(),
-                item.getDescription(),
-                item.getSize()));
+        return dao.create(mapper(item));
     }
 
     @Override
@@ -52,13 +48,7 @@ public class PizzaInfoService implements IPizzaInfoService {
             throw new IllegalArgumentException("Пицца кем-то отредактирована");
         }
 
-        DtoPizzaInfoService updatePizza = new DtoPizzaInfoService(
-                LocalDateTime.now(),
-                item.getName(),
-                item.getDescription(),
-                item.getSize());
-
-        return dao.update(id, dtUpdate, updatePizza);
+        return dao.update(id, dtUpdate, mapper(item));
     }
 
     @Override
@@ -73,5 +63,13 @@ public class PizzaInfoService implements IPizzaInfoService {
             throw new IllegalArgumentException("Не удалось удалить, пицца было кем-то отредактирована");
         }
         dao.delete(id, dtUpdate);
+    }
+
+    public DtoPizzaInfoService mapper(DtoPizzaInfoServlet dto){
+        return new DtoPizzaInfoService(
+                LocalDateTime.now(),
+                dto.getName(),
+                dto.getDescription(),
+                dto.getSize());
     }
 }

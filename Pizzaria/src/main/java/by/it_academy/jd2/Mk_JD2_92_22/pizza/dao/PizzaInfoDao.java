@@ -6,7 +6,6 @@ import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.api.IPizzaInfoDao;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.entity.PizzaInfo;
 
 import javax.sql.DataSource;
-import java.beans.PropertyVetoException;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -36,7 +35,7 @@ public class PizzaInfoDao implements IPizzaInfoDao {
 
     @Override
     public IPizzaInfo read(long id) {
-        try (Connection conn = DataSourceCreator.getInstance().getConnection();
+        try (Connection conn = ds.getConnection();
              PreparedStatement smt = conn.prepareStatement(READ_BY_ID_SQL)){
 
             smt.setLong(1, id);
@@ -46,7 +45,7 @@ public class PizzaInfoDao implements IPizzaInfoDao {
                     return mapper(resultSet);
                 }
             }
-        } catch (PropertyVetoException | SQLException e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
             throw new RuntimeException("При запросе данных произошла ошибка", e);
         }
