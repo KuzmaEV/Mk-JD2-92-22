@@ -3,38 +3,57 @@ package by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.entity;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IMenuRow;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IPizzaInfo;
 
+import java.time.LocalDateTime;
+
 public class MenuRow implements IMenuRow {
 
-//    private final FilePizzaInfoStorage pizzaInfoStorage = new FilePizzaInfoStorage();
-    private IPizzaInfo info;
-    private int price;
-    private String id;
+    private final long id;
+    private final LocalDateTime dtCreate;
+    private final LocalDateTime dtUpdate;
 
-    public MenuRow() {
-    }
+    private final IPizzaInfo info;
+    private final double price;
 
-    public MenuRow(PizzaInfo info, int price) {
-
+    public MenuRow(long id, LocalDateTime dtCreate, LocalDateTime dtUpdate, IPizzaInfo info, double price) {
+        this.id = id;
+        this.dtCreate = dtCreate;
+        this.dtUpdate = dtUpdate;
         this.info = info;
         this.price = price;
     }
 
     @Override
-    public IPizzaInfo getInfo() {
+    public long getId() {
+        return id;
+    }
 
-        return this.info;
+    @Override
+    public LocalDateTime getDtCreate() {
+        return dtCreate;
+    }
+
+    public LocalDateTime getDtUpdate() {
+        return dtUpdate;
+    }
+
+    @Override
+    public IPizzaInfo getInfo() {
+        return info;
     }
 
     @Override
     public double getPrice() {
-        return this.price;
+        return price;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    @Override
+    public String toString() {
+        return "MenuRow{" +
+                "id=" + id +
+                ", dtCreate=" + dtCreate +
+                ", dtUpdate=" + dtUpdate +
+                ", info=" + info +
+                ", price=" + price +
+                '}';
     }
 }

@@ -56,17 +56,17 @@ public class MenuRowStorage implements IMenuRowStorage {
 //                throw new RuntimeException(e);
 //            }
 //        }
-        try(BufferedReader reader = new BufferedReader(new FileReader(this.pathToFile))) {
-            String line;
-            while ((line = reader.readLine()) != null){
-                MenuRow menuRow = this.mapper.readValue(line, MenuRow.class);
-                if (name.equals(menuRow.getId())){
-                    return menuRow;
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try(BufferedReader reader = new BufferedReader(new FileReader(this.pathToFile))) {
+//            String line;
+//            while ((line = reader.readLine()) != null){
+//                MenuRow menuRow = this.mapper.readValue(line, MenuRow.class);
+//                if (name.equals(menuRow.getId())){
+//                    return menuRow;
+//                }
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         return null;
     }
 
@@ -74,7 +74,7 @@ public class MenuRowStorage implements IMenuRowStorage {
     public void save(IMenuRow item) {
 
 
-        item.setId(counter.toString());
+      //  item.setId(counter.toString());
 
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(this.pathToFile, true))) {
             writer.write(this.mapper.writeValueAsString(item));
@@ -94,9 +94,9 @@ public class MenuRowStorage implements IMenuRowStorage {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.pathToFile))){
             StringBuilder builder = new StringBuilder();
             for (IMenuRow menuRow : menuRowList) {
-                if (!menuRow.getId().equals(name)){
+              //  if (!menuRow.getId().equals(name)){
                     builder.append(this.mapper.writeValueAsString(menuRow)).append('\n');
-                }
+               // }
             }
             writer.write(builder.toString());
         } catch (IOException e) {

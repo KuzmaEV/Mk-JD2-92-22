@@ -4,7 +4,6 @@ import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IPizzaInfo;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto.DtoPizzaInfoService;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto.DtoPizzaInfoServlet;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.api.IPizzaInfoDao;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.entity.PizzaInfo;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.services.api.IPizzaInfoService;
 
 import java.time.LocalDateTime;

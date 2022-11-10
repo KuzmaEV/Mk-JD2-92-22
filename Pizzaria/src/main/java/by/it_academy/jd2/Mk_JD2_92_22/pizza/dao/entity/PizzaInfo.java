@@ -6,15 +6,14 @@ import java.time.LocalDateTime;
 
 public class PizzaInfo implements IPizzaInfo {
 
-    private long id;
-    private LocalDateTime dtCreate;
-    private LocalDateTime dtUpdate;
-    private String name;
-    private String description;
-    private int size;
+    private final long id;
+    private final LocalDateTime dtCreate;
+    private final LocalDateTime dtUpdate;
+    private final String name;
+    private final String description;
+    private final int size;
 
-    public PizzaInfo() {
-    }
+
 
     public PizzaInfo(long id, LocalDateTime dtCreate, LocalDateTime dtUpdate, String name, String description, int size) {
         this.id = id;
