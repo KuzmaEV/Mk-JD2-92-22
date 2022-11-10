@@ -2,7 +2,7 @@ package by.it_academy.jd2.Mk_JD2_92_22.pizza.dao;
 
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IMenuRow;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IPizzaInfo;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto.DtoMenuRow;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto.DtoMenuRowService;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.api.IMenuRowDao;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.entity.MenuRow;
 
@@ -65,14 +65,14 @@ public class MenuRowDao implements IMenuRowDao {
     }
 
     @Override
-    public IMenuRow create(DtoMenuRow item) {
+    public IMenuRow create(DtoMenuRowService item) {
 
         try(Connection conn = ds.getConnection();
             final PreparedStatement ps = conn.prepareStatement(SQL_CREATE, Statement.RETURN_GENERATED_KEYS)){
 
             ps.setObject(1, item.getDtUpdate());
             ps.setObject(2, item.getDtUpdate());
-            ps.setLong(3, item.getInfo().getId());
+            ps.setLong(3, item.getInfo());
             ps.setDouble(4, item.getPrice());
 
             ps.execute();
@@ -89,13 +89,13 @@ public class MenuRowDao implements IMenuRowDao {
     }
 
     @Override
-    public IMenuRow update(long id, LocalDateTime dtUpdate, DtoMenuRow item) {
+    public IMenuRow update(long id, LocalDateTime dtUpdate, DtoMenuRowService item) {
 
         try(Connection connection = ds.getConnection();
             PreparedStatement ps = connection.prepareStatement(SQL_UPDATE)) {
 
             ps.setObject(1, item.getDtUpdate());
-            ps.setLong(2, item.getInfo().getId());
+            ps.setLong(2, item.getInfo());
             ps.setDouble(3, item.getPrice());
 
             ps.setLong(4, id);

@@ -4,13 +4,13 @@ import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IPizzaInfo;
 
 import java.time.LocalDateTime;
 
-public class DtoMenuRow {
+public class DtoMenuRowService {
 
     private LocalDateTime dtUpdate;
-    private IPizzaInfo info;
+    private long info;
     private double price;
 
-    public DtoMenuRow(LocalDateTime dtUpdate, IPizzaInfo info, double price) {
+    public DtoMenuRowService(LocalDateTime dtUpdate, long info, double price) {
         this.dtUpdate = dtUpdate;
         this.info = info;
         this.price = price;
@@ -20,7 +20,7 @@ public class DtoMenuRow {
         this.dtUpdate = dtUpdate;
     }
 
-    public void setInfo(IPizzaInfo info) {
+    public void setInfo(long info) {
         this.info = info;
     }
 
@@ -32,7 +32,7 @@ public class DtoMenuRow {
         return dtUpdate;
     }
 
-    public IPizzaInfo getInfo() {
+    public long getInfo() {
         return info;
     }
 
