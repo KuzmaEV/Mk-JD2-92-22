@@ -27,4 +27,16 @@ public class DtoMenuRow {
     public void setPrice(double price) {
         this.price = price;
     }
+
+    public LocalDateTime getDtUpdate() {
+        return dtUpdate;
+    }
+
+    public IPizzaInfo getInfo() {
+        return info;
+    }
+
+    public double getPrice() {
+        return price;
+    }
 }
