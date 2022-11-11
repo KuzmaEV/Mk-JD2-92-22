@@ -3,7 +3,9 @@ package by.it_academy.jd2.Mk_JD2_92_22.pizza.services;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IMenuRow;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto.DtoMenuRowService;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto.DtoMenuRowServlet;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.PizzaInfoDaoSingleton;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.api.IMenuRowDao;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.api.IPizzaInfoDao;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.services.api.IMenuRowService;
 
 import java.time.LocalDateTime;
@@ -11,9 +13,11 @@ import java.util.List;
 
 public class MenuRowService implements IMenuRowService {
     private final IMenuRowDao dao;
+    private final IPizzaInfoDao daoPizzaInfo ;
 
     public MenuRowService(IMenuRowDao dao) {
         this.dao = dao;
+        this.daoPizzaInfo = PizzaInfoDaoSingleton.getInstance();
     }
 
 
@@ -34,6 +38,10 @@ public class MenuRowService implements IMenuRowService {
 
     @Override
     public IMenuRow create(DtoMenuRowServlet item) {
+
+        if (daoPizzaInfo.read(item.getInfo()) == null){
+            throw new IllegalArgumentException("Такой пиццы не существует");
+        }
 
         return dao.create(mapper(item));
     }

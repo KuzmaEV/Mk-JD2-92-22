@@ -80,8 +80,8 @@ public class PizzaInfoDao implements IPizzaInfoDao {
 
             try (ResultSet generatedKeys = stm.getGeneratedKeys()){
                 if (generatedKeys.next()){
-         //           long id = generatedKeys.getLong(1);
-          //          return read(id);
+//                    long id = generatedKeys.getLong(1);
+//                    return read(id);
                     return mapper(generatedKeys);
                 }
             }

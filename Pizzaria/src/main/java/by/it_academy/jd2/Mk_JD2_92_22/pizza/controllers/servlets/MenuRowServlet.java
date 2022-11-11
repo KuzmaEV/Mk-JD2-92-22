@@ -65,6 +65,16 @@ public class MenuRowServlet extends HttpServlet {
 
         DtoMenuRowServlet dto = mapper.readValue(req.getInputStream(), DtoMenuRowServlet.class);
 
+        if (dto.getPrice() == 0){
+            throw new IllegalStateException("Не указана цена!");
+        }
+        if (dto.getInfo() == 0){
+            throw new IllegalStateException("Не указана pizzaInfo!");
+        }
+        if (dto.getMenu() == 0){
+            throw new IllegalStateException("Не указано Меню!");
+        }
+
         IMenuRow menuRow = service.create(dto);
 
         resp.getWriter().write(mapper.writeValueAsString(menuRow));
