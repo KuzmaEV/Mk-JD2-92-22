@@ -49,12 +49,23 @@ public class MenuRowService implements IMenuRowService {
     @Override
     public IMenuRow update(long id, LocalDateTime dtUpdate, DtoMenuRowServlet item) {
 
-        IMenuRow read = dao.read(id);
+        IMenuRow menuRow = dao.read(id);
 
-        if (read == null){
+        if (menuRow == null){
             throw new IllegalArgumentException("Пункт меню не найден!");
         }
-        if (!read.getDtUpdate().isEqual(dtUpdate)){
+
+        if (item.getInfo() == 0){           //Если отсуствует Пицца в ДТО, добавляется старая
+            item.setInfo(menuRow.getInfo().getId());
+        }
+        if (item.getPrice() == 0){          //Если отсуствует Цена в ДТО, добавляется старая
+            item.setPrice(menuRow.getPrice());
+        }
+        if (item.getMenu() == 0){           //Если отсуствует Меню в ДТО, добавляется старая
+            item.setMenu(menuRow.getMenu());
+        }
+
+        if (!menuRow.getDtUpdate().isEqual(dtUpdate)){
             throw new IllegalArgumentException("Не удалось обновить, кто-то успел отредактировать!");
         }
 

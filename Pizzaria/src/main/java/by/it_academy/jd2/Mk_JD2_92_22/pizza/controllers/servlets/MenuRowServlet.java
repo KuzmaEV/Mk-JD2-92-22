@@ -95,19 +95,6 @@ public class MenuRowServlet extends HttpServlet {
 
         DtoMenuRowServlet dto = mapper.readValue(req.getInputStream(), DtoMenuRowServlet.class);
 
-
-        /*
-         * Это надо делать в сервисе
-         * */
-//        IMenuRow menuRow = service.read(id);
-//
-//        if (dto.getInfo() == 0){
-//            dto.setInfo(menuRow.getInfo().getId());
-//        }
-//        if (dto.getPrice() == 0){
-//            dto.setPrice(menuRow.getPrice());
-//        }
-
         IMenuRow update = service.update(id, dtUpdate, dto);
 
         resp.getWriter().write(mapper.writeValueAsString(update));
