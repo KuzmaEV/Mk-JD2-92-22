@@ -24,5 +24,11 @@ public interface IMenuRow {
     double getPrice();
 
 
+    /**
+     * @return Возращает Меню(покачто возращаен ИД Меню)
+     */
+    long getMenu();
+
+
 
 }

@@ -78,19 +78,19 @@ public class PizzaInfoDao implements IPizzaInfoDao {
             stm.setInt(5, item.getSize());
             stm.execute();
 
-            long id = -1;
-
             try (ResultSet generatedKeys = stm.getGeneratedKeys()){
                 if (generatedKeys.next()){
-                    id = generatedKeys.getLong(1);
+         //           long id = generatedKeys.getLong(1);
+          //          return read(id);
+                    return mapper(generatedKeys);
                 }
             }
 
-            return read(id);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            throw new RuntimeException("При сохранении данных произошла ошибка", e);
+            throw new RuntimeException("При сохранении данных произошла ошибка! " + e.getMessage());
         }
+        return null;
     }
 
     @Override

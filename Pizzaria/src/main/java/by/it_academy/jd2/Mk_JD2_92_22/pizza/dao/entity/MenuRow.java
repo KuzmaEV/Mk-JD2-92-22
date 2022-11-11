@@ -13,13 +13,15 @@ public class MenuRow implements IMenuRow {
 
     private final IPizzaInfo info;
     private final double price;
+    private final long menu;
 
-    public MenuRow(long id, LocalDateTime dtCreate, LocalDateTime dtUpdate, IPizzaInfo info, double price) {
+    public MenuRow(long id, LocalDateTime dtCreate, LocalDateTime dtUpdate, IPizzaInfo info, double price, long menu) {
         this.id = id;
         this.dtCreate = dtCreate;
         this.dtUpdate = dtUpdate;
         this.info = info;
         this.price = price;
+        this.menu = menu;
     }
 
     @Override
@@ -47,6 +49,11 @@ public class MenuRow implements IMenuRow {
     }
 
     @Override
+    public long getMenu() {
+        return menu;
+    }
+
+    @Override
     public String toString() {
         return "MenuRow{" +
                 "id=" + id +
@@ -54,6 +61,7 @@ public class MenuRow implements IMenuRow {
                 ", dtUpdate=" + dtUpdate +
                 ", info=" + info +
                 ", price=" + price +
+                ", menu=" + menu +
                 '}';
     }
 }

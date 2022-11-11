@@ -4,13 +4,15 @@ public class DtoMenuRowServlet {
 
     private long info;
     private double price;
+    private long menu;
 
     public DtoMenuRowServlet() {
     }
 
-    public DtoMenuRowServlet(long info, double price) {
+    public DtoMenuRowServlet(long info, double price, long menu) {
         this.info = info;
         this.price = price;
+        this.menu = menu;
     }
 
     public long getInfo() {
@@ -27,5 +29,13 @@ public class DtoMenuRowServlet {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public long getMenu() {
+        return menu;
+    }
+
+    public void setMenu(long menu) {
+        this.menu = menu;
     }
 }

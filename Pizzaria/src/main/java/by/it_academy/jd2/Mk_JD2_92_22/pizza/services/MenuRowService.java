@@ -71,6 +71,7 @@ public class MenuRowService implements IMenuRowService {
         return new DtoMenuRowService(
                 LocalDateTime.now(),
                 dto.getInfo(),
-                dto.getPrice());
+                dto.getPrice(),
+                dto.getMenu());
     }
 }

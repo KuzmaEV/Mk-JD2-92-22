@@ -5,6 +5,7 @@ import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IPizzaInfo;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto.DtoMenuRowService;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.api.IMenuRowDao;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.entity.MenuRow;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.entity.PizzaInfo;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -15,21 +16,24 @@ import java.util.List;
 public class MenuRowDao implements IMenuRowDao {
 
     private static final String SQL_CREATE = "INSERT INTO pizzeria.menu_row(\n" +
-            "\tdt_create, dt_update, info, price)\n" +
-            "\tVALUES (?, ?, ?, ?);";
-    private static final String SQL_READ = "SELECT id, dt_create, dt_update, info, price, menu\n" +
-            "\tFROM pizzeria.menu_row" +
-            "WHERE id = ?;";
-    private static final String SQL_GET = "SELECT id, dt_create, dt_update, info, price, menu\n" +
-            "\tFROM pizzeria.menu_row;";
+            "\tdt_create, dt_update, info, price, menu)\n" +
+            "\tVALUES (?, ?, ?, ?, ?);";
+    private static final String SQL_READ = "SELECT menu_row.id, menu_row.dt_create, menu_row.dt_update, price, menu,\n" +
+            "info, pizza_info.dt_create, pizza_info.dt_update,name, description, size \n" +
+            "\tFROM pizzeria.menu_row \n" +
+            "\tJOIN pizzeria.pizza_info ON menu_row.info = pizza_info.id\n" +
+            "\tWHERE menu_row.id = ?;";
+    private static final String SQL_GET = "SELECT menu_row.id, menu_row.dt_create, menu_row.dt_update, price, menu,\n" +
+            "info, pizza_info.dt_create, pizza_info.dt_update,name, description, size \n" +
+            "\tFROM pizzeria.menu_row \n" +
+            "\tJOIN pizzeria.pizza_info ON menu_row.info = pizza_info.id;";
     private static final String SQL_UPDATE = "UPDATE pizzeria.menu_row\n" +
-            "\tdt_update=?, info=?, price=?\n" +
+            "\tSET dt_update=?, info=?, price=?, menu=?\n" +
             "\tWHERE id = ? AND dt_update = ?;";
     private static final String SQL_DELETE = "DELETE FROM pizzeria.menu_row\n" +
             "\tWHERE id = ? AND dt_update = ?;";
 
     private final DataSource ds;
-
 
     public MenuRowDao(DataSource ds) {
         this.ds = ds;
@@ -47,7 +51,7 @@ public class MenuRowDao implements IMenuRowDao {
                 }
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Такой пункт меню не найден", e);
+            throw new RuntimeException("Такой пункт меню не найден! " + e.getMessage());
         }
         return null;
     }
@@ -60,7 +64,7 @@ public class MenuRowDao implements IMenuRowDao {
                 return mapperList(resultSet);
             }
         } catch (SQLException e) {
-            throw new RuntimeException("При запросе данных произошла ошибка", e);
+            throw new RuntimeException("При запросе данных произошла ошибка! " + e.getMessage());
         }
     }
 
@@ -74,16 +78,18 @@ public class MenuRowDao implements IMenuRowDao {
             ps.setObject(2, item.getDtUpdate());
             ps.setLong(3, item.getInfo());
             ps.setDouble(4, item.getPrice());
+            ps.setLong(5, item.getMenu());
 
             ps.execute();
 
             try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    return mapper(generatedKeys);
+                    long id = generatedKeys.getLong(1);
+                    return read(id);
                 }
             }
         } catch (SQLException e) {
-            throw new RuntimeException("При сохранении данных произашла ошибка", e);
+            throw new RuntimeException("При сохранении данных произашла ошибка! " + e.getMessage());
         }
         return null;
     }
@@ -97,9 +103,10 @@ public class MenuRowDao implements IMenuRowDao {
             ps.setObject(1, item.getDtUpdate());
             ps.setLong(2, item.getInfo());
             ps.setDouble(3, item.getPrice());
+            ps.setLong(4,item.getMenu());
 
-            ps.setLong(4, id);
-            ps.setObject(5, dtUpdate);
+            ps.setLong(5, id);
+            ps.setObject(6, dtUpdate);
 
             int countUpdatedRows = ps.executeUpdate();
 
@@ -113,7 +120,7 @@ public class MenuRowDao implements IMenuRowDao {
             return read(id);
 
         } catch (SQLException e) {
-            throw new RuntimeException("Не получилось обнавить данные!");
+            throw new RuntimeException("Не получилось обнавить данные! " + e.getMessage());
         }
 
     }
@@ -141,13 +148,32 @@ public class MenuRowDao implements IMenuRowDao {
 
     }
 
-    public static IMenuRow mapper(ResultSet rs) throws SQLException {
-        return new MenuRow(rs.getLong("id"),
-                rs.getObject(2, LocalDateTime.class),
-                rs.getObject(3, LocalDateTime.class),
-                rs.getObject(4, IPizzaInfo.class),
-                rs.getDouble(5));
+
+    public static IMenuRow mapper(ResultSet rs) {
+
+        IPizzaInfo pizzaInfo;
+        try {
+            pizzaInfo = new PizzaInfo(rs.getLong(6),
+                    rs.getObject(7, LocalDateTime.class),
+                    rs.getObject(8, LocalDateTime.class),
+                    rs.getString(9),
+                    rs.getString(10),
+                    rs.getInt(11));
+        } catch (SQLException e) {
+            throw new RuntimeException("Ошибка в мапере при создании пиццы! " + e.getMessage());
         }
+
+        try {
+            return new MenuRow(rs.getLong(1),
+                    rs.getObject(2, LocalDateTime.class),
+                    rs.getObject(3, LocalDateTime.class),
+                    pizzaInfo,
+                    rs.getDouble(4),
+                    rs.getLong(5));
+        } catch (SQLException e) {
+            throw new RuntimeException("Ошибка в мапере при создании menuRow! " + e.getMessage());
+        }
+    }
 
     public static List<IMenuRow> mapperList(ResultSet rs) throws SQLException {
         List<IMenuRow> list = new ArrayList<>();
