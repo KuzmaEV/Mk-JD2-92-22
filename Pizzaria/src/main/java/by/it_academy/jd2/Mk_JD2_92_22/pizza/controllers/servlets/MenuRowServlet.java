@@ -113,5 +113,6 @@ public class MenuRowServlet extends HttpServlet {
         LocalDateTime dtUpdate = mapper.readValue(req.getParameter("dtUpdate"), LocalDateTime.class);
 
         service.delete(id, dtUpdate);
+        resp.setStatus(HttpServletResponse.SC_OK);
     }
 }
