@@ -11,7 +11,7 @@ import java.util.List;
 
 public class PizzaInfoDaoTest {
 
-    @Test
+ //   @Test
     public void create(){
         System.out.println("CREATE");
 
@@ -30,7 +30,7 @@ public class PizzaInfoDaoTest {
         System.out.println();
 
     }
-    @Test
+ //   @Test
     public void read() {
         System.out.println("READ");
 
@@ -52,7 +52,7 @@ public class PizzaInfoDaoTest {
     }
 
 
-    @Test
+ //   @Test
     public void get(){
         System.out.println("GET");
 
@@ -79,7 +79,7 @@ public class PizzaInfoDaoTest {
         System.out.println();
     }
 
-    @Test
+ //   @Test
     public void update(){
         System.out.println("UPDATE");
 
@@ -124,7 +124,7 @@ public class PizzaInfoDaoTest {
         System.out.println();
     }
 
-    @Test
+ //   @Test
     public void delete(){
         System.out.println("DELETE");
 

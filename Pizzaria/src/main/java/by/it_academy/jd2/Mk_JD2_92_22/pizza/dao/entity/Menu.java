@@ -13,7 +13,7 @@ public class Menu implements IMenu {
     private final LocalDateTime dtCreate;
     private final LocalDateTime dtUpdate;
     private final String name;
-    private final  List<IMenuRow> menuRowList;
+    private final  List<IMenuRow> items;
     private final boolean isEnabled;
 
     public Menu(long id, LocalDateTime dtCreate, LocalDateTime dtUpdate, String name, List<IMenuRow> menuRowList, boolean isEnabled) {
@@ -21,7 +21,7 @@ public class Menu implements IMenu {
         this.dtCreate = dtCreate;
         this.dtUpdate = dtUpdate;
         this.name = name;
-        this.menuRowList = menuRowList;
+        this.items = menuRowList;
         this.isEnabled = isEnabled;
     }
 
@@ -45,9 +45,6 @@ public class Menu implements IMenu {
         return name;
     }
 
-    public List<IMenuRow> getMenuRowList() {
-        return menuRowList;
-    }
 
     @Override
     public boolean isEnabled() {
@@ -57,7 +54,7 @@ public class Menu implements IMenu {
     @Override
     public List<IMenuRow> getItems() {
 //        menuRowList.add(new MenuRow("pepperoni", "sausage/cheese", 40, 12));
-        return menuRowList;
+        return items;
     }
 
     @Override
@@ -67,7 +64,7 @@ public class Menu implements IMenu {
                 ", dtCreate=" + dtCreate +
                 ", dtUpdate=" + dtUpdate +
                 ", name='" + name + '\'' +
-                ", menuRowList=" + menuRowList +
+                ", menuRowList=" + items +
                 ", isEnabled=" + isEnabled +
                 '}';
     }
