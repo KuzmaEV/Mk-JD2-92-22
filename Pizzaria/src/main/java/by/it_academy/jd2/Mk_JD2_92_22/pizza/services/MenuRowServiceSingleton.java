@@ -16,7 +16,7 @@ public class MenuRowServiceSingleton {
 
     public static IMenuRowService getInstance() throws PropertyVetoException {
         if (instance == null){
-            synchronized (MenuRowDaoSingleton.class){
+            synchronized (MenuRowServiceSingleton.class){
                 instance = new MenuRowServiceSingleton();
             }
         }

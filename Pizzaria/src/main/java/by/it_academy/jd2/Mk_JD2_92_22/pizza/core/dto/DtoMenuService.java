@@ -9,13 +9,12 @@ public class DtoMenuService {
 
     private final LocalDateTime dtUpdate;
     private final String name;
-    private final List<IMenuRow> items;
+//    private final List<IMenuRow> items;
     private final boolean isEnabled;
 
-    public DtoMenuService(LocalDateTime dtUpdate, String name, List<IMenuRow> items, boolean isEnabled) {
+    public DtoMenuService(LocalDateTime dtUpdate, String name, boolean isEnabled) {
         this.dtUpdate = dtUpdate;
         this.name = name;
-        this.items = items;
         this.isEnabled = isEnabled;
     }
 
@@ -27,10 +26,6 @@ public class DtoMenuService {
 
     public String getName() {
         return name;
-    }
-
-    public List<IMenuRow> getItems() {
-        return items;
     }
 
     public boolean isEnabled() {
