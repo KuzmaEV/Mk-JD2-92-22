@@ -18,7 +18,11 @@ public class MenuService implements IMenuService{
 
     @Override
     public IMenu read(long id) {
-        return dao.read(id);
+        IMenu menu = dao.read(id);
+        if (menu == null){
+            throw new IllegalArgumentException("Меню не найдено");
+        }
+        return menu;
     }
 
     @Override
@@ -60,6 +64,8 @@ public class MenuService implements IMenuService{
         if (!menu.getDtUpdate().isEqual(dtUpdate)){
             throw new IllegalArgumentException("Не удалось удалить данные, кто-то отредактировал раньше!");
         }
+
+        dao.delete(id, dtUpdate);
 
     }
 }

@@ -2,6 +2,7 @@ package by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.entity;
 
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IMenu;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IMenuRow;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IPizzaInfo;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto.DtoMenuService;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.api.IMenuDao;
 
@@ -15,9 +16,16 @@ public class MenuDao implements IMenuDao {
 
     private final DataSource ds;
 
-    private static final String READ_SQL = "SELECT id, dt_create, dt_update, name, enable\n" +
+    private static final String READ_SQL = "SELECT menu.id, menu.dt_create, menu.dt_update, menu.name, enable,\n" +
+            "menu_row.id, menu_row.dt_create, menu_row.dt_update, price, menu,\n" +
+            "info, pizza_info.dt_create, pizza_info.dt_update, pizza_info.name, description, size\n" +
             "\tFROM pizzeria.menu\n" +
-            "\tWHERE id = ?;";
+            "\tJOIN pizzeria.menu_row ON  pizzeria.menu_row.menu = pizzeria.menu.id\n" +
+            "\tJOIN pizzeria.pizza_info ON pizzeria.menu_row.info =pizzeria.pizza_info.id\n" +
+            "\tWHERE menu.id = ?;";
+//            "SELECT id, dt_create, dt_update, name, enable\n" +
+//            "\tFROM pizzeria.menu\n" +
+//            "\tWHERE id = ?;";
     private static final  String GET_SQL = "SELECT id, dt_create, dt_update, name, enable\n" +
             "\tFROM pizzeria.menu;";
     private static final String CREATE_SQL = "INSERT INTO pizzeria.menu(\n" +
@@ -40,15 +48,15 @@ public class MenuDao implements IMenuDao {
 
             ps.setLong(1, id);
             try(ResultSet resultSet = ps.executeQuery()){
-                if (resultSet.next()){
+//                if (resultSet.next()){
                     return mapper(resultSet);
-                }
+//                }
 
             }
         } catch (SQLException e) {
             throw new RuntimeException("При запросе Меню возникла ошибка" + e.getMessage());
         }
-        return null;
+
     }
 
     @Override
@@ -112,9 +120,9 @@ public class MenuDao implements IMenuDao {
             if (countUpdateRow != 1){
                 if (countUpdateRow == 0){
                     throw new RuntimeException("Не удалось обновить запись!");
+                } else {
+                    throw new RuntimeException("Обновило несколько записей!");
                 }
-            } else {
-                throw new RuntimeException("Обновило несколько записей!");
             }
             try(ResultSet generatedKeys = ps.getGeneratedKeys()){
                 if (generatedKeys.next()){
@@ -156,6 +164,52 @@ public class MenuDao implements IMenuDao {
     private static IMenu mapper(ResultSet rs) throws SQLException {
         List<IMenuRow> items = new ArrayList<>();
 
+        while (rs.next()){
+            IPizzaInfo pizzaInfo;
+            try {
+                pizzaInfo = new PizzaInfo(rs.getLong(11),
+                        rs.getObject(12, LocalDateTime.class),
+                        rs.getObject(13, LocalDateTime.class),
+                        rs.getString(14),
+                        rs.getString(15),
+                        rs.getInt(16));
+            } catch (SQLException e) {
+                throw new RuntimeException("Ошибка в мапере при создании пиццы! " + e.getMessage());
+            }
+
+            try {
+                items.add( new MenuRow(rs.getLong(6),
+                        rs.getObject(7, LocalDateTime.class),
+                        rs.getObject(8, LocalDateTime.class),
+                        pizzaInfo,
+                        rs.getDouble(9),
+                        rs.getLong(10)));
+
+            } catch (SQLException e) {
+                throw new RuntimeException("Ошибка в мапере при создании menuRow! " + e.getMessage());
+            }
+
+
+            if (rs.isLast()){
+                return new Menu(rs.getLong(1),
+                        rs.getObject(2, LocalDateTime.class),
+                        rs.getObject(3, LocalDateTime.class),
+                        rs.getString(4),
+                        items,
+                        rs.getBoolean(5));
+
+            }
+        }
+       return null;
+    }
+
+
+
+
+
+    private static IMenu mapper2(ResultSet rs) throws SQLException {
+        List<IMenuRow> items = new ArrayList<>();
+
         return new Menu(rs.getLong(1),
                 rs.getObject(2, LocalDateTime.class),
                 rs.getObject(3, LocalDateTime.class),
@@ -168,8 +222,10 @@ public class MenuDao implements IMenuDao {
         List<IMenu> menuList = new ArrayList<>();
 
         while (rs.next()){
-            menuList.add(mapper(rs));
+            menuList.add(mapper2(rs));
         }
         return menuList;
     }
 }
+
+

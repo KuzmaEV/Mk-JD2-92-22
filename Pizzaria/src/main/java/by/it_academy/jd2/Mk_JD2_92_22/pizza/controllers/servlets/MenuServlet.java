@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.beans.PropertyVetoException;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.time.LocalDateTime;
 
 @WebServlet(name = "MenuServlet", urlPatterns = "/menu")
@@ -38,11 +37,10 @@ public class MenuServlet extends HttpServlet {
         resp.setContentType(CONTENT_TYPE);
         resp.setContentType(CHARACTER_ENCODING);
 
-        PrintWriter writer = resp.getWriter();
         String idString = req.getParameter("id");
 
         if (idString == null || idString.isBlank()){
-            writer.write(mapper.writeValueAsString(service.get()));
+            resp.getWriter().write(mapper.writeValueAsString(service.get()));
             resp.setStatus(HttpServletResponse.SC_OK);
         } else {
             long id;
@@ -52,7 +50,7 @@ public class MenuServlet extends HttpServlet {
                 resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 throw new IllegalArgumentException(e.getMessage());
             }
-            writer.write(mapper.writeValueAsString(service.read(id)));
+            resp.getWriter().write(mapper.writeValueAsString(service.read(id)));
             resp.setStatus(HttpServletResponse.SC_OK);
             }
         }
