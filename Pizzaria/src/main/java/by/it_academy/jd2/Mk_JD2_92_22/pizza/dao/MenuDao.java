@@ -23,8 +23,8 @@ public class MenuDao implements IMenuDao {
             "menu_row.id, menu_row.dt_create, menu_row.dt_update, price, menu,\n" +
             "info, pizza_info.dt_create, pizza_info.dt_update, pizza_info.name, description, size\n" +
             "\tFROM pizzeria.menu\n" +
-            "\tJOIN pizzeria.menu_row ON  pizzeria.menu_row.menu = pizzeria.menu.id\n" +
-            "\tJOIN pizzeria.pizza_info ON pizzeria.menu_row.info =pizzeria.pizza_info.id\n" +
+            "\tINNER JOIN pizzeria.menu_row ON  pizzeria.menu_row.menu = pizzeria.menu.id\n" +
+            "\tINNER JOIN pizzeria.pizza_info ON pizzeria.menu_row.info =pizzeria.pizza_info.id\n" +
             "\tWHERE menu.id = ?;";
 //            "SELECT id, dt_create, dt_update, name, enable\n" +
 //            "\tFROM pizzeria.menu\n" +

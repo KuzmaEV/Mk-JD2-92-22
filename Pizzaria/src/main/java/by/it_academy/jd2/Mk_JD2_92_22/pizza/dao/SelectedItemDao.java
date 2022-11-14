@@ -18,12 +18,20 @@ import java.util.List;
 public class SelectedItemDao implements ISelectedItemDao {
     private final DataSource ds;
 
-    private static final String READ_SQL = "SELECT id, dt_create, dt_update, menu_row, count\n" +
+    private static final String READ_SQL = "SELECT selected_item.id, selected_item.dt_create, selected_item.dt_update, menu_row, count\n" +
+            "menu_row.id, menu_row.dt_create, menu_row.dt_update, price, menu,\n" +
+            "info, pizza_info.dt_create, pizza_info.dt_update,name, description, size\n" +
             "\tFROM pizzeria.selected_item" +
+            "\tINNER JOIN pizzeria.menu_row ON menu_row.id = selected_item.menu_row" +
+            "\tINNER JOIN pizzeria.pizza_info ON menu_row.info = pizza_info.id" +
             "\tWHERE id = ?;";
 
-    private static final String GET_SQL = "SELECT id, dt_create, dt_update, menu_row, count\n" +
-            "\tFROM pizzeria.selected_item;";
+    private static final String GET_SQL = "SELECT selected_item.id, selected_item.dt_create, selected_item.dt_update, menu_row, count\n" +
+            "menu_row.id, menu_row.dt_create, menu_row.dt_update, price, menu,\n" +
+            "info, pizza_info.dt_create, pizza_info.dt_update,name, description, size\n" +
+            "\tFROM pizzeria.selected_item" +
+            "\tINNER JOIN pizzeria.menu_row ON menu_row.id = selected_item.menu_row" +
+            "\tINNER JOIN pizzeria.pizza_info ON menu_row.info = pizza_info.id";
 
     private static final String CREATE_SQL = "INSERT INTO pizzeria.selected_item(\n" +
             "\tdt_create, dt_update, menu_row, count)\n" +
