@@ -1,18 +1,24 @@
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.api;
 
+import java.time.LocalDateTime;
+
 /**
  * Выбор покупателя
  */
 public interface ISelectedItem {
+
+    long getId();
+    LocalDateTime getDtCreate();
+    LocalDateTime getDtUpdate();
     /**
      * Выбранное из меню
-     * @return
+     * @return Выбранное из меню
      */
     IMenuRow getRow();
 
     /**
      * Количество выбранного
-     * @return
+     * @return Количество выбранного
      */
     int getCount();
 }

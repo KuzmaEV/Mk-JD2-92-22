@@ -1,15 +1,15 @@
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.core;
 
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IOrderStatus;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IStage;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.ITicket;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.x.IOrderStatus;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.x.IStage;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.x.ITicket;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class OrderStatus implements IOrderStatus {
 
-    private List<IStage> history = new ArrayList<>();
+    private final List<IStage> history = new ArrayList<>();
     private ITicket ticket;
     private boolean done;
 

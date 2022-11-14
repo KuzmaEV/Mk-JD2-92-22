@@ -1,4 +1,4 @@
-package by.it_academy.jd2.Mk_JD2_92_22.pizza.api;
+package by.it_academy.jd2.Mk_JD2_92_22.pizza.api.x;
 
 /**
  * Приготовленная пицца
@@ -6,13 +6,13 @@ package by.it_academy.jd2.Mk_JD2_92_22.pizza.api;
 public interface IPizza {
     /**
      * Название пиццы
-     * @return
+     * @return Название пиццы
      */
     String getName();
 
     /**
      * Размер пиццы
-     * @return
+     * @return Размер пиццы
      */
     int getSize();
 }

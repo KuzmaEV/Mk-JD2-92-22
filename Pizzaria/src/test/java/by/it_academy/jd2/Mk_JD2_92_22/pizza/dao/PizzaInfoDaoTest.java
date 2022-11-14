@@ -3,8 +3,8 @@ package by.it_academy.jd2.Mk_JD2_92_22.pizza.dao;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IPizzaInfo;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto.DtoPizzaInfoService;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.api.IPizzaInfoDao;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.sindleton.PizzaInfoDaoSingleton;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.util.List;

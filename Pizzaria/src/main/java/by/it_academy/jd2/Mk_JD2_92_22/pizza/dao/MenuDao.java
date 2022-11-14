@@ -1,10 +1,13 @@
-package by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.entity;
+package by.it_academy.jd2.Mk_JD2_92_22.pizza.dao;
 
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IMenu;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IMenuRow;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IPizzaInfo;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto.DtoMenuService;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.api.IMenuDao;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.entity.Menu;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.entity.MenuRow;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.entity.PizzaInfo;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -90,7 +93,8 @@ public class MenuDao implements IMenuDao {
 
                 try(ResultSet generatedKeys = ps.getGeneratedKeys()){
                     if (generatedKeys.next()){
-                        return mapper(generatedKeys);
+
+                        return read(generatedKeys.getLong(1));
                     }
                 }
 

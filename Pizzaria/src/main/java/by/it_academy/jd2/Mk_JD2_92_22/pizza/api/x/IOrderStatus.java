@@ -1,4 +1,4 @@
-package by.it_academy.jd2.Mk_JD2_92_22.pizza.api;
+package by.it_academy.jd2.Mk_JD2_92_22.pizza.api.x;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ public interface IOrderStatus {
 
     /**
      * По какому квитку мы получили статус
-     * @return
+     * @return По какому квитку мы получили статус
      */
     ITicket getTicket();
 

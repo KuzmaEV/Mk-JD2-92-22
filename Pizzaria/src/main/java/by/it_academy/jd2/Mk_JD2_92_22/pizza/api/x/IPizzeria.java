@@ -1,4 +1,6 @@
-package by.it_academy.jd2.Mk_JD2_92_22.pizza.api;
+package by.it_academy.jd2.Mk_JD2_92_22.pizza.api.x;
+
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IMenu;
 
 /**
  * Пиццерия

@@ -1,4 +1,4 @@
-package by.it_academy.jd2.Mk_JD2_92_22.pizza.api;
+package by.it_academy.jd2.Mk_JD2_92_22.pizza.api.x;
 
 import java.time.LocalTime;
 
@@ -8,13 +8,13 @@ import java.time.LocalTime;
 public interface IStage {
     /**
      * Описание этапа
-     * @return
+     * @return Описание этапа
      */
     String getDescription();
 
     /**
      * Когда этап был начат
-     * @return
+     * @return Когда этап был начат
      */
     LocalTime getTime();
 }

@@ -1,8 +1,8 @@
-package by.it_academy.jd2.Mk_JD2_92_22.pizza.dao;
+package by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.sindleton;
 
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.MenuDao;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.api.DataSourceCreator;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.api.IMenuDao;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.entity.MenuDao;
 
 import java.beans.PropertyVetoException;
 
