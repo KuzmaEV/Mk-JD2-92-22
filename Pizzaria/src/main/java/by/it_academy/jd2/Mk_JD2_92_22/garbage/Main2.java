@@ -1,7 +1,7 @@
 package by.it_academy.jd2.Mk_JD2_92_22.garbage;
 
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IPizzaInfo;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.services.PizzaInfoServiceSingleton;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.services.singleton.PizzaInfoServiceSingleton;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.services.api.IPizzaInfoService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

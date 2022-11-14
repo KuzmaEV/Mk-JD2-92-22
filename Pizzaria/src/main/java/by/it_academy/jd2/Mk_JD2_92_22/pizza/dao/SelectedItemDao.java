@@ -2,6 +2,7 @@ package by.it_academy.jd2.Mk_JD2_92_22.pizza.dao;
 
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IMenuRow;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IPizzaInfo;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.ISelectedItem;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.SelectedItem;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto.DtoSelectedItemService;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.api.ISelectedItemDao;
@@ -40,7 +41,7 @@ public class SelectedItemDao implements ISelectedItemDao {
     }
 
     @Override
-    public SelectedItem read(long id) {
+    public ISelectedItem read(long id) {
 
         try(Connection conn = ds.getConnection();
             PreparedStatement ps = conn.prepareStatement(READ_SQL)) {
@@ -60,13 +61,13 @@ public class SelectedItemDao implements ISelectedItemDao {
     }
 
     @Override
-    public List<SelectedItem> get() {
+    public List<ISelectedItem> get() {
 
         try(Connection conn = ds.getConnection();
             PreparedStatement ps = conn.prepareStatement(GET_SQL)) {
 
             try (ResultSet resultSet = ps.executeQuery()){
-                List<SelectedItem> list = new ArrayList<>();
+                List<ISelectedItem> list = new ArrayList<>();
                 while (resultSet.next()){
                     list.add(mapper(resultSet));
                 }
@@ -79,7 +80,7 @@ public class SelectedItemDao implements ISelectedItemDao {
     }
 
     @Override
-    public SelectedItem create(DtoSelectedItemService item) {
+    public ISelectedItem create(DtoSelectedItemService item) {
 
         try(Connection conn = ds.getConnection();
             PreparedStatement ps = conn.prepareStatement(CREATE_SQL, Statement.RETURN_GENERATED_KEYS)) {
@@ -109,7 +110,7 @@ public class SelectedItemDao implements ISelectedItemDao {
     }
 
     @Override
-    public SelectedItem update(long id, LocalDateTime dtUpdate, DtoSelectedItemService item) {
+    public ISelectedItem update(long id, LocalDateTime dtUpdate, DtoSelectedItemService item) {
 
         try(Connection conn = ds.getConnection();
             PreparedStatement ps = conn.prepareStatement(UPDATE_SQL, Statement.RETURN_GENERATED_KEYS)) {
@@ -167,7 +168,7 @@ public class SelectedItemDao implements ISelectedItemDao {
         }
     }
 
-    public static SelectedItem mapper(ResultSet rs) throws SQLException {
+    public static ISelectedItem mapper(ResultSet rs) throws SQLException {
 
 
         IMenuRow menuRow;

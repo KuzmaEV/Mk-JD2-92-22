@@ -2,7 +2,7 @@ package by.it_academy.jd2.Mk_JD2_92_22.pizza.controllers.servlets;
 
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IPizzaInfo;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto.DtoPizzaInfoServlet;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.services.PizzaInfoServiceSingleton;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.services.singleton.PizzaInfoServiceSingleton;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.services.api.IPizzaInfoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
