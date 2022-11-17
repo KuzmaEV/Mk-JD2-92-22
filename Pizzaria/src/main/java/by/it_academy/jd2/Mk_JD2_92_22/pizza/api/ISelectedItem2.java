@@ -5,10 +5,11 @@ import java.time.LocalDateTime;
 /**
  * Выбор покупателя
  */
-public interface ISelectedItem {
+public interface ISelectedItem2 {
 
     long getId();
-
+    LocalDateTime getDtCreate();
+    LocalDateTime getDtUpdate();
     /**
      * Выбранное из меню
      * @return Выбранное из меню

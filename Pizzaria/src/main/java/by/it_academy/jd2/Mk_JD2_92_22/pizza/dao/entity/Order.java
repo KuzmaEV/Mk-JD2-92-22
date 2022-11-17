@@ -1,24 +1,24 @@
-package by.it_academy.jd2.Mk_JD2_92_22.pizza.core;
+package by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.entity;
 
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IMenuRow;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IOrder;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.ISelectedItem;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
-public class SelectedItem implements ISelectedItem {
+public class Order implements IOrder {
 
     private final long id;
     private final LocalDateTime dtCreate;
     private final LocalDateTime dtUpdate;
-    private final IMenuRow row;
-    private final int count;
 
-    public SelectedItem(long id, LocalDateTime dtCreate, LocalDateTime dtUpdate, IMenuRow row, int count) {
+    private final List<ISelectedItem> selectedItem;
+
+    public Order(long id, LocalDateTime dtCreate, LocalDateTime dtUpdate, List<ISelectedItem> selectedItems) {
         this.id = id;
         this.dtCreate = dtCreate;
         this.dtUpdate = dtUpdate;
-        this.row = row;
-        this.count = count;
+        this.selectedItem = selectedItems;
     }
 
     @Override
@@ -37,12 +37,8 @@ public class SelectedItem implements ISelectedItem {
     }
 
     @Override
-    public IMenuRow getRow() {
-        return this.row;
-    }
-
-    @Override
-    public int getCount() {
-        return this.count;
+    public List<ISelectedItem> getSelectedItem() {
+        return selectedItem;
     }
 }
+

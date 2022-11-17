@@ -143,13 +143,13 @@ public class MenuRowDao implements IMenuRowDao {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Не получилось удалить данные! " + e.getMessage());
         }
 
     }
 
 
-    public static IMenuRow mapper(ResultSet rs) {
+    public IMenuRow mapper(ResultSet rs) {
 
         IPizzaInfo pizzaInfo;
         try {
@@ -175,7 +175,7 @@ public class MenuRowDao implements IMenuRowDao {
         }
     }
 
-    public static List<IMenuRow> mapperList(ResultSet rs) throws SQLException {
+    public List<IMenuRow> mapperList(ResultSet rs) throws SQLException {
         List<IMenuRow> list = new ArrayList<>();
         while (rs.next()){
             list.add(mapper(rs));

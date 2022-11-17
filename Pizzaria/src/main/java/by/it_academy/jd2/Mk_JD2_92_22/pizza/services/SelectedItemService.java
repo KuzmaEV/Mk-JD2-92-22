@@ -1,6 +1,6 @@
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.services;
 
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.ISelectedItem;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.ISelectedItem2;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto.DtoSelectedItemService;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto.DtoSelectedItemServlet;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.api.ISelectedItemDao;
@@ -18,29 +18,29 @@ public class SelectedItemService implements ISelectedItemService {
     }
 
     @Override
-    public ISelectedItem read(long id) {
+    public ISelectedItem2 read(long id) {
         return dao.read(id);
     }
 
     @Override
-    public List<ISelectedItem> get() {
+    public List<ISelectedItem2> get() {
 
         return dao.get();
     }
 
     @Override
-    public ISelectedItem create(DtoSelectedItemServlet item) {
+    public ISelectedItem2 create(DtoSelectedItemServlet item) {
 
         return dao.create(new DtoSelectedItemService(LocalDateTime.now(),
-                item.getMenuRow(),
+                item.getRow(),
                 item.getCount()));
     }
 
     @Override
-    public ISelectedItem update(long id, LocalDateTime dtUpdate, DtoSelectedItemServlet item) {
+    public ISelectedItem2 update(long id, LocalDateTime dtUpdate, DtoSelectedItemServlet item) {
         return dao.update(id, dtUpdate, new DtoSelectedItemService(
                 LocalDateTime.now(),
-                item.getMenuRow(),
+                item.getRow(),
                 item.getCount()
         ));
     }

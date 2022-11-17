@@ -1,6 +1,6 @@
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.controllers.servlets;
 
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.ISelectedItem;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.ISelectedItem2;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto.DtoSelectedItemServlet;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.services.SelectedItemServiceSingleton;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.services.api.ISelectedItemService;
@@ -40,7 +40,7 @@ public class SelectedItemServlet extends HttpServlet {
         String idStr = req.getParameter("id");
 
         if (idStr == null || idStr.isBlank()){
-            List<ISelectedItem> list = service.get();
+            List<ISelectedItem2> list = service.get();
             resp.getWriter().write(mapper.writeValueAsString(list));
             resp.setStatus(HttpServletResponse.SC_OK);
         } else {
@@ -63,7 +63,7 @@ public class SelectedItemServlet extends HttpServlet {
 
         DtoSelectedItemServlet dto = mapper.readValue(req.getInputStream(), DtoSelectedItemServlet.class);
 
-        ISelectedItem selectedItem = service.create(dto);
+        ISelectedItem2 selectedItem = service.create(dto);
 
         resp.getWriter().write(mapper.writeValueAsString(selectedItem));
         resp.setStatus(HttpServletResponse.SC_OK);
@@ -88,7 +88,7 @@ public class SelectedItemServlet extends HttpServlet {
 
         DtoSelectedItemServlet dto = mapper.readValue(req.getInputStream(), DtoSelectedItemServlet.class);
 
-        ISelectedItem selectedItem = service.update(id, dtUpdate, dto);
+        ISelectedItem2 selectedItem = service.update(id, dtUpdate, dto);
         resp.getWriter().write(mapper.writeValueAsString(selectedItem));
         resp.setStatus(HttpServletResponse.SC_OK);
     }

@@ -2,17 +2,17 @@ package by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto;
 
 import java.time.LocalDateTime;
 
-public class DtoPizzaInfoService {
+public class PizzaInfoDTO {
 
     private LocalDateTime dtUpdate;
     private String name;
     private String description;
     private int size;
 
-    public DtoPizzaInfoService() {
+    public PizzaInfoDTO() {
     }
 
-    public DtoPizzaInfoService(LocalDateTime dtUpdate, String name, String description, int size) {
+    public PizzaInfoDTO(LocalDateTime dtUpdate, String name, String description, int size) {
         this.dtUpdate = dtUpdate;
         this.name = name;
         this.description = description;

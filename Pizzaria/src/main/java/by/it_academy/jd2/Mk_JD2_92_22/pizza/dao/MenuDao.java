@@ -165,7 +165,7 @@ public class MenuDao implements IMenuDao {
 
     }
 
-    private static IMenu mapper(ResultSet rs) throws SQLException {
+    private IMenu mapper(ResultSet rs) throws SQLException {
         List<IMenuRow> items = new ArrayList<>();
 
         while (rs.next()){
@@ -211,7 +211,7 @@ public class MenuDao implements IMenuDao {
 
 
 
-    private static IMenu mapper2(ResultSet rs) throws SQLException {
+    private IMenu mapper2(ResultSet rs) throws SQLException {
         List<IMenuRow> items = new ArrayList<>();
 
         return new Menu(rs.getLong(1),
@@ -222,7 +222,7 @@ public class MenuDao implements IMenuDao {
                 rs.getBoolean(5));
     }
 
-    private static List<IMenu> mapperList(ResultSet rs) throws SQLException {
+    private  List<IMenu> mapperList(ResultSet rs) throws SQLException {
         List<IMenu> menuList = new ArrayList<>();
 
         while (rs.next()){

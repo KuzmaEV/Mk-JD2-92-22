@@ -1,8 +1,7 @@
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.services;
 
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IPizzaInfo;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto.DtoPizzaInfoService;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto.DtoPizzaInfoServlet;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto.PizzaInfoDTO;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.api.IPizzaInfoDao;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.services.api.IPizzaInfoService;
 
@@ -30,14 +29,15 @@ public class PizzaInfoService implements IPizzaInfoService {
     }
 
     @Override
-    public IPizzaInfo create(DtoPizzaInfoServlet item) {
+    public IPizzaInfo create(PizzaInfoDTO item) {
 
-        return dao.create(mapper(item));
+        item.setDtUpdate(LocalDateTime.now());
+        return dao.create(item);
     }
 
     @Override
     public IPizzaInfo update(long id, LocalDateTime dtUpdate/*дата последнено изменения*/,
-                             DtoPizzaInfoServlet item/* dto БЕЗ ид и дт, только параметры для изменения*/) {
+                             PizzaInfoDTO item/* dto БЕЗ ид и дт, только параметры для изменения*/) {
         IPizzaInfo read = dao.read(id);
 
         if (read == null){
@@ -47,7 +47,8 @@ public class PizzaInfoService implements IPizzaInfoService {
             throw new IllegalArgumentException("Пицца кем-то отредактирована");
         }
 
-        return dao.update(id, dtUpdate, mapper(item));
+        item.setDtUpdate(LocalDateTime.now());
+        return dao.update(id, dtUpdate, item);
     }
 
     @Override
@@ -64,11 +65,5 @@ public class PizzaInfoService implements IPizzaInfoService {
         dao.delete(id, dtUpdate);
     }
 
-    public DtoPizzaInfoService mapper(DtoPizzaInfoServlet dto){
-        return new DtoPizzaInfoService(
-                LocalDateTime.now(),
-                dto.getName(),
-                dto.getDescription(),
-                dto.getSize());
-    }
+
 }

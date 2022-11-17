@@ -1,7 +1,7 @@
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.controllers.servlets;
 
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IPizzaInfo;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto.DtoPizzaInfoServlet;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto.PizzaInfoDTO;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.services.singleton.PizzaInfoServiceSingleton;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.services.api.IPizzaInfoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -74,7 +74,7 @@ public class PizzaInfoServlet extends HttpServlet {
         resp.setContentType(CONTENT_TYPE);
         resp.setCharacterEncoding(ENCODING);
 
-        DtoPizzaInfoServlet dto = mapper.readValue(req.getInputStream(), DtoPizzaInfoServlet.class);
+        PizzaInfoDTO dto = mapper.readValue(req.getInputStream(), PizzaInfoDTO.class);
         if (dto.getName() == null){
             throw new IllegalStateException("При создании пиццы, нужно ввести Имя");
         }
@@ -110,7 +110,7 @@ public class PizzaInfoServlet extends HttpServlet {
 
         LocalDateTime dtUpdate = mapper.readValue(req.getParameter("dtUpdate"), LocalDateTime.class);
 
-        DtoPizzaInfoServlet dto = mapper.readValue(req.getInputStream(), DtoPizzaInfoServlet.class);
+        PizzaInfoDTO dto = mapper.readValue(req.getInputStream(), PizzaInfoDTO.class);
 
         if (dto.getName() == null){
             dto.setName(read.getName());

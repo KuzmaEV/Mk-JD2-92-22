@@ -2,8 +2,8 @@ package by.it_academy.jd2.Mk_JD2_92_22.pizza.dao;
 
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IMenuRow;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IPizzaInfo;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.ISelectedItem;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.SelectedItem;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.ISelectedItem2;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.SelectedItem2;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto.DtoSelectedItemService;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.api.ISelectedItemDao;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.entity.MenuRow;
@@ -18,27 +18,27 @@ import java.util.List;
 public class SelectedItemDao implements ISelectedItemDao {
     private final DataSource ds;
 
-    private static final String READ_SQL = "SELECT selected_item.id, selected_item.dt_create, selected_item.dt_update, menu_row, count\n" +
+    private static final String READ_SQL = "SELECT selected_item.id, selected_item.dt_create, selected_item.dt_update, count,\n" +
             "menu_row.id, menu_row.dt_create, menu_row.dt_update, price, menu,\n" +
             "info, pizza_info.dt_create, pizza_info.dt_update,name, description, size\n" +
             "\tFROM pizzeria.selected_item" +
-            "\tINNER JOIN pizzeria.menu_row ON menu_row.id = selected_item.menu_row" +
+            "\tINNER JOIN pizzeria.menu_row ON menu_row.id = selected_item.row" +
             "\tINNER JOIN pizzeria.pizza_info ON menu_row.info = pizza_info.id" +
-            "\tWHERE id = ?;";
+            "\tWHERE selected_item.id = ?;";
 
-    private static final String GET_SQL = "SELECT selected_item.id, selected_item.dt_create, selected_item.dt_update, menu_row, count\n" +
+    private static final String GET_SQL = "SELECT selected_item.id, selected_item.dt_create, selected_item.dt_update, count,\n" +
             "menu_row.id, menu_row.dt_create, menu_row.dt_update, price, menu,\n" +
             "info, pizza_info.dt_create, pizza_info.dt_update,name, description, size\n" +
             "\tFROM pizzeria.selected_item" +
-            "\tINNER JOIN pizzeria.menu_row ON menu_row.id = selected_item.menu_row" +
+            "\tINNER JOIN pizzeria.menu_row ON menu_row.id = selected_item.row" +
             "\tINNER JOIN pizzeria.pizza_info ON menu_row.info = pizza_info.id";
 
     private static final String CREATE_SQL = "INSERT INTO pizzeria.selected_item(\n" +
-            "\tdt_create, dt_update, menu_row, count)\n" +
+            "\tdt_create, dt_update, row, count)\n" +
             "\tVALUES (?, ?, ?, ?);";
 
     private static final String UPDATE_SQL = "UPDATE pizzeria.selected_item\n" +
-            "\tSET dt_update, menu_row=?, count=?\n" +
+            "\tSET dt_update=?, row=?, count=?\n" +
             "\tWHERE id = ? AND dt_update = ?;";
 
     private static final String DELETE_SQL = "DELETE FROM pizzeria.selected_item\n" +
@@ -49,7 +49,7 @@ public class SelectedItemDao implements ISelectedItemDao {
     }
 
     @Override
-    public ISelectedItem read(long id) {
+    public ISelectedItem2 read(long id) {
 
         try(Connection conn = ds.getConnection();
             PreparedStatement ps = conn.prepareStatement(READ_SQL)) {
@@ -69,13 +69,13 @@ public class SelectedItemDao implements ISelectedItemDao {
     }
 
     @Override
-    public List<ISelectedItem> get() {
+    public List<ISelectedItem2> get() {
 
         try(Connection conn = ds.getConnection();
             PreparedStatement ps = conn.prepareStatement(GET_SQL)) {
 
             try (ResultSet resultSet = ps.executeQuery()){
-                List<ISelectedItem> list = new ArrayList<>();
+                List<ISelectedItem2> list = new ArrayList<>();
                 while (resultSet.next()){
                     list.add(mapper(resultSet));
                 }
@@ -88,7 +88,7 @@ public class SelectedItemDao implements ISelectedItemDao {
     }
 
     @Override
-    public ISelectedItem create(DtoSelectedItemService item) {
+    public ISelectedItem2 create(DtoSelectedItemService item) {
 
         try(Connection conn = ds.getConnection();
             PreparedStatement ps = conn.prepareStatement(CREATE_SQL, Statement.RETURN_GENERATED_KEYS)) {
@@ -118,7 +118,7 @@ public class SelectedItemDao implements ISelectedItemDao {
     }
 
     @Override
-    public ISelectedItem update(long id, LocalDateTime dtUpdate, DtoSelectedItemService item) {
+    public ISelectedItem2 update(long id, LocalDateTime dtUpdate, DtoSelectedItemService item) {
 
         try(Connection conn = ds.getConnection();
             PreparedStatement ps = conn.prepareStatement(UPDATE_SQL, Statement.RETURN_GENERATED_KEYS)) {
@@ -158,8 +158,8 @@ public class SelectedItemDao implements ISelectedItemDao {
         try(Connection conn = ds.getConnection();
             PreparedStatement ps = conn.prepareStatement(DELETE_SQL)) {
 
-            ps.setLong(4, id);
-            ps.setObject(5, dtUpdate);
+            ps.setLong(1, id);
+            ps.setObject(2, dtUpdate);
 
             int countUpdatedRows = ps.executeUpdate();
 
@@ -176,7 +176,7 @@ public class SelectedItemDao implements ISelectedItemDao {
         }
     }
 
-    public static ISelectedItem mapper(ResultSet rs) throws SQLException {
+    public static ISelectedItem2 mapper(ResultSet rs) throws SQLException {
 
 
         IMenuRow menuRow;
@@ -204,7 +204,7 @@ public class SelectedItemDao implements ISelectedItemDao {
         }
 
 
-        return new SelectedItem(rs.getLong(1),
+        return new SelectedItem2(rs.getLong(1),
                 rs.getObject(2, LocalDateTime.class),
                 rs.getObject(3, LocalDateTime.class),
                 menuRow,

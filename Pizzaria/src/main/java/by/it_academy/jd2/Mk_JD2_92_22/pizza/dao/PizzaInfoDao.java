@@ -1,7 +1,7 @@
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.dao;
 
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IPizzaInfo;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto.DtoPizzaInfoService;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto.PizzaInfoDTO;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.api.IPizzaInfoDao;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.entity.PizzaInfo;
 
@@ -67,7 +67,7 @@ public class PizzaInfoDao implements IPizzaInfoDao {
     }
 
     @Override
-    public IPizzaInfo create(DtoPizzaInfoService item) {
+    public IPizzaInfo create(PizzaInfoDTO item) {
         try (Connection conn = ds.getConnection();
             PreparedStatement stm = conn.prepareStatement(CREATE_SQL, Statement.RETURN_GENERATED_KEYS)){
 
@@ -94,7 +94,7 @@ public class PizzaInfoDao implements IPizzaInfoDao {
     }
 
     @Override
-    public IPizzaInfo update(long id, LocalDateTime dtUpdate, DtoPizzaInfoService item) {
+    public IPizzaInfo update(long id, LocalDateTime dtUpdate, PizzaInfoDTO item) {
 
         try (Connection conn = ds.getConnection();
              PreparedStatement stm = conn.prepareStatement(UPDATE_SQL)){
