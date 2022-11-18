@@ -30,8 +30,6 @@ public class TicketService implements ITicketService{
     @Override
     public ITicket create(TicketDTO item) {
 
-        item.setDtCreate(LocalDateTime.now());
-
         return dao.create(item);
     }
 

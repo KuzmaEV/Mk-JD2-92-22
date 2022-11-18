@@ -35,16 +35,17 @@ public class OrderDao implements IOrderDao {
             "INNER JOIN pizzeria.pizza_info ON menu_row.info = pizza_info.id\n" +
             "WHERE \"order\".id = ?;";
 
-    private static final String GET_SQL = "SELECT \"order\".id, \"order\".dt_create, \"order\".dt_update,\n" +
-            "selected_item.id, \"count\",\n" +
+    private static final String GET_ORDER_SQL = "SELECT id, dt_create, dt_update\n" +
+            "\tFROM pizzeria.\"order\"";
+    private static final String GET_SELECTED_SQL = "SELECT selected_item.id, \"count\",\n" +
             "menu_row.id, menu_row.dt_create, menu_row.dt_update, price, menu,\n" +
             "info, pizza_info.dt_create, pizza_info.dt_update, name, description,\n" +
-            "size\n" +
-            " \n" +
-            "\tFROM pizzeria.\"order\"\n" +
-            "\tINNER JOIN pizzeria.selected_item ON \"order\".id = selected_item.\"order\"\n" +
-            "\tINNER JOIN pizzeria.menu_row ON selected_item.menu_row = menu_row.id\n" +
-            "\tINNER JOIN pizzeria.pizza_info ON menu_row.info = pizza_info.id;";
+            "size \n" +
+            "FROM pizzeria.\"order\"\n" +
+            "INNER JOIN pizzeria.selected_item ON \"order\".id = selected_item.\"order\"\n" +
+            "INNER JOIN pizzeria.menu_row ON selected_item.menu_row = menu_row.id\n" +
+            "INNER JOIN pizzeria.pizza_info ON menu_row.info = pizza_info.id" +
+            "WHERE \"order\".id = ?;";
 
     private static final String CREATE_ORDER_SQL = "INSERT INTO pizzeria.\"order\"(\n" +
             "\tdt_create, dt_update)\n" +
@@ -60,7 +61,7 @@ public class OrderDao implements IOrderDao {
     private static final String DELETE_SQL = "DELETE FROM pizzeria.\"order\"\n" +
             "INNER JOIN pizzeria.selected_item ON \"order\".id = selected_item.\"order\"\n" +
             "INNER JOIN pizzeria.ticket ON \"order\".id = ticket.\"order\"\n" +
-            "\tWHERE \"order\".id = ?;";
+            "\tWHERE \"order\".id = ? AND dt_update = ?;";
 
     public OrderDao(DataSource ds) {
         this.ds = ds;
@@ -90,7 +91,27 @@ public class OrderDao implements IOrderDao {
 
     @Override
     public List<IOrder> get() {
-        return null;
+        List<IOrder> orders = new ArrayList<>();
+        try(Connection conn = ds.getConnection();
+            PreparedStatement psOrder = conn.prepareStatement(GET_ORDER_SQL);
+            PreparedStatement psSelected = conn.prepareStatement(GET_SELECTED_SQL)) {
+
+            try (ResultSet rsOrder = psOrder.executeQuery()){
+                while (rsOrder.next()){
+                    rsOrder.getLong(1);
+                    try(ResultSet rsSelected = psSelected.executeQuery()){
+
+                        orders.add(mapper(rsOrder, rsSelected));
+                    }
+                }
+
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Не удалось получить спимок заказов! " + e.getMessage());
+        }
+
+        return orders;
     }
 
     @Override
@@ -138,6 +159,25 @@ public class OrderDao implements IOrderDao {
 
     @Override
     public void delete(long id, LocalDateTime dtUpdate) {
+
+        try(Connection conn = ds.getConnection();
+            PreparedStatement ps = conn.prepareStatement(DELETE_SQL)) {
+            ps.setLong(1, id);
+            ps.setObject(2, dtUpdate);
+
+            int countDeletedRows = ps.executeUpdate();
+            if (countDeletedRows != 1){
+                if (countDeletedRows == 0){
+                    throw new IllegalArgumentException("Не удалось удалить!");
+                } else {
+                    throw new IllegalArgumentException("Ошибка. Удалило несколько заказов!");
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Ну удалось удалить заказ! " + e.getMessage());
+        }
+
 
     }
 
