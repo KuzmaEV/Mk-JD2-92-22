@@ -21,14 +21,9 @@ public class OrderDTO {
         this.dtUpdate = dtUpdate;
     }
 
-    public List<Selected> getSelected() {
+    public List<Selected> getSelectedItem() {
         return selectedItem;
     }
-
-    public void setSelected(List<Selected> selectedItem) {
-        this.selectedItem = selectedItem;
-    }
-
 
     public static class Selected{
         private long menuRow;

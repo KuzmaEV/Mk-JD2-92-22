@@ -43,5 +43,7 @@ public class OrderService implements IOrderService {
     @Override
     public void delete(long id, LocalDateTime dtUpdate) {
 
+        dao.delete(id, dtUpdate);
+
     }
 }

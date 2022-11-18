@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @WebServlet(name = "OrderService", urlPatterns = "/order")
@@ -78,5 +79,12 @@ public class OrderServlet extends HttpServlet {
         req.setCharacterEncoding(CHARACTER_ENCODING);
         resp.setContentType(CONTENT_TYPE);
         resp.setCharacterEncoding(CHARACTER_ENCODING);
+
+        String idStr = req.getParameter("id");
+        long id = Long.parseLong(idStr);
+        LocalDateTime dtUpdate = mapper.readValue(req.getParameter("dtUpdate"), LocalDateTime.class);
+
+
+        service.delete(id, dtUpdate);
     }
 }

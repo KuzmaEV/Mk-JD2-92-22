@@ -12,10 +12,7 @@ import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.entity.PizzaInfo;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.entity.SelectedItem;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +45,14 @@ public class OrderDao implements IOrderDao {
             "\tINNER JOIN pizzeria.selected_item ON \"order\".id = selected_item.\"order\"\n" +
             "\tINNER JOIN pizzeria.menu_row ON selected_item.menu_row = menu_row.id\n" +
             "\tINNER JOIN pizzeria.pizza_info ON menu_row.info = pizza_info.id;";
-    private static final String CREATE_SQL = "";
+
+    private static final String CREATE_ORDER_SQL = "INSERT INTO pizzeria.\"order\"(\n" +
+            "\tdt_create, dt_update)\n" +
+            "\tVALUES (?, ?);";
+    private static final String CREATE_SELECTED_SQL = "INSERT INTO pizzeria.selected_item(\n" +
+            "\tmenu_row, count, \"order\")\n" +
+            "\tVALUES (?, ?, ?);";
+
     private static final String UPDATE_SQL = "";
     private static final String DELETE_SQL = "";
 
@@ -85,6 +89,36 @@ public class OrderDao implements IOrderDao {
 
     @Override
     public IOrder create(OrderDTO item) {
+        try(Connection conn = ds.getConnection();
+            PreparedStatement ps = conn.prepareStatement(CREATE_ORDER_SQL, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement psSelected = conn.prepareStatement(CREATE_SELECTED_SQL)) {
+
+            ps.setObject(1, item.getDtUpdate());
+            ps.setObject(2, item.getDtUpdate());
+
+            ps.execute();
+            try (ResultSet gk = ps.getGeneratedKeys()){
+                if (gk.next()){
+                    long id = gk.getLong(1);
+
+                    for (OrderDTO.Selected selected : item.getSelectedItem()) {
+                        psSelected.setLong(1, selected.getMenuRow());
+                        psSelected.setInt(2, selected.getCount());
+                        psSelected.setLong(3, id);
+
+                        psSelected.addBatch();
+                    }
+                    psSelected.executeBatch();
+
+                    return read(id);
+                }
+
+            }
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Не получилось сдалоть заказ! " + e.getMessage());
+        }
         return null;
     }
 
