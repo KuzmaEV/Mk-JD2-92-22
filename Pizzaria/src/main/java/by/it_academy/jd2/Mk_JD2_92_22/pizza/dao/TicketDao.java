@@ -34,7 +34,20 @@ public class TicketDao implements ITicketDao {
             "\tINNER JOIN pizzeria.pizza_info ON menu_row.info = pizza_info.id\n" +
             "\tWHERE ticket.id = ?;";
 
-    private static final String GET_SQL = "";
+    private static final String GET_TICKET_SQL = "SELECT ticket.id, ticket.dt_create,\n" +
+            "\"order\".id, \"order\".dt_create, \"order\".dt_update" +
+            "\tFROM pizzeria.ticket\n" +
+            "\tINNER JOIN pizzeria.\"order\" ON ticket.\"order\" = \"order\".id";
+
+    private static final String GET_SELECTED_SQL = "SELECT selected_item.id, \"count\",\n" +
+            "\tmenu_row.id, menu_row.dt_create, menu_row.dt_update, price, menu,\n" +
+            "\tinfo, pizza_info.dt_create, pizza_info.dt_update, name, description, size \n" +
+            "\tFROM pizzeria.ticket\n" +
+            "\tINNER JOIN pizzeria.\"order\" ON ticket.\"order\" = \"order\".id\n" +
+            "\tINNER JOIN pizzeria.selected_item ON \"order\".id = selected_item.\"order\"\n" +
+            "\tINNER JOIN pizzeria.menu_row ON selected_item.menu_row = menu_row.id\n" +
+            "\tINNER JOIN pizzeria.pizza_info ON menu_row.info = pizza_info.id";
+
     private static final String CREATE_SQL = "";
     private static final String DELETE_SQL = "";
 
