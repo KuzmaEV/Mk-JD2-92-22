@@ -1,7 +1,7 @@
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.entity;
 
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IOrder;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.x.ITicket;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.ITicket;
 
 import java.time.LocalDateTime;
 
