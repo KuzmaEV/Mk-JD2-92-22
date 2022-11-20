@@ -1,15 +1,9 @@
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.dao;
 
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IMenuRow;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IOrder;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IPizzaInfo;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.ISelectedItem;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.*;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto.OrderDTO;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.api.IOrderDao;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.entity.MenuRow;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.entity.Order;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.entity.PizzaInfo;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.entity.SelectedItem;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.entity.*;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -68,7 +62,7 @@ public class OrderDao implements IOrderDao {
     }
 
     @Override
-    public IOrder read(long id) {
+    public ITicket read(long id) {
         try(Connection conn = ds.getConnection();
             PreparedStatement ps = conn.prepareStatement(READ_ORDER_SQL);
             PreparedStatement psSelected = conn.prepareStatement(READ_SELECTED_SQL)) {
@@ -90,8 +84,8 @@ public class OrderDao implements IOrderDao {
     }
 
     @Override
-    public List<IOrder> get() {
-        List<IOrder> orders = new ArrayList<>();
+    public List<ITicket> get() {
+        List<ITicket> orders = new ArrayList<>();
         try(Connection conn = ds.getConnection();
             PreparedStatement psOrder = conn.prepareStatement(GET_ORDER_SQL);
             PreparedStatement psSelected = conn.prepareStatement(GET_SELECTED_SQL)) {
@@ -115,7 +109,7 @@ public class OrderDao implements IOrderDao {
     }
 
     @Override
-    public IOrder create(OrderDTO item) {
+    public ITicket create(OrderDTO item) {
         try(Connection conn = ds.getConnection();
             PreparedStatement ps = conn.prepareStatement(CREATE_ORDER_SQL, Statement.RETURN_GENERATED_KEYS);
             PreparedStatement psSelected = conn.prepareStatement(CREATE_SELECTED_SQL);
@@ -159,7 +153,7 @@ public class OrderDao implements IOrderDao {
     }
 
     @Override
-    public IOrder update(long id, LocalDateTime dtUpdate, OrderDTO item) {
+    public ITicket update(long id, LocalDateTime dtUpdate, OrderDTO item) {
         return null;
     }
 
@@ -188,7 +182,7 @@ public class OrderDao implements IOrderDao {
     }
 
 
-    private IOrder mapper(ResultSet rs, ResultSet rsSelected) throws SQLException {
+    private ITicket mapper(ResultSet rs, ResultSet rsSelected) throws SQLException {
 
         List<ISelectedItem> list = new ArrayList<>();
 
@@ -213,10 +207,14 @@ public class OrderDao implements IOrderDao {
         }
 
         if (rs.next()) {
-            return new Order(rs.getLong(1),
+            IOrder order = new Order(rs.getLong(1),
                     rs.getObject(2, LocalDateTime.class),
                     rs.getObject(3, LocalDateTime.class),
                     list);
+
+            return new Ticket(String.valueOf(order.getId()),
+                    order.getDtCreate(),
+                    order);
         }
         return null;
     }

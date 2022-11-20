@@ -1,8 +1,4 @@
-package by.it_academy.jd2.Mk_JD2_92_22.pizza.services.singleton;
-
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.sindleton.TicketDaoSingleton;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.services.TicketService;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.services.api.ITicketService;
+package by.it_academy.jd2.Mk_JD2_92_22.garbage;
 
 import java.beans.PropertyVetoException;
 

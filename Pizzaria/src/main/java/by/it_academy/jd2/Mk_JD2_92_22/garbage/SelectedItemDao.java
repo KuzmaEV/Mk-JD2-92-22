@@ -1,11 +1,10 @@
-package by.it_academy.jd2.Mk_JD2_92_22.pizza.dao;
+package by.it_academy.jd2.Mk_JD2_92_22.garbage;
 
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IMenuRow;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IPizzaInfo;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.ISelectedItem2;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.SelectedItem2;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto.DtoSelectedItemService;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.api.ISelectedItemDao;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.entity.MenuRow;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.entity.PizzaInfo;
 

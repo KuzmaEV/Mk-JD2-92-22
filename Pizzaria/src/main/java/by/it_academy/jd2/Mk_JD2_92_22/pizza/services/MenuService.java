@@ -1,14 +1,15 @@
-package by.it_academy.jd2.Mk_JD2_92_22.pizza.services.api;
+package by.it_academy.jd2.Mk_JD2_92_22.pizza.services;
 
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IMenu;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto.DtoMenuService;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto.DtoMenuServlet;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.api.IMenuDao;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.services.api.IMenuService;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class MenuService implements IMenuService{
+public class MenuService implements IMenuService {
 
     private final IMenuDao dao;
 

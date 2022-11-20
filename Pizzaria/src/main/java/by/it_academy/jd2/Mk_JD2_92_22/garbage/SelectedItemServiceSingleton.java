@@ -1,7 +1,4 @@
-package by.it_academy.jd2.Mk_JD2_92_22.pizza.services;
-
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.sindleton.SelectedItemDaoSingleton;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.services.api.ISelectedItemService;
+package by.it_academy.jd2.Mk_JD2_92_22.garbage;
 
 import java.beans.PropertyVetoException;
 

@@ -1,9 +1,7 @@
-package by.it_academy.jd2.Mk_JD2_92_22.pizza.controllers.servlets;
+package by.it_academy.jd2.Mk_JD2_92_22.garbage;
 
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.ITicket;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto.TicketDTO;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.services.api.ITicketService;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.services.singleton.TicketServiceSingleton;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 

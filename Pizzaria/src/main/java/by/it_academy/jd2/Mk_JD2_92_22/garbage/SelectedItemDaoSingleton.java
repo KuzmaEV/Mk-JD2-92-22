@@ -1,8 +1,6 @@
-package by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.sindleton;
+package by.it_academy.jd2.Mk_JD2_92_22.garbage;
 
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.SelectedItemDao;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.api.DataSourceCreator;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.api.ISelectedItemDao;
 
 import java.beans.PropertyVetoException;
 
