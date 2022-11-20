@@ -23,8 +23,6 @@ public class OrderServlet extends HttpServlet {
     private final ObjectMapper mapper;
     private final IOrderService service;
 
-    private static final String CHARACTER_ENCODING = "UTF-8";
-    private static final String CONTENT_TYPE = "application/json";
 
     public OrderServlet() throws PropertyVetoException {
         this.mapper = new ObjectMapper().registerModule(new JavaTimeModule());
@@ -33,9 +31,7 @@ public class OrderServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        req.setCharacterEncoding(CHARACTER_ENCODING);
-        resp.setContentType(CONTENT_TYPE);
-        resp.setCharacterEncoding(CHARACTER_ENCODING);
+
         PrintWriter writer = resp.getWriter();
 
         String idStr = req.getParameter("id");
@@ -55,9 +51,6 @@ public class OrderServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        req.setCharacterEncoding(CHARACTER_ENCODING);
-        resp.setContentType(CONTENT_TYPE);
-        resp.setCharacterEncoding(CHARACTER_ENCODING);
 
         OrderDTO orderDTO = mapper.readValue(req.getInputStream(), OrderDTO.class);
 
@@ -69,16 +62,21 @@ public class OrderServlet extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        req.setCharacterEncoding(CHARACTER_ENCODING);
-        resp.setContentType(CONTENT_TYPE);
-        resp.setCharacterEncoding(CHARACTER_ENCODING);
+
+        String idStr = req.getParameter("id");
+        long id = Long.parseLong(idStr);
+
+        LocalDateTime dtUpdate = mapper.readValue(req.getParameter("dtUpdate"), LocalDateTime.class);
+
+        OrderDTO orderDTO = mapper.readValue(req.getInputStream(), OrderDTO.class);
+
+        IOrder update = service.update(id, dtUpdate, orderDTO);
+
+        resp.getWriter().write(mapper.writeValueAsString(update));
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        req.setCharacterEncoding(CHARACTER_ENCODING);
-        resp.setContentType(CONTENT_TYPE);
-        resp.setCharacterEncoding(CHARACTER_ENCODING);
 
         String idStr = req.getParameter("id");
         long id = Long.parseLong(idStr);

@@ -23,9 +23,6 @@ public class MenuRowServlet extends HttpServlet {
     private final IMenuRowService service;
     private final ObjectMapper mapper;
 
-    private static final String CHARACTER_ENCODING = "UTF-8";
-    private static final String CONTENT_TYPE = "application/json";
-
 
     public MenuRowServlet() throws PropertyVetoException {
         this.service = MenuRowServiceSingleton.getInstance();
@@ -34,10 +31,6 @@ public class MenuRowServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-
-        req.setCharacterEncoding(CHARACTER_ENCODING);
-        resp.setContentType(CONTENT_TYPE);
-        resp.setCharacterEncoding(CHARACTER_ENCODING);
 
         String idString = req.getParameter("id");
         PrintWriter writer = resp.getWriter();
@@ -58,10 +51,6 @@ public class MenuRowServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-
-        req.setCharacterEncoding(CHARACTER_ENCODING);
-        resp.setContentType(CONTENT_TYPE);
-        resp.setCharacterEncoding(CHARACTER_ENCODING);
 
         DtoMenuRowServlet dto = mapper.readValue(req.getInputStream(), DtoMenuRowServlet.class);
 
@@ -84,10 +73,6 @@ public class MenuRowServlet extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        req.setCharacterEncoding(CHARACTER_ENCODING);
-        resp.setContentType(CONTENT_TYPE);
-        resp.setCharacterEncoding(CHARACTER_ENCODING);
-
         String idStr = req.getParameter("id");
         long id = Long.parseLong(idStr.trim());
 
@@ -104,8 +89,6 @@ public class MenuRowServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-
-        req.setCharacterEncoding(CHARACTER_ENCODING);
 
         String idStr = req.getParameter("id");
         long id = Long.parseLong(idStr);

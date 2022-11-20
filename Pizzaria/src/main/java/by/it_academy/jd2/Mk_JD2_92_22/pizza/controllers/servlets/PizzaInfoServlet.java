@@ -22,9 +22,6 @@ public class PizzaInfoServlet extends HttpServlet {
     private final ObjectMapper mapper;
 
 
-    private static final String ENCODING = "UTF-8";
-    private static final String CONTENT_TYPE = "application/json";
-
     public PizzaInfoServlet() {
         this.service = PizzaInfoServiceSingleton.getInstance();
         this.mapper = JsonMapper.builder().addModule(new JavaTimeModule()).build();

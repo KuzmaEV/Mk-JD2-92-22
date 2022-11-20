@@ -22,8 +22,6 @@ public class MenuServlet extends HttpServlet {
     private final IMenuService service;
     private final ObjectMapper mapper;
 
-    private final static String CHARACTER_ENCODING = "UTF-8";
-    private final static String CONTENT_TYPE = "application/json";
 
     public MenuServlet() throws PropertyVetoException {
         service = MenuServiceSingleton.getInstance();
@@ -32,10 +30,6 @@ public class MenuServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-
-        req.setCharacterEncoding(CHARACTER_ENCODING);
-        resp.setContentType(CONTENT_TYPE);
-        resp.setContentType(CHARACTER_ENCODING);
 
         String idString = req.getParameter("id");
 
@@ -59,10 +53,6 @@ public class MenuServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-    req.setCharacterEncoding(CHARACTER_ENCODING);
-    resp.setContentType(CONTENT_TYPE);
-    resp.setCharacterEncoding(CHARACTER_ENCODING);
-
         DtoMenuServlet dto = mapper.readValue(req.getInputStream(), DtoMenuServlet.class);
 
         if (dto.getName() == null){
@@ -78,9 +68,6 @@ public class MenuServlet extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        req.setCharacterEncoding(CHARACTER_ENCODING);
-        resp.setContentType(CONTENT_TYPE);
-        resp.setCharacterEncoding(CHARACTER_ENCODING);
 
         long id;
 
@@ -114,9 +101,6 @@ public class MenuServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        req.setCharacterEncoding(CHARACTER_ENCODING);
-        resp.setContentType(CONTENT_TYPE);
-        resp.setCharacterEncoding(CHARACTER_ENCODING);
 
         long id;
 
