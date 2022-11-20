@@ -1,6 +1,7 @@
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.controllers.servlets;
 
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IMenu;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.controllers.utils.mapper.ObjectMapperSingleton;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto.DtoMenuServlet;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.services.singleton.MenuServiceSingleton;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.services.api.IMenuService;
@@ -25,7 +26,7 @@ public class MenuServlet extends HttpServlet {
 
     public MenuServlet() throws PropertyVetoException {
         service = MenuServiceSingleton.getInstance();
-        mapper = JsonMapper.builder().addModule(new JavaTimeModule()).build();
+        mapper = ObjectMapperSingleton.getInstance();
     }
 
     @Override

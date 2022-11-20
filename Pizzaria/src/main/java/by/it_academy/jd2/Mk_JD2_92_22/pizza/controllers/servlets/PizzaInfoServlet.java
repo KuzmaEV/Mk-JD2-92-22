@@ -1,12 +1,11 @@
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.controllers.servlets;
 
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IPizzaInfo;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.controllers.utils.mapper.ObjectMapperSingleton;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto.PizzaInfoDTO;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.services.singleton.PizzaInfoServiceSingleton;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.services.api.IPizzaInfoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,7 +23,7 @@ public class PizzaInfoServlet extends HttpServlet {
 
     public PizzaInfoServlet() {
         this.service = PizzaInfoServiceSingleton.getInstance();
-        this.mapper = JsonMapper.builder().addModule(new JavaTimeModule()).build();
+        this.mapper = ObjectMapperSingleton.getInstance();
     }
 
     //Read

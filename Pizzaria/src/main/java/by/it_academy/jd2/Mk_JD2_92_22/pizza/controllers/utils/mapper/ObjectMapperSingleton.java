@@ -20,8 +20,8 @@ public class ObjectMapperSingleton {
         customModule.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer());
         customModule.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer());
 
-        mapper.registerModule(customModule);
         mapper.registerModule(new JavaTimeModule());
+        mapper.registerModule(customModule);
 
     }
 

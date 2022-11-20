@@ -1,6 +1,7 @@
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.controllers.servlets;
 
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IOrder;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.controllers.utils.mapper.ObjectMapperSingleton;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto.OrderDTO;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.services.api.IOrderService;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.services.singleton.OrderServiceSingleton;
@@ -25,7 +26,7 @@ public class OrderServlet extends HttpServlet {
 
 
     public OrderServlet() throws PropertyVetoException {
-        this.mapper = new ObjectMapper().registerModule(new JavaTimeModule());
+        this.mapper = ObjectMapperSingleton.getInstance();
         this.service = OrderServiceSingleton.getInstance();
     }
 
