@@ -30,7 +30,7 @@ public class OrderDao implements IOrderDao {
             "WHERE \"order\".id = ?;";
 
     private static final String GET_ORDER_SQL = "SELECT id, dt_create, dt_update\n" +
-            "\tFROM pizzeria.\"order\"";
+            "\tFROM pizzeria.\"order\";";
     private static final String GET_SELECTED_SQL = "SELECT selected_item.id, \"count\",\n" +
             "menu_row.id, menu_row.dt_create, menu_row.dt_update, price, menu,\n" +
             "info, pizza_info.dt_create, pizza_info.dt_update, name, description,\n" +
@@ -38,7 +38,7 @@ public class OrderDao implements IOrderDao {
             "FROM pizzeria.\"order\"\n" +
             "INNER JOIN pizzeria.selected_item ON \"order\".id = selected_item.\"order\"\n" +
             "INNER JOIN pizzeria.menu_row ON selected_item.menu_row = menu_row.id\n" +
-            "INNER JOIN pizzeria.pizza_info ON menu_row.info = pizza_info.id" +
+            "INNER JOIN pizzeria.pizza_info ON menu_row.info = pizza_info.id\n" +
             "WHERE \"order\".id = ?;";
 
     private static final String CREATE_ORDER_SQL = "INSERT INTO pizzeria.\"order\"(\n" +
@@ -47,15 +47,17 @@ public class OrderDao implements IOrderDao {
     private static final String CREATE_SELECTED_SQL = "INSERT INTO pizzeria.selected_item(\n" +
             "\tmenu_row, count, \"order\")\n" +
             "\tVALUES (?, ?, ?);";
-    private static final String CREATE_TICKET_SQL = "INSERT INTO pizzeria.ticket(\n" +
-            "\tdt_create, \"order\")\n" +
-            "\tVALUES (?, ? );";
+//    private static final String CREATE_TICKET_SQL = "INSERT INTO pizzeria.ticket(\n" +
+//            "\tdt_create, \"order\")\n" +
+//            "\tVALUES (?, ? );";
 
     private static final String UPDATE_SQL = "";
-    private static final String DELETE_SQL = "DELETE FROM pizzeria.\"order\"\n" +
-            "INNER JOIN pizzeria.selected_item ON \"order\".id = selected_item.\"order\"\n" +
-            "INNER JOIN pizzeria.ticket ON \"order\".id = ticket.\"order\"\n" +
+
+    private static final String DELETE_ORDER_SQL = "DELETE FROM pizzeria.\"order\"\n" +
             "\tWHERE \"order\".id = ? AND dt_update = ?;";
+    private static final String DELETE_SELECTED_SQL = "DELETE FROM pizzeria.selected_item\n" +
+            "\tWHERE selected_item.\"order\" = ?;";
+
 
     public OrderDao(DataSource ds) {
         this.ds = ds;
@@ -92,7 +94,9 @@ public class OrderDao implements IOrderDao {
 
             try (ResultSet rsOrder = psOrder.executeQuery()){
                 while (rsOrder.next()){
-                    rsOrder.getLong(1);
+                    long id = rsOrder.getLong(1);
+
+                    psSelected.setLong(1, id);
                     try(ResultSet rsSelected = psSelected.executeQuery()){
 
                         orders.add(mapper(rsOrder, rsSelected));
@@ -112,10 +116,11 @@ public class OrderDao implements IOrderDao {
     public ITicket create(OrderDTO item) {
         try(Connection conn = ds.getConnection();
             PreparedStatement ps = conn.prepareStatement(CREATE_ORDER_SQL, Statement.RETURN_GENERATED_KEYS);
-            PreparedStatement psSelected = conn.prepareStatement(CREATE_SELECTED_SQL);
-            PreparedStatement psTicket = conn.prepareStatement(CREATE_TICKET_SQL)) {
+            PreparedStatement psSelected = conn.prepareStatement(CREATE_SELECTED_SQL))
+//            PreparedStatement psTicket = conn.prepareStatement(CREATE_TICKET_SQL)
+            {
 
-            conn.setAutoCommit(false);  //Отключаем автоКоммит
+            conn.setAutoCommit(false);
 
             ps.setObject(1, item.getDtUpdate());
             ps.setObject(2, item.getDtUpdate());
@@ -125,9 +130,9 @@ public class OrderDao implements IOrderDao {
                 if (gk.next()){
                     long id = gk.getLong(1);
 
-                    psTicket.setObject(1, gk.getObject(2, LocalDateTime.class));
-                    psTicket.setLong(2, id);
-                    psTicket.execute();
+//                    psTicket.setObject(1, gk.getObject(2, LocalDateTime.class));
+//                    psTicket.setLong(2, id);
+//                    psTicket.execute();
 
                     for (OrderDTO.Selected selected : item.getSelectedItem()) {
                         psSelected.setLong(1, selected.getMenuRow());
@@ -161,18 +166,25 @@ public class OrderDao implements IOrderDao {
     public void delete(long id, LocalDateTime dtUpdate) {
 
         try(Connection conn = ds.getConnection();
-            PreparedStatement ps = conn.prepareStatement(DELETE_SQL)) {
-            ps.setLong(1, id);
-            ps.setObject(2, dtUpdate);
+            PreparedStatement psOrder = conn.prepareStatement(DELETE_ORDER_SQL);
+            PreparedStatement psSelected = conn.prepareStatement(DELETE_SELECTED_SQL)) {
+            conn.setAutoCommit(false);
 
-            int countDeletedRows = ps.executeUpdate();
-            if (countDeletedRows != 1){
-                if (countDeletedRows == 0){
+            psSelected.setLong(1, id);
+            psSelected.execute();
+
+            psOrder.setLong(1, id);
+            psOrder.setObject(2, dtUpdate);
+            int countDeletedRowsOrder = psOrder.executeUpdate();
+
+            if (countDeletedRowsOrder != 1){
+                if (countDeletedRowsOrder == 0){
                     throw new IllegalArgumentException("Не удалось удалить!");
                 } else {
                     throw new IllegalArgumentException("Ошибка. Удалило несколько заказов!");
                 }
             }
+            conn.commit();
 
         } catch (SQLException e) {
             throw new RuntimeException("Ну удалось удалить заказ! " + e.getMessage());

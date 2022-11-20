@@ -1,6 +1,6 @@
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.controllers.servlets;
 
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IOrder;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.ITicket;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.controllers.utils.mapper.ObjectMapperSingleton;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto.OrderDTO;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.services.api.IOrderService;
@@ -38,12 +38,12 @@ public class OrderServlet extends HttpServlet {
 
         if (idStr != null){
             long id = Long.parseLong(idStr);
-            IOrder order = service.read(id);
-            String orderStr = mapper.writeValueAsString(order);
-            writer.write(orderStr);
+            ITicket ticket = service.read(id);
+            String ticketStr = mapper.writeValueAsString(ticket);
+            writer.write(ticketStr);
         } else {
-            List<IOrder> orders = service.get();
-            writer.write(mapper.writeValueAsString(orders));
+            List<ITicket> tickets = service.get();
+            writer.write(mapper.writeValueAsString(tickets));
         }
 
 
@@ -52,11 +52,11 @@ public class OrderServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        OrderDTO orderDTO = mapper.readValue(req.getInputStream(), OrderDTO.class);
+        OrderDTO dto = mapper.readValue(req.getInputStream(), OrderDTO.class);
 
-        IOrder order = service.create(orderDTO);
+        ITicket ticket = service.create(dto);
 
-        resp.getWriter().write(mapper.writeValueAsString(order));
+        resp.getWriter().write(mapper.writeValueAsString(ticket));
 
     }
 
@@ -70,7 +70,7 @@ public class OrderServlet extends HttpServlet {
 
         OrderDTO orderDTO = mapper.readValue(req.getInputStream(), OrderDTO.class);
 
-        IOrder update = service.update(id, dtUpdate, orderDTO);
+        ITicket update = service.update(id, dtUpdate, orderDTO);
 
         resp.getWriter().write(mapper.writeValueAsString(update));
     }
