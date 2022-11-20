@@ -121,6 +121,8 @@ public class OrderDao implements IOrderDao {
             PreparedStatement psSelected = conn.prepareStatement(CREATE_SELECTED_SQL);
             PreparedStatement psTicket = conn.prepareStatement(CREATE_TICKET_SQL)) {
 
+            conn.setAutoCommit(false);  //Отключаем автоКоммит
+
             ps.setObject(1, item.getDtUpdate());
             ps.setObject(2, item.getDtUpdate());
 
@@ -130,6 +132,8 @@ public class OrderDao implements IOrderDao {
                     long id = gk.getLong(1);
 
                     psTicket.setObject(1, gk.getObject(2, LocalDateTime.class));
+                    psTicket.setLong(2, id);
+                    psTicket.execute();
 
                     for (OrderDTO.Selected selected : item.getSelectedItem()) {
                         psSelected.setLong(1, selected.getMenuRow());
@@ -139,6 +143,8 @@ public class OrderDao implements IOrderDao {
                         psSelected.addBatch();
                     }
                     psSelected.executeBatch();
+
+                    conn.commit();
 
                     return read(id);
                 }

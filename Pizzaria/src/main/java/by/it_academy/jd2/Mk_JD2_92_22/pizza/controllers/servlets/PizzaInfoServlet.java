@@ -34,11 +34,6 @@ public class PizzaInfoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-
-        req.setCharacterEncoding(ENCODING);
-        resp.setContentType(CONTENT_TYPE);
-        resp.setCharacterEncoding(ENCODING);
-
         String stringId = req.getParameter("id");
         String json;
 
@@ -70,10 +65,6 @@ public class PizzaInfoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        req.setCharacterEncoding(ENCODING);
-        resp.setContentType(CONTENT_TYPE);
-        resp.setCharacterEncoding(ENCODING);
-
         PizzaInfoDTO dto = mapper.readValue(req.getInputStream(), PizzaInfoDTO.class);
         if (dto.getName() == null){
             throw new IllegalStateException("При создании пиццы, нужно ввести Имя");
@@ -97,11 +88,6 @@ public class PizzaInfoServlet extends HttpServlet {
     //UPDATE
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-
-
-        req.setCharacterEncoding(ENCODING);
-        resp.setContentType(CONTENT_TYPE);
-        resp.setCharacterEncoding(ENCODING);
 
         String idString = req.getParameter("id");
         long id = Long.parseLong(idString.trim());
@@ -132,11 +118,6 @@ public class PizzaInfoServlet extends HttpServlet {
     //DELETE
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-
-
-        req.setCharacterEncoding(ENCODING);
-        resp.setContentType(CONTENT_TYPE);
-        resp.setCharacterEncoding(ENCODING);
 
         long id = Long.parseLong(req.getParameter("id"));
         String dtUpdateString = req.getParameter("dtUpdate");
