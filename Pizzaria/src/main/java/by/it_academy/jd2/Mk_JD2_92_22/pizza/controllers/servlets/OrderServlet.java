@@ -1,8 +1,8 @@
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.controllers.servlets;
 
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.ITicket;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.entity.api.ITicket;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.controllers.utils.mapper.ObjectMapperSingleton;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto.OrderDTO;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.services.dto.OrderDTO;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.services.api.IOrderService;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.services.singleton.OrderServiceSingleton;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -1,12 +1,11 @@
 package by.it_academy.jd2.Mk_JD2_92_22.garbage.web.servlets.pizzaInfo;
 
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IPizzaInfo;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.entity.api.IPizzaInfo;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.entity.PizzaInfo;
 import by.it_academy.jd2.Mk_JD2_92_22.garbage.services.PizzaInfoService;
 import by.it_academy.jd2.Mk_JD2_92_22.garbage.services.api.IPizzaInfoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -1,8 +1,8 @@
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.services;
 
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IMenuRow;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto.DtoMenuRowService;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto.DtoMenuRowServlet;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.entity.api.IMenuRow;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.services.dto.DtoMenuRowService;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.services.dto.DtoMenuRowServlet;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.sindleton.PizzaInfoDaoSingleton;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.api.IMenuRowDao;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.api.IPizzaInfoDao;

@@ -1,9 +1,10 @@
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.dao;
 
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.*;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.core.dto.OrderDTO;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.services.dto.OrderDTO;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.api.IOrderDao;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.entity.*;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.entity.api.*;
 
 import javax.sql.DataSource;
 import java.sql.*;

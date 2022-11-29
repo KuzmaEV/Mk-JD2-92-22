@@ -1,7 +1,7 @@
 package by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.entity;
 
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IMenuRow;
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.ISelectedItem;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.entity.api.IMenuRow;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.entity.api.ISelectedItem;
 
 
 public class SelectedItem implements ISelectedItem {

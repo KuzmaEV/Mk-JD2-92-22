@@ -1,6 +1,6 @@
 package by.it_academy.jd2.Mk_JD2_92_22.garbage.storages;
 
-import by.it_academy.jd2.Mk_JD2_92_22.pizza.api.IPizzaInfo;
+import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.entity.api.IPizzaInfo;
 import by.it_academy.jd2.Mk_JD2_92_22.pizza.dao.entity.PizzaInfo;
 import by.it_academy.jd2.Mk_JD2_92_22.garbage.storages.api.IPizzaInfoStorage;
 import com.fasterxml.jackson.databind.ObjectMapper;
