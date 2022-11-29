@@ -15,18 +15,19 @@ public class PizzaInfo implements IPizzaInfo {
 
     @Id
     @GeneratedValue
-    private final long id;
+    private long id;
 
     @Column(name = "dt_create")
-    private final LocalDateTime dtCreate;
+    private LocalDateTime dtCreate;
 
     @Column(name = "dt_update")
-    private final LocalDateTime dtUpdate;
-    private final String name;
-    private final String description;
-    private final int size;
+    private LocalDateTime dtUpdate;
+    private String name;
+    private String description;
+    private int size;
 
-
+    public PizzaInfo() {
+    }
 
     public PizzaInfo(long id, LocalDateTime dtCreate, LocalDateTime dtUpdate, String name, String description, int size) {
         this.id = id;
