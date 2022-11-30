@@ -6,14 +6,15 @@ import by.mk_jd2_92_22.pizzeria.services.dto.PizzaInfoDTO;
 import by.mk_jd2_92_22.pizzeria.services.singleton.PizzaInfoServiceSingleton;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class PizzaInfoServiceTest {
 
+    IPizzaInfoService service = PizzaInfoServiceSingleton.getInstance();
+
     @Test
     public void get(){
-
-        IPizzaInfoService service = PizzaInfoServiceSingleton.getInstance();
 
         List<IPizzaInfo> pizzaInfoList = service.get();
 
@@ -26,8 +27,6 @@ public class PizzaInfoServiceTest {
     @Test
     public void create(){
 
-        IPizzaInfoService service = PizzaInfoServiceSingleton.getInstance();
-
         PizzaInfoDTO dto = new PizzaInfoDTO(
                 "PizzaHibernate",
                 "To check CREATE pizzaInfo",
@@ -36,5 +35,30 @@ public class PizzaInfoServiceTest {
         IPizzaInfo pizzaInfo = service.create(dto);
 
         System.out.println(pizzaInfo);
+    }
+
+    @Test
+    public void update(){
+
+        IPizzaInfo pizzaInfo = service.read(324);
+
+
+        PizzaInfoDTO dto = new PizzaInfoDTO();
+
+        dto.setName("updateHibernate");
+        dto.setDescription("UPDATE pizzaInfo - Ok");
+        dto.setSize(45);
+
+        service.update(324, pizzaInfo.getDtUpdate(), dto);
+
+        System.out.println(service.read(324));
+    }
+    @Test
+    void delete(){
+        IPizzaInfo read = service.read(325);
+        LocalDateTime dtUpdate = read.getDtUpdate();
+
+        service.delete(325,dtUpdate);
+
     }
 }

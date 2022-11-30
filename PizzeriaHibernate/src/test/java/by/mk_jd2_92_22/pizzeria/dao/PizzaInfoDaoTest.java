@@ -12,7 +12,7 @@ public class PizzaInfoDaoTest {
             public void read() {
         IPizzaInfoDao dao = PizzaInfoDaoSingleton.getInstance();
 
-        long id = 49;
+        long id = 325;
 
          IPizzaInfo read = dao.read(id);
 

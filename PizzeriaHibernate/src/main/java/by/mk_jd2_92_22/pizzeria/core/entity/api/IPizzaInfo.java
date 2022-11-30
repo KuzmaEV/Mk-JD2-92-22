@@ -39,4 +39,9 @@ public interface IPizzaInfo {
      * @return Итоговый размер пиццы которую приготовят
      */
     int getSize();
+
+
+    void setName(String name);
+    void setDescription(String description);
+    void setSize(int size);
 }

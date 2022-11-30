@@ -1,8 +1,11 @@
 package by.mk_jd2_92_22.pizzeria.dao.sindleton;
 
 
+import by.mk_jd2_92_22.pizzeria.dao.EntityManagerUtil;
 import by.mk_jd2_92_22.pizzeria.dao.PizzaInfoDao;
 import by.mk_jd2_92_22.pizzeria.dao.api.IPizzaInfoDao;
+
+import javax.persistence.EntityManager;
 
 
 public class PizzaInfoDaoSingleton {
@@ -11,7 +14,7 @@ public class PizzaInfoDaoSingleton {
 
     public PizzaInfoDaoSingleton() {
         
-            pizzaInfoDao = new PizzaInfoDao();
+            pizzaInfoDao = new PizzaInfoDao(EntityManagerUtil.getEntityManager());
         
     }
 

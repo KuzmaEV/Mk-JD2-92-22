@@ -16,18 +16,18 @@ import java.util.List;
 
 public class PizzaInfoDao implements IPizzaInfoDao {
 
+    private final EntityManager entityManager;
+
+    public PizzaInfoDao(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 
     @Override
     public IPizzaInfo read(long id) {
 
-        EntityManager entityManager = EntityManagerUtil.getEntityManager();
-
         entityManager.getTransaction().begin();
         IPizzaInfo pizzaInfo = entityManager.find(PizzaInfo.class, id);
         entityManager.getTransaction().commit();
-        
-        EntityManagerUtil.close();
-
 
         return pizzaInfo;
     }
@@ -35,13 +35,12 @@ public class PizzaInfoDao implements IPizzaInfoDao {
     @Override
     public List<IPizzaInfo> get() {
 
-        EntityManager entityManager = EntityManagerUtil.getEntityManager();
+        //Criteria
+
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<IPizzaInfo> criteriaQuery = criteriaBuilder.createQuery(IPizzaInfo.class);
         Root<PizzaInfo> root = criteriaQuery.from(PizzaInfo.class);
         criteriaQuery.select(root)/*.where(criteriaBuilder.equal(root.get("size"), 60))*/;
-
-        EntityManagerUtil.close();
 
         return entityManager.createQuery(criteriaQuery).getResultList();
     }
@@ -49,12 +48,9 @@ public class PizzaInfoDao implements IPizzaInfoDao {
     @Override
     public IPizzaInfo create(IPizzaInfo item) {
 
-        EntityManager entityManager = EntityManagerUtil.getEntityManager();
         entityManager.getTransaction().begin();
         entityManager.persist(item);
         entityManager.getTransaction().commit();
-
-        EntityManagerUtil.close();
 
         return item;
     }
@@ -63,12 +59,23 @@ public class PizzaInfoDao implements IPizzaInfoDao {
     public IPizzaInfo update(long id, LocalDateTime dtUpdate, IPizzaInfo item) {
 
 
-            return read(id);
+        entityManager.getTransaction().begin();
+        IPizzaInfo merge = entityManager.merge(item);
+        entityManager.getTransaction().commit();
+
+        return merge;
 
     }
 
     @Override
     public void delete(long id, LocalDateTime dtUpdate) {
+
+        entityManager.getTransaction().begin();
+
+        IPizzaInfo pizzaInfo = entityManager.find(PizzaInfo.class, id);
+        entityManager.remove(pizzaInfo);
+
+        entityManager.getTransaction().commit();
 
     }
 
