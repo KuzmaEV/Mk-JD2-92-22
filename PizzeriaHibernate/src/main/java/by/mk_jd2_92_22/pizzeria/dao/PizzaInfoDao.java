@@ -4,9 +4,11 @@ package by.mk_jd2_92_22.pizzeria.dao;
 import by.mk_jd2_92_22.pizzeria.core.entity.PizzaInfo;
 import by.mk_jd2_92_22.pizzeria.core.entity.api.IPizzaInfo;
 import by.mk_jd2_92_22.pizzeria.dao.api.IPizzaInfoDao;
-import by.mk_jd2_92_22.pizzeria.services.dto.PizzaInfoDTO;
 
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import java.time.LocalDateTime;
 
@@ -21,7 +23,7 @@ public class PizzaInfoDao implements IPizzaInfoDao {
         EntityManager entityManager = EntityManagerUtil.getEntityManager();
 
         entityManager.getTransaction().begin();
-        PizzaInfo pizzaInfo = entityManager.find(PizzaInfo.class, id);
+        IPizzaInfo pizzaInfo = entityManager.find(PizzaInfo.class, id);
         entityManager.getTransaction().commit();
         
         EntityManagerUtil.close();
@@ -33,18 +35,32 @@ public class PizzaInfoDao implements IPizzaInfoDao {
     @Override
     public List<IPizzaInfo> get() {
 
+        EntityManager entityManager = EntityManagerUtil.getEntityManager();
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<IPizzaInfo> criteriaQuery = criteriaBuilder.createQuery(IPizzaInfo.class);
+        Root<PizzaInfo> root = criteriaQuery.from(PizzaInfo.class);
+        criteriaQuery.select(root)/*.where(criteriaBuilder.equal(root.get("size"), 60))*/;
 
-return null;
+        EntityManagerUtil.close();
+
+        return entityManager.createQuery(criteriaQuery).getResultList();
     }
 
     @Override
-    public IPizzaInfo create(PizzaInfoDTO item) {
+    public IPizzaInfo create(IPizzaInfo item) {
 
-        return null;
+        EntityManager entityManager = EntityManagerUtil.getEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.persist(item);
+        entityManager.getTransaction().commit();
+
+        EntityManagerUtil.close();
+
+        return item;
     }
 
     @Override
-    public IPizzaInfo update(long id, LocalDateTime dtUpdate, PizzaInfoDTO item) {
+    public IPizzaInfo update(long id, LocalDateTime dtUpdate, IPizzaInfo item) {
 
 
             return read(id);

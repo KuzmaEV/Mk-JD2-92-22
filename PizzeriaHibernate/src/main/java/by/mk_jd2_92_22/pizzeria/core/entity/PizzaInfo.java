@@ -4,17 +4,15 @@ package by.mk_jd2_92_22.pizzeria.core.entity;
 
 import by.mk_jd2_92_22.pizzeria.core.entity.api.IPizzaInfo;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity(name = "pizza_info")
+@Entity
+@Table(name = "pizza_info")
 public class PizzaInfo implements IPizzaInfo {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "dt_create")
@@ -31,6 +29,14 @@ public class PizzaInfo implements IPizzaInfo {
 
     public PizzaInfo(long id, LocalDateTime dtCreate, LocalDateTime dtUpdate, String name, String description, int size) {
         this.id = id;
+        this.dtCreate = dtCreate;
+        this.dtUpdate = dtUpdate;
+        this.name = name;
+        this.description = description;
+        this.size = size;
+    }
+
+    public PizzaInfo(LocalDateTime dtCreate, LocalDateTime dtUpdate, String name, String description, int size) {
         this.dtCreate = dtCreate;
         this.dtUpdate = dtUpdate;
         this.name = name;
@@ -66,6 +72,22 @@ public class PizzaInfo implements IPizzaInfo {
     @Override
     public int getSize() {
         return size;
+    }
+
+    public void setDtUpdate(LocalDateTime dtUpdate) {
+        this.dtUpdate = dtUpdate;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
     }
 
     @Override

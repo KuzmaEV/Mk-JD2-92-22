@@ -1,5 +1,6 @@
 package by.mk_jd2_92_22.pizzeria.services;
 
+import by.mk_jd2_92_22.pizzeria.core.entity.PizzaInfo;
 import by.mk_jd2_92_22.pizzeria.core.entity.api.IPizzaInfo;
 import by.mk_jd2_92_22.pizzeria.dao.api.IPizzaInfoDao;
 import by.mk_jd2_92_22.pizzeria.services.api.IPizzaInfoService;
@@ -31,8 +32,15 @@ public class PizzaInfoService implements IPizzaInfoService {
     @Override
     public IPizzaInfo create(PizzaInfoDTO item) {
 
-        item.setDtUpdate(LocalDateTime.now());
-        return dao.create(item);
+        IPizzaInfo pizzaInfo = new PizzaInfo(
+                LocalDateTime.now(),
+                LocalDateTime.now(),
+                item.getName(),
+                item.getDescription(),
+                item.getSize()
+        );
+
+        return dao.create(pizzaInfo);
     }
 
     @Override
@@ -47,8 +55,16 @@ public class PizzaInfoService implements IPizzaInfoService {
             throw new IllegalArgumentException("Пицца кем-то отредактирована");
         }
 
-        item.setDtUpdate(LocalDateTime.now());
-        return dao.update(id, dtUpdate, item);
+        IPizzaInfo pizzaInfo = new PizzaInfo(
+                id,
+                read.getDtCreate(),
+                LocalDateTime.now(),
+                item.getName(),
+                item.getDescription(),
+                item.getSize()
+        );
+
+        return dao.update(id, dtUpdate, pizzaInfo);
     }
 
     @Override
