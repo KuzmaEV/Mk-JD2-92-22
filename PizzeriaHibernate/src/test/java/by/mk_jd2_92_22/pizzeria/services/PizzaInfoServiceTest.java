@@ -1,10 +1,9 @@
 package by.mk_jd2_92_22.pizzeria.services;
 
-import by.mk_jd2_92_22.pizzeria.core.entity.api.IPizzaInfo;
+import by.mk_jd2_92_22.pizzeria.dao.entity.api.IPizzaInfo;
 import by.mk_jd2_92_22.pizzeria.services.api.IPizzaInfoService;
 import by.mk_jd2_92_22.pizzeria.services.dto.PizzaInfoDTO;
 import by.mk_jd2_92_22.pizzeria.services.singleton.PizzaInfoServiceSingleton;
-import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.util.List;

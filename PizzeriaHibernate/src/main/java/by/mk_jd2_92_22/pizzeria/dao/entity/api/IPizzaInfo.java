@@ -1,4 +1,4 @@
-package by.mk_jd2_92_22.pizzeria.core.entity.api;
+package by.mk_jd2_92_22.pizzeria.dao.entity.api;
 
 import java.time.LocalDateTime;
 

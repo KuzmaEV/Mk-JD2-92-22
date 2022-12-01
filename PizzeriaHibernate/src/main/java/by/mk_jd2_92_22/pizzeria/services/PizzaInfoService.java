@@ -1,7 +1,7 @@
 package by.mk_jd2_92_22.pizzeria.services;
 
-import by.mk_jd2_92_22.pizzeria.core.entity.PizzaInfo;
-import by.mk_jd2_92_22.pizzeria.core.entity.api.IPizzaInfo;
+import by.mk_jd2_92_22.pizzeria.dao.entity.PizzaInfo;
+import by.mk_jd2_92_22.pizzeria.dao.entity.api.IPizzaInfo;
 import by.mk_jd2_92_22.pizzeria.dao.api.IPizzaInfoDao;
 import by.mk_jd2_92_22.pizzeria.services.api.IPizzaInfoService;
 import by.mk_jd2_92_22.pizzeria.services.dto.PizzaInfoDTO;

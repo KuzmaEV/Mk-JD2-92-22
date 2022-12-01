@@ -1,8 +1,8 @@
-package by.mk_jd2_92_22.pizzeria.core.entity;
+package by.mk_jd2_92_22.pizzeria.dao.entity;
 
 
 
-import by.mk_jd2_92_22.pizzeria.core.entity.api.IPizzaInfo;
+import by.mk_jd2_92_22.pizzeria.dao.entity.api.IPizzaInfo;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

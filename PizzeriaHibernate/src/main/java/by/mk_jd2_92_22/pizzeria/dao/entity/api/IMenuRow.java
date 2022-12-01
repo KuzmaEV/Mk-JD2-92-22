@@ -1,7 +1,5 @@
 package by.mk_jd2_92_22.pizzeria.dao.entity.api;
 
-import by.mk_jd2_92_22.pizzeria.core.entity.api.IPizzaInfo;
-
 import java.time.LocalDateTime;
 
 /**
@@ -30,6 +28,11 @@ public interface IMenuRow {
      * @return Возращает Меню(покачто возращаен ИД Меню)
      */
     long getMenu();
+
+    void setDtUpdate(LocalDateTime dtUpdate);
+    void setInfo(IPizzaInfo pizzaInfo);
+    void setPrise(double prise);
+    void setMenu(long menu);
 
 
 

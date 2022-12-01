@@ -1,19 +1,42 @@
 package by.mk_jd2_92_22.pizzeria.dao.entity;
 
-import by.mk_jd2_92_22.pizzeria.core.entity.api.IPizzaInfo;
+import by.mk_jd2_92_22.pizzeria.dao.entity.api.IPizzaInfo;
 import by.mk_jd2_92_22.pizzeria.dao.entity.api.IMenuRow;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "menu_row")
 public class MenuRow implements IMenuRow {
 
-    private final long id;
-    private final LocalDateTime dtCreate;
-    private final LocalDateTime dtUpdate;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
-    private final IPizzaInfo info;
-    private final double price;
-    private final long menu;
+    @Column(name = "dt_create")
+    private LocalDateTime dtCreate;
+
+    @Column(name = "dt_update")
+    private LocalDateTime dtUpdate;
+
+    @Column
+    @OneToOne
+    private IPizzaInfo info;
+
+    private double price;
+    private long menu;
+
+    public MenuRow() {
+    }
+
+    public MenuRow(LocalDateTime dtCreate, LocalDateTime dtUpdate, IPizzaInfo info, double price, long menu) {
+        this.dtCreate = dtCreate;
+        this.dtUpdate = dtUpdate;
+        this.info = info;
+        this.price = price;
+        this.menu = menu;
+    }
 
     public MenuRow(long id, LocalDateTime dtCreate, LocalDateTime dtUpdate, IPizzaInfo info, double price, long menu) {
         this.id = id;
@@ -51,6 +74,26 @@ public class MenuRow implements IMenuRow {
     @Override
     public long getMenu() {
         return menu;
+    }
+
+    @Override
+    public void setDtUpdate(LocalDateTime dtUpdate) {
+
+    }
+
+    @Override
+    public void setInfo(IPizzaInfo pizzaInfo) {
+
+    }
+
+    @Override
+    public void setPrise(double prise) {
+
+    }
+
+    @Override
+    public void setMenu(long menu) {
+
     }
 
     @Override
