@@ -13,7 +13,18 @@ public class PizzaInfoServiceTest {
 
     IPizzaInfoService service = PizzaInfoServiceSingleton.getInstance();
 
-    @Test
+//    @Test
+    public void read() {
+
+        long id = 325;
+
+        IPizzaInfo read = service.read(id);
+
+        System.out.println(read);
+
+    }
+
+//    @Test
     public void get(){
 
         List<IPizzaInfo> pizzaInfoList = service.get();
@@ -24,7 +35,7 @@ public class PizzaInfoServiceTest {
 
     }
 
-    @Test
+ //   @Test
     public void create(){
 
         PizzaInfoDTO dto = new PizzaInfoDTO(
@@ -37,7 +48,7 @@ public class PizzaInfoServiceTest {
         System.out.println(pizzaInfo);
     }
 
-    @Test
+ //   @Test
     public void update(){
 
         IPizzaInfo pizzaInfo = service.read(324);
@@ -53,7 +64,7 @@ public class PizzaInfoServiceTest {
 
         System.out.println(service.read(324));
     }
-    @Test
+ //   @Test
     void delete(){
         IPizzaInfo read = service.read(325);
         LocalDateTime dtUpdate = read.getDtUpdate();

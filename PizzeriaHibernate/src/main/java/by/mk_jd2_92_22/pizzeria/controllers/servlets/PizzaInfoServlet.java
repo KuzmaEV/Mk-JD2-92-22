@@ -73,7 +73,6 @@ public class PizzaInfoServlet extends HttpServlet {
         }
 
 
-
         String pizzaInfoCreate = mapper.writeValueAsString(service.create(dto));
         resp.getWriter().write(pizzaInfoCreate);
 
@@ -104,8 +103,8 @@ public class PizzaInfoServlet extends HttpServlet {
             dto.setSize(read.getSize());
         }
 
-        String pizzaInfoUpdate = mapper.writeValueAsString(service.update(id, dtUpdate, dto));
-        resp.getWriter().write(pizzaInfoUpdate);
+        IPizzaInfo update = service.update(id, dtUpdate, dto);
+        resp.getWriter().write(mapper.writeValueAsString(update));
 
         resp.setStatus(HttpServletResponse.SC_OK);
 

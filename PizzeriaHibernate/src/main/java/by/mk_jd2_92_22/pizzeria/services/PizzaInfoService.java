@@ -7,6 +7,7 @@ import by.mk_jd2_92_22.pizzeria.services.api.IPizzaInfoService;
 import by.mk_jd2_92_22.pizzeria.services.dto.PizzaInfoDTO;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 public class PizzaInfoService implements IPizzaInfoService {
@@ -34,7 +35,7 @@ public class PizzaInfoService implements IPizzaInfoService {
 
         IPizzaInfo pizzaInfo = new PizzaInfo(
                 LocalDateTime.now(),
-                LocalDateTime.now(),
+                LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS),
                 item.getName(),
                 item.getDescription(),
                 item.getSize()
@@ -58,7 +59,7 @@ public class PizzaInfoService implements IPizzaInfoService {
         IPizzaInfo pizzaInfo = new PizzaInfo(
                 id,
                 read.getDtCreate(),
-                LocalDateTime.now(),
+                LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS),
                 item.getName(),
                 item.getDescription(),
                 item.getSize()
