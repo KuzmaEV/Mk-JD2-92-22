@@ -49,11 +49,22 @@ public class PizzaInfoService implements IPizzaInfoService {
                              PizzaInfoDTO item/* dto БЕЗ ид и дт, только параметры для изменения*/) {
         IPizzaInfo read = dao.read(id);
 
+
         if (read == null){
             throw new IllegalArgumentException("Пицца не найдена");
         }
         if (!read.getDtUpdate().isEqual(dtUpdate)){
             throw new IllegalArgumentException("Пицца кем-то отредактирована");
+        }
+
+        if (item.getName() != null){
+            read.setName(item.getName());
+        }
+        if (item.getDescription() == null){
+            read.setDescription(item.getDescription());
+        }
+        if (item.getSize() == 0){
+            read.setSize(item.getSize());
         }
 
         IPizzaInfo pizzaInfo = new PizzaInfo(

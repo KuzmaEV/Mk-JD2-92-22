@@ -87,21 +87,13 @@ public class PizzaInfoServlet extends HttpServlet {
         String idString = req.getParameter("id");
         long id = Long.parseLong(idString.trim());
 
-         IPizzaInfo read = service.read(id);
+//         IPizzaInfo read = service.read(id);
 
         LocalDateTime dtUpdate = mapper.readValue(req.getParameter("dtUpdate"), LocalDateTime.class);
 
         PizzaInfoDTO dto = mapper.readValue(req.getInputStream(), PizzaInfoDTO.class);
 
-        if (dto.getName() == null){
-            dto.setName(read.getName());
-        }
-        if (dto.getDescription() == null){
-            dto.setDescription(read.getDescription());
-        }
-        if (dto.getSize() == 0){
-            dto.setSize(read.getSize());
-        }
+
 
         IPizzaInfo update = service.update(id, dtUpdate, dto);
         resp.getWriter().write(mapper.writeValueAsString(update));
