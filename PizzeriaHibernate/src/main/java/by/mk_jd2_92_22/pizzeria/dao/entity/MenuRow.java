@@ -20,8 +20,8 @@ public class MenuRow implements IMenuRow {
     @Column(name = "dt_update")
     private LocalDateTime dtUpdate;
 
-    @Column
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY,targetEntity = PizzaInfo.class)
+    @JoinColumn(name = "info", referencedColumnName = "id")
     private IPizzaInfo info;
 
     private double price;
@@ -78,22 +78,22 @@ public class MenuRow implements IMenuRow {
 
     @Override
     public void setDtUpdate(LocalDateTime dtUpdate) {
-
+        this.dtUpdate = dtUpdate;
     }
 
     @Override
-    public void setInfo(IPizzaInfo pizzaInfo) {
-
+    public void setInfo(IPizzaInfo info) {
+        this.info = info;
     }
 
     @Override
-    public void setPrise(double prise) {
-
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     @Override
     public void setMenu(long menu) {
-
+        this.menu = menu;
     }
 
     @Override

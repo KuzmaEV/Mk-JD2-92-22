@@ -1,6 +1,5 @@
 package by.mk_jd2_92_22.pizzeria.services;
 
-
 import by.mk_jd2_92_22.pizzeria.dao.api.IMenuRowDao;
 import by.mk_jd2_92_22.pizzeria.dao.entity.MenuRow;
 import by.mk_jd2_92_22.pizzeria.dao.entity.api.IMenuRow;
@@ -29,7 +28,7 @@ public class MenuRowService implements IMenuRowService {
 
         IMenuRow menuRow = dao.read(id);
         if (menuRow == null){
-            throw new IllegalArgumentException("Пицца не найдена!");
+            throw new IllegalArgumentException("Пункт меню не найден!");
         }
         return menuRow;
     }
@@ -70,21 +69,21 @@ public class MenuRowService implements IMenuRowService {
             throw new IllegalArgumentException("Пункт меню не найден!");
         }
 
-        menuRow.setDtUpdate(LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS)); //Добавил время обнавления
 
         if (item.getInfo() != 0){           //Если отсуствует Пицца в ДТО, остается старая
             menuRow.setInfo(pizzaInfo);
         }
         if (item.getPrice() != 0){          //Если отсуствует Цена в ДТО, остается старая
-            menuRow.setPrise(item.getPrice());
+            menuRow.setPrice(item.getPrice());
         }
-        if (item.getMenu() == 0){           //Если отсуствует Меню в ДТО, остается старая
+        if (item.getMenu() != 0){           //Если отсуствует Меню в ДТО, остается старая
             menuRow.setMenu(item.getMenu());
         }
 
         if (!menuRow.getDtUpdate().isEqual(dtUpdate)){
             throw new IllegalArgumentException("Не удалось обновить, кто-то успел отредактировать!");
         }
+        menuRow.setDtUpdate(LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS)); //Добавил время обнавления
 
 
         return dao.update(id, dtUpdate, menuRow);

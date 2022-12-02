@@ -31,7 +31,7 @@ public interface IMenuRow {
 
     void setDtUpdate(LocalDateTime dtUpdate);
     void setInfo(IPizzaInfo pizzaInfo);
-    void setPrise(double prise);
+    void setPrice(double price);
     void setMenu(long menu);
 
 
