@@ -47,34 +47,27 @@ public class PizzaInfoService implements IPizzaInfoService {
     @Override
     public IPizzaInfo update(long id, LocalDateTime dtUpdate/*дата последнено изменения*/,
                              PizzaInfoDTO item/* dto БЕЗ ид и дт, только параметры для изменения*/) {
-        IPizzaInfo read = dao.read(id);
+        IPizzaInfo pizzaInfo = dao.read(id);
 
 
-        if (read == null){
+        if (pizzaInfo == null){
             throw new IllegalArgumentException("Пицца не найдена");
-        }
-        if (!read.getDtUpdate().isEqual(dtUpdate)){
-            throw new IllegalArgumentException("Пицца кем-то отредактирована");
         }
 
         if (item.getName() != null){
-            read.setName(item.getName());
+            pizzaInfo.setName(item.getName());
         }
-        if (item.getDescription() == null){
-            read.setDescription(item.getDescription());
+        if (item.getDescription() != null){
+            pizzaInfo.setDescription(item.getDescription());
         }
-        if (item.getSize() == 0){
-            read.setSize(item.getSize());
+        if (item.getSize() != 0){
+            pizzaInfo.setSize(item.getSize());
         }
-
-        IPizzaInfo pizzaInfo = new PizzaInfo(
-                id,
-                read.getDtCreate(),
-                LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS),
-                item.getName(),
-                item.getDescription(),
-                item.getSize()
-        );
+        if (pizzaInfo.getDtUpdate().isEqual(dtUpdate)){
+           pizzaInfo.setDtUpdate(LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS));
+        } else {
+            throw new IllegalArgumentException("Пицца кем-то отредактирована");
+        }
 
         return dao.update(id, dtUpdate, pizzaInfo);
     }

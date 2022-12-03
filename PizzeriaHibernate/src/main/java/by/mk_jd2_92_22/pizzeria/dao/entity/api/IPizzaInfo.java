@@ -41,6 +41,7 @@ public interface IPizzaInfo {
     int getSize();
 
 
+    void setDtUpdate(LocalDateTime dtUpdate);
     void setName(String name);
     void setDescription(String description);
     void setSize(int size);

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-@WebServlet(name = "PizzaInfoServlet", urlPatterns = "/pizzaInfo")
+@WebServlet(name = "PizzaInfoServlet", urlPatterns = "/pizza_info")
 public class PizzaInfoServlet extends HttpServlet {
 
     private final IPizzaInfoService service;
@@ -86,8 +86,6 @@ public class PizzaInfoServlet extends HttpServlet {
 
         String idString = req.getParameter("id");
         long id = Long.parseLong(idString.trim());
-
-//         IPizzaInfo read = service.read(id);
 
         LocalDateTime dtUpdate = mapper.readValue(req.getParameter("dtUpdate"), LocalDateTime.class);
 

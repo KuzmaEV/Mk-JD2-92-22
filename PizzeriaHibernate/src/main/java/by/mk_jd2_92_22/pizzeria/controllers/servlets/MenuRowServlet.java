@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 
-@WebServlet(name = "MenuRowServlet", urlPatterns = "/menuRow")
+@WebServlet(name = "MenuRowServlet", urlPatterns = "/menu_row")
 public class MenuRowServlet extends HttpServlet {
 
     private final IMenuRowService service;
@@ -32,6 +32,7 @@ public class MenuRowServlet extends HttpServlet {
 
         String idString = req.getParameter("id");
         PrintWriter writer = resp.getWriter();
+
         if (idString == null || idString.isBlank()){
             writer.write(mapper.writeValueAsString(service.get()));
             resp.setStatus(HttpServletResponse.SC_OK);

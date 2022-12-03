@@ -3,6 +3,7 @@ package by.mk_jd2_92_22.pizzeria.controllers.utils.mapper;
 import by.mk_jd2_92_22.pizzeria.controllers.utils.mapper.serializer.LocalDateTimeDeserializer;
 import by.mk_jd2_92_22.pizzeria.controllers.utils.mapper.serializer.LocalDateTimeSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
@@ -22,6 +23,7 @@ public class ObjectMapperSingleton {
 
         mapper.registerModule(new JavaTimeModule());
         mapper.registerModule(customModule);
+        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 
     }
 

@@ -75,18 +75,22 @@ public class PizzaInfo implements IPizzaInfo {
         return size;
     }
 
+    @Override
     public void setDtUpdate(LocalDateTime dtUpdate) {
         this.dtUpdate = dtUpdate;
     }
 
+    @Override
     public void setName(String name) {
         this.name = name;
     }
 
+    @Override
     public void setDescription(String description) {
         this.description = description;
     }
 
+    @Override
     public void setSize(int size) {
         this.size = size;
     }
