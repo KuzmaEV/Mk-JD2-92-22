@@ -29,4 +29,9 @@ public interface IMenu {
      * @return доступно ли меню
      */
     boolean isEnabled();
+
+    void setDtUpdate(LocalDateTime dtUpdate);
+    void setName(String name);
+    void setItems(List<IMenuRow> items);
+    void setEnabled(boolean enable);
 }

@@ -3,17 +3,33 @@ package by.mk_jd2_92_22.pizzeria.dao.entity;
 import by.mk_jd2_92_22.pizzeria.dao.entity.api.IMenu;
 import by.mk_jd2_92_22.pizzeria.dao.entity.api.IMenuRow;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+
+@Entity
 public class Menu implements IMenu {
 
-    private final long id;
-    private final LocalDateTime dtCreate;
-    private final LocalDateTime dtUpdate;
-    private final String name;
-    private final  List<IMenuRow> items;
-    private final boolean isEnabled;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @Column(name = "dt_crate")
+    private LocalDateTime dtCreate;
+
+    @Column(name = "dt_update")
+    private LocalDateTime dtUpdate;
+    private String name;
+
+    @OneToMany
+    private List<IMenuRow> items;
+
+    @Column(name = "enable")
+    private boolean isEnabled;
+
+    public Menu() {
+    }
 
     public Menu(long id, LocalDateTime dtCreate, LocalDateTime dtUpdate, String name, List<IMenuRow> menuRowList, boolean isEnabled) {
         this.id = id;
@@ -21,6 +37,13 @@ public class Menu implements IMenu {
         this.dtUpdate = dtUpdate;
         this.name = name;
         this.items = menuRowList;
+        this.isEnabled = isEnabled;
+    }
+
+    public Menu(LocalDateTime dtCreate, LocalDateTime dtUpdate, String name,  boolean isEnabled) {
+        this.dtCreate = dtCreate;
+        this.dtUpdate = dtUpdate;
+        this.name = name;
         this.isEnabled = isEnabled;
     }
 
@@ -54,6 +77,26 @@ public class Menu implements IMenu {
     public List<IMenuRow> getItems() {
 //        menuRowList.add(new MenuRow("pepperoni", "sausage/cheese", 40, 12));
         return items;
+    }
+
+    @Override
+    public void setDtUpdate(LocalDateTime dtUpdate) {
+        this.dtUpdate = dtUpdate;
+    }
+
+    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public void setItems(List<IMenuRow> items) {
+        this.items = items;
+    }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
     }
 
     @Override
