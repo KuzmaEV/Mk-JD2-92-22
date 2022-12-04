@@ -11,7 +11,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
@@ -22,7 +21,7 @@ public class MenuServlet extends HttpServlet {
     private final ObjectMapper mapper;
 
 
-    public MenuServlet() throws PropertyVetoException {
+    public MenuServlet(){
         service = MenuServiceSingleton.getInstance();
         mapper = ObjectMapperSingleton.getInstance();
     }

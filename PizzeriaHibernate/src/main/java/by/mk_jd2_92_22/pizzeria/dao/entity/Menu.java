@@ -15,14 +15,15 @@ public class Menu implements IMenu {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "dt_crate")
+    @Column(name = "dt_create")
     private LocalDateTime dtCreate;
 
     @Column(name = "dt_update")
     private LocalDateTime dtUpdate;
     private String name;
 
-    @OneToMany
+    @OneToMany(targetEntity = MenuRow.class, mappedBy = "menu")
+//    @JoinColumn(name = "id", referencedColumnName = "menu")
     private List<IMenuRow> items;
 
     @Column(name = "enable")

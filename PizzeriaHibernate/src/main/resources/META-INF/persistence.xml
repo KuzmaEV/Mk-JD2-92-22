@@ -5,6 +5,7 @@
     <persistence-unit name="PizzeriaHibernate" transaction-type="RESOURCE_LOCAL">
         <class>by.mk_jd2_92_22.pizzeria.dao.entity.PizzaInfo</class>
         <class>by.mk_jd2_92_22.pizzeria.dao.entity.MenuRow</class>
+        <class>by.mk_jd2_92_22.pizzeria.dao.entity.Menu</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
             <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/company" />

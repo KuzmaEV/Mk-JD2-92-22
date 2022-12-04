@@ -4,7 +4,6 @@ import by.mk_jd2_92_22.pizzeria.dao.entity.api.IMenuRow;
 import by.mk_jd2_92_22.pizzeria.services.api.IMenuRowService;
 import by.mk_jd2_92_22.pizzeria.services.dto.MenuRowDTO;
 import by.mk_jd2_92_22.pizzeria.services.singleton.MenuRowServiceSingleton;
-import org.junit.jupiter.api.Test;
 
 
 import java.time.LocalDateTime;
@@ -25,7 +24,7 @@ public class MenuRowServiceTest {
 
     }
 
-    @Test
+ //   @Test
     public void get(){
 
 
@@ -34,7 +33,7 @@ public class MenuRowServiceTest {
         System.out.println(menuRows);
     }
 
-    @Test
+//    @Test
     public void read(){
 
         IMenuRow menuRow = service.read(1);

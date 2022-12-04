@@ -32,7 +32,7 @@ public class MenuDao implements IMenuDao {
 
    //         throw new RuntimeException("При запросе данных возникла ошибка" );
 
-        TypedQuery<IMenu> menu = entityManager.createQuery("FROM menu", IMenu.class);
+        TypedQuery<IMenu> menu = entityManager.createQuery("from Menu m", IMenu.class);
         return menu.getResultList();
 
     }

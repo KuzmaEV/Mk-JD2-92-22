@@ -5,8 +5,6 @@ import by.mk_jd2_92_22.pizzeria.dao.EntityManagerUtil;
 import by.mk_jd2_92_22.pizzeria.dao.MenuDao;
 import by.mk_jd2_92_22.pizzeria.dao.api.IMenuDao;
 
-import java.beans.PropertyVetoException;
-
 public class MenuDaoSingleton {
 
     private static MenuDaoSingleton instance;
@@ -16,7 +14,7 @@ public class MenuDaoSingleton {
         this.menu = new MenuDao(EntityManagerUtil.getEntityManager());
     }
 
-    public static IMenuDao getInstance() throws PropertyVetoException {
+    public static IMenuDao getInstance(){
 
         if (instance == null){
             synchronized (MenuDaoSingleton.class){
