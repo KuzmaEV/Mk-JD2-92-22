@@ -20,6 +20,7 @@ public class Menu implements IMenu {
 
     @Column(name = "dt_update")
     private LocalDateTime dtUpdate;
+    @Column
     private String name;
 
     @OneToMany(targetEntity = MenuRow.class, mappedBy = "menu")
@@ -27,25 +28,25 @@ public class Menu implements IMenu {
     private List<IMenuRow> items;
 
     @Column(name = "enable")
-    private boolean isEnabled;
+    private boolean enabled;
 
     public Menu() {
     }
 
-    public Menu(long id, LocalDateTime dtCreate, LocalDateTime dtUpdate, String name, List<IMenuRow> menuRowList, boolean isEnabled) {
+    public Menu(long id, LocalDateTime dtCreate, LocalDateTime dtUpdate, String name, List<IMenuRow> menuRowList, boolean enabled) {
         this.id = id;
         this.dtCreate = dtCreate;
         this.dtUpdate = dtUpdate;
         this.name = name;
         this.items = menuRowList;
-        this.isEnabled = isEnabled;
+        this.enabled = enabled;
     }
 
-    public Menu(LocalDateTime dtCreate, LocalDateTime dtUpdate, String name,  boolean isEnabled) {
+    public Menu(LocalDateTime dtCreate, LocalDateTime dtUpdate, String name,  boolean enabled) {
         this.dtCreate = dtCreate;
         this.dtUpdate = dtUpdate;
         this.name = name;
-        this.isEnabled = isEnabled;
+        this.enabled = enabled;
     }
 
     @Override
@@ -71,7 +72,7 @@ public class Menu implements IMenu {
 
     @Override
     public boolean isEnabled() {
-        return isEnabled;
+        return enabled;
     }
 
     @Override
@@ -97,7 +98,7 @@ public class Menu implements IMenu {
 
     @Override
     public void setEnabled(boolean enabled) {
-        isEnabled = enabled;
+        this.enabled = enabled;
     }
 
     @Override
@@ -108,7 +109,7 @@ public class Menu implements IMenu {
                 ", dtUpdate=" + dtUpdate +
                 ", name='" + name + '\'' +
                 ", menuRowList=" + items +
-                ", isEnabled=" + isEnabled +
+                ", isEnabled=" + enabled +
                 '}';
     }
 }

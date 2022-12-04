@@ -105,14 +105,14 @@ public class MenuServlet extends HttpServlet {
         String idString = req.getParameter("id");
         if (idString == null || idString.isBlank()){
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            throw new IllegalArgumentException("Не указано id");
+            throw new IllegalStateException("Не указано id");
         }
 
         try{
             id = Long.parseLong(idString.trim());
         } catch (NumberFormatException e) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            throw new IllegalArgumentException(e.getMessage());
+            throw new IllegalStateException(e.getMessage());
         }
 
         LocalDateTime dtUpdate = mapper.readValue(req.getParameter("dtUpdate"), LocalDateTime.class);
@@ -122,12 +122,8 @@ public class MenuServlet extends HttpServlet {
             throw new IllegalArgumentException("Не указано dtUpdate");
         }
 
-        try {
             service.delete(id, dtUpdate);
             resp.setStatus(HttpServletResponse.SC_OK);
-        } catch (Exception e) {
-            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        }
 
     }
 }

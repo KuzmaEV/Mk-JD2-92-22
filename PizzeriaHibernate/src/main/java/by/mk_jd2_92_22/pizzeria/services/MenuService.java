@@ -59,7 +59,7 @@ public class MenuService implements IMenuService {
 
         menu.setDtUpdate(LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS));
 
-        if (item.getName() != null || item.getName().isBlank()){
+        if (item.getName() != null){
             menu.setName(item.getName());
         }
 

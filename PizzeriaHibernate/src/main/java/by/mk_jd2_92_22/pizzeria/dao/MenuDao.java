@@ -52,12 +52,20 @@ public class MenuDao implements IMenuDao {
     public IMenu update(long id, LocalDateTime dtUpdate, IMenu item) {
 
 
+
+
         String updateQuery = "UPDATE Menu m " +
-                "SET m.dtUpdate = :ItemDtUpdate, m.name = :name, m.enable = :enable " +
+                "SET m.dtUpdate = :ItemDtUpdate, m.name = :name, m.enabled = :enable " +
                 "WHERE m.id = :id AND m.dtUpdate = :dtUpdate";
 
+//                "UPDATE Menu menu " +
+//                "SET menu.dtUpdate = :ItemDtUpdate, menu.name = :name, menu.enable = :enable " +
+//                "WHERE menu.id = :id AND menu.dtUpdate = :dtUpdate";
+
         entityManager.getTransaction().begin();
-        final Query query = entityManager.createQuery(updateQuery);
+//        IMenu merge = entityManager.merge(item);
+
+        Query query = entityManager.createQuery(updateQuery);
         query.setParameter("ItemDtUpdate", item.getDtUpdate());
         query.setParameter("name", item.getName());
         query.setParameter("enable", item.isEnabled());
@@ -65,15 +73,15 @@ public class MenuDao implements IMenuDao {
         query.setParameter("id", id);
         query.setParameter("dtUpdate", dtUpdate);
 
-        int updatedRows = query.executeUpdate();
-
-            if (updatedRows != 1){
-                if (updatedRows == 0){
-                    throw new RuntimeException("Не удалось обновить запись!");
-                } else {
-                    throw new RuntimeException("Обновило несколько записей!");
-                }
-            }
+        query.executeUpdate();
+//
+//            if (updatedRows != 1){
+//                if (updatedRows == 0){
+//                    throw new RuntimeException("Не удалось обновить запись!");
+//                } else {
+//                    throw new RuntimeException("Обновило несколько записей!");
+//                }
+//            }
 
             entityManager.getTransaction().commit();
 
@@ -84,18 +92,25 @@ public class MenuDao implements IMenuDao {
     @Override
     public void delete(long id, LocalDateTime dtUpdate) {
 
+        String deleteMenuRowQuery = "delete MenuRow row " +
+                "where row.menu = :id";
         String deleteQuery = "delete Menu m " +
                 "where m.id = :id and m.dtUpdate = :dtUpdate";
 
         entityManager.getTransaction().begin();
-        final Query query = entityManager.createQuery(deleteQuery);
+
+        Query queryMenuRow = entityManager.createQuery(deleteMenuRowQuery);
+        queryMenuRow.setParameter("id", id);
+        queryMenuRow.executeUpdate();
+
+        Query query = entityManager.createQuery(deleteQuery);
         query.setParameter("id", id);
         query.setParameter("dtUpdate", dtUpdate);
 
-        int countDeletedRow = query.executeUpdate();
+        int countDeletedMenu = query.executeUpdate();
 
-        if (countDeletedRow != 1){
-            if (countDeletedRow == 0){
+        if (countDeletedMenu != 1){
+            if (countDeletedMenu == 0){
                 throw new IllegalArgumentException("Не удалось удалить запись!");
             } else {
                 throw new IllegalArgumentException("Удалило больше одной записи!");
