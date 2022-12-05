@@ -11,11 +11,16 @@ public interface ISelectedItem {
      * Выбранное из меню
      * @return Выбранное из меню
      */
-    IMenuRow getRow();
+    IMenuRow getMenuRow();
 
     /**
      * Количество выбранного
      * @return Количество выбранного
      */
     int getCount();
+    long getOrder();
+
+    void setMenuRow(IMenuRow menuRow);
+    void  setCount(int count);
+    void  setOrder(long order);
 }

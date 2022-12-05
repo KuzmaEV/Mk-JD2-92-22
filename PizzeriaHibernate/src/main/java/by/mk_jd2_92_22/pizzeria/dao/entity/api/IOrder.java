@@ -18,4 +18,7 @@ public interface IOrder {
      * @return список выбранного
      */
     List<ISelectedItem> getSelectedItem();
+
+    void setDtUpdate(LocalDateTime dtUpdate);
+    void setSelectedItem(List<ISelectedItem> SelectedItem);
 }
