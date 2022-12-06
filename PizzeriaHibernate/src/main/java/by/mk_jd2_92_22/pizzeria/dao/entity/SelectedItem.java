@@ -6,15 +6,19 @@ import by.mk_jd2_92_22.pizzeria.dao.entity.api.ISelectedItem;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "selected_item")
 public class SelectedItem implements ISelectedItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne
+    @ManyToOne(targetEntity = MenuRow.class)
+    @JoinColumn(name = "menu_row")
     private IMenuRow menuRow;
+    @Column
     private int count;
+    @Column(name = "\"order\"")
     private long order;
 
     public SelectedItem() {

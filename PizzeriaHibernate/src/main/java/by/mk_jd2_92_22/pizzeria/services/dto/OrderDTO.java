@@ -1,8 +1,5 @@
 package by.mk_jd2_92_22.pizzeria.services.dto;
 
-
-
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class OrderDTO {
@@ -12,6 +9,14 @@ public class OrderDTO {
     public OrderDTO() {
     }
 
+    public OrderDTO(List<Selected> selectedItem) {
+        this.selectedItem = selectedItem;
+    }
+
+    public void setSelectedItem(List<Selected> selectedItem) {
+        this.selectedItem = selectedItem;
+    }
+
     public List<Selected> getSelectedItem() {
         return selectedItem;
     }
@@ -19,6 +24,11 @@ public class OrderDTO {
     public static class Selected{
         private long menuRow;
         private int count;
+
+        public Selected(long menuRow, int count) {
+            this.menuRow = menuRow;
+            this.count = count;
+        }
 
         public long getMenuRow() {
             return menuRow;

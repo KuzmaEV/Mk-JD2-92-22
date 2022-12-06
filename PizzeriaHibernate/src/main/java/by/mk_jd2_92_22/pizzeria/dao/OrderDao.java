@@ -3,6 +3,7 @@ package by.mk_jd2_92_22.pizzeria.dao;
 import by.mk_jd2_92_22.pizzeria.dao.entity.Order;
 import by.mk_jd2_92_22.pizzeria.dao.entity.api.IOrder;
 import by.mk_jd2_92_22.pizzeria.dao.api.IOrderDao;
+import by.mk_jd2_92_22.pizzeria.dao.entity.api.ISelectedItem;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -40,7 +41,19 @@ public class OrderDao implements IOrderDao {
     public IOrder create(IOrder item) {
 
         entityManager.getTransaction().begin();
-        entityManager.persist(item);
+//        try {
+
+            entityManager.persist(item);
+
+            List<ISelectedItem> selectedItem = item.getSelectedItem();
+            for (ISelectedItem row : selectedItem) {
+                row.setOrder(item.getId());
+                entityManager.persist(row);
+            }
+//        } catch (PersistenceException e) {
+//            throw new
+//        }
+
         entityManager.getTransaction().commit();
 
 //            throw new RuntimeException("Не получилось сдалоть заказ! " + e.getMessage());
@@ -52,8 +65,8 @@ public class OrderDao implements IOrderDao {
     public IOrder update(long id, LocalDateTime dtUpdate, IOrder item) {
 
         String updateQuery = "UPDATE Order o " +
-                "SET o.dtUpdate = :ItemDtUpdate, o.selectedItem = :selectedItem " +
-                "WHERE m.id = :id AND m.dtUpdate = :dtUpdate";
+                "SET o.dtUpdate = :ItemDtUpdate " +
+                "WHERE o.id = :id AND o.dtUpdate = :dtUpdate";
 
         String deleteSelectedItemQuery = "delete SelectedItem s " +
                 "where s.order = :id ";
@@ -64,17 +77,22 @@ public class OrderDao implements IOrderDao {
         querySelectedItem.setParameter("id", id);
         querySelectedItem.executeUpdate();
 
+        List<ISelectedItem> selectedItem = item.getSelectedItem();
+        for (ISelectedItem row : selectedItem) {
+            row.setOrder(id);
+            entityManager.persist(row);
+        }
+
         Query query = entityManager.createQuery(updateQuery);
         query.setParameter("ItemDtUpdate", item.getDtUpdate());
-        query.setParameter("selectedItem", item.getSelectedItem());
 
         query.setParameter("id", id);
         query.setParameter("dtUpdate", dtUpdate);
 
-        query.executeUpdate();
+       /* int countUpdateRows = */query.executeUpdate();
 
-//            if (updatedRows != 1){
-//                if (updatedRows == 0){
+//            if (countUpdateRows != 1){
+//                if (countUpdateRows == 0){
 //                    throw new RuntimeException("Не удалось обновить запись!");
 //                } else {
 //                    throw new RuntimeException("Обновило несколько записей!");

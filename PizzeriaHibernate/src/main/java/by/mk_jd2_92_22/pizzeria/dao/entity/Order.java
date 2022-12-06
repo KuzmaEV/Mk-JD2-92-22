@@ -18,7 +18,7 @@ public class Order implements IOrder {
     @Column(name = "dt_update")
     private LocalDateTime dtUpdate;
 
-    @OneToMany
+    @OneToMany(targetEntity = SelectedItem.class, mappedBy = "order")
     private List<ISelectedItem> selectedItem;
 
     public Order() {
