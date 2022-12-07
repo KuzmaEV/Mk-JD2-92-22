@@ -64,9 +64,9 @@ public class OrderDao implements IOrderDao {
     @Override
     public IOrder update(long id, LocalDateTime dtUpdate, IOrder item) {
 
-        String updateQuery = "UPDATE Order o " +
-                "SET o.dtUpdate = :ItemDtUpdate " +
-                "WHERE o.id = :id AND o.dtUpdate = :dtUpdate";
+//        String updateQuery = "UPDATE Order o " +
+//                "SET o.dtUpdate = :ItemDtUpdate " +
+//                "WHERE o.id = :id AND o.dtUpdate = :dtUpdate";
 
         String deleteSelectedItemQuery = "delete SelectedItem s " +
                 "where s.order = :id ";
@@ -83,13 +83,13 @@ public class OrderDao implements IOrderDao {
             entityManager.persist(row);
         }
 
-        Query query = entityManager.createQuery(updateQuery);
-        query.setParameter("ItemDtUpdate", item.getDtUpdate());
-
-        query.setParameter("id", id);
-        query.setParameter("dtUpdate", dtUpdate);
-
-       /* int countUpdateRows = */query.executeUpdate();
+//        Query query = entityManager.createQuery(updateQuery);
+//
+//        query.setParameter("id", id);
+//        query.setParameter("dtUpdate", dtUpdate);
+//
+//        query.setParameter("ItemDtUpdate", item.getDtUpdate());
+//        int countUpdateRows = query.executeUpdate();
 
 //            if (countUpdateRows != 1){
 //                if (countUpdateRows == 0){

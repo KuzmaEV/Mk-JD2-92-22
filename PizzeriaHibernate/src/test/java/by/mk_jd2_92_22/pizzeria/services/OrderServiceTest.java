@@ -60,8 +60,8 @@ public class OrderServiceTest {
     public void update(){
 
         List<OrderDTO.Selected> list = new ArrayList<>();
-        list.add(new OrderDTO.Selected(1, 8));
-        list.add(new OrderDTO.Selected(8, 5));
+        list.add(new OrderDTO.Selected(1, 3));
+        list.add(new OrderDTO.Selected(8, 2));
 
         OrderDTO dto = new OrderDTO(list);
 
