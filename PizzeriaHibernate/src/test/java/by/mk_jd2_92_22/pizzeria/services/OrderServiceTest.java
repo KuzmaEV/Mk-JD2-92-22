@@ -70,7 +70,7 @@ public class OrderServiceTest {
         System.out.println(order);
     }
 
-    @Test
+//    @Test
     public void delete(){
         LocalDateTime dtUpdate = service.read(7).getDtUpdate();
         service.delete(7, dtUpdate);

@@ -25,6 +25,9 @@ public class OrderDTO {
         private long menuRow;
         private int count;
 
+        public Selected() {
+        }
+
         public Selected(long menuRow, int count) {
             this.menuRow = menuRow;
             this.count = count;
