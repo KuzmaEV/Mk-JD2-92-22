@@ -5,6 +5,8 @@ import by.mk_jd2_92_22.pizzeria.services.api.IPizzaInfoService;
 import by.mk_jd2_92_22.pizzeria.services.dto.PizzaInfoDTO;
 import by.mk_jd2_92_22.pizzeria.services.singleton.PizzaInfoServiceSingleton;
 import org.junit.jupiter.api.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,12 +15,20 @@ public class PizzaInfoServiceTest {
 
     IPizzaInfoService service = PizzaInfoServiceSingleton.getInstance();
 
+
 //    @Test
     public void read() {
 
         long id = 49;
 
-        IPizzaInfo read = service.read(id);
+        ApplicationContext context =
+                new ClassPathXmlApplicationContext("pizza.xml");
+
+        IPizzaInfoService bean = context.getBean(IPizzaInfoService.class);
+
+        IPizzaInfo read = bean.read(id);
+
+//        IPizzaInfo read = service.read(id);
 
         System.out.println(read);
 

@@ -5,6 +5,30 @@
          version="3.1">
     <display-name>Pizzeria Hibernate</display-name>
 
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath*:pizza.xml</param-value>
+    </context-param>
+
+<!--    <servlet>-->
+<!--        <servlet-name>app</servlet-name>-->
+<!--        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>-->
+<!--        <init-param>-->
+<!--            <param-name>contextConfigLocation</param-name>-->
+<!--            <param-value></param-value>-->
+<!--        </init-param>-->
+<!--        <load-on-startup>1</load-on-startup>-->
+<!--    </servlet>-->
+
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>app</servlet-name>-->
+<!--        <url-pattern>/*</url-pattern>-->
+<!--    </servlet-mapping>-->
+
         <filter>
             <filter-name>CharsetFilter</filter-name>
             <filter-class>by.mk_jd2_92_22.pizzeria.controllers.filters.CharsetFilter</filter-class>
