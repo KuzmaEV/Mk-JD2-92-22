@@ -6,6 +6,8 @@
         <class>by.mk_jd2_92_22.pizzeria.dao.entity.PizzaInfo</class>
         <class>by.mk_jd2_92_22.pizzeria.dao.entity.MenuRow</class>
         <class>by.mk_jd2_92_22.pizzeria.dao.entity.Menu</class>
+        <class>by.mk_jd2_92_22.pizzeria.dao.entity.Order</class>
+        <class>by.mk_jd2_92_22.pizzeria.dao.entity.SelectedItem</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
             <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/company" />
