@@ -21,6 +21,9 @@ public class PizzaInfoDao implements IPizzaInfoDao {
     public PizzaInfoDao(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
+//    public PizzaInfoDao(EntityManagerFactoryInfo entityManager) {
+//        this.entityManager = entityManager.getNativeEntityManagerFactory().createEntityManager();
+//    }
 
     @Override
     public IPizzaInfo read(long id) {

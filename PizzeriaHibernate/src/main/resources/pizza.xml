@@ -6,14 +6,17 @@
 
 <!--     bean definitions here -->
 
-    <bean class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean" id="entityManagerFactory">
-        <property name="persistenceUnitName" value="PizzeriaHibernate"/>
-    </bean>
+        <!--    бин для создания EntityManagerFactory?-->
+<!--    <bean class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean" id="entityManagerFactory">-->
+<!--        <property name="persistenceUnitName" value="PizzeriaHibernate"/>-->
+<!--    </bean>-->
 
-
+    <bean name="entityManagerUtil"
+          class="by.mk_jd2_92_22.pizzeria.dao.EntityManagerUtil"
+          factory-method="getEntityManager"/>
 
     <bean name="pizzaInfoDao" class="by.mk_jd2_92_22.pizzeria.dao.PizzaInfoDao">
-        <constructor-arg name="entityManager" ref="entityManagerFactory"/>
+        <constructor-arg name="entityManager" ref="entityManagerUtil"/>
     </bean>
 
     <bean id="pizzaInfoService" class="by.mk_jd2_92_22.pizzeria.services.PizzaInfoService">
