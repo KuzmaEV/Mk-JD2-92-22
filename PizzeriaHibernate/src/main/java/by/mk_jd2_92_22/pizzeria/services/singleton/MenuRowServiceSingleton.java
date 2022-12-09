@@ -11,7 +11,7 @@ public class MenuRowServiceSingleton {
     private static MenuRowServiceSingleton instance;
 
     public MenuRowServiceSingleton(){
-        this.service = new MenuRowService(MenuRowDaoSingleton.getInstance());
+        this.service = new MenuRowService(MenuRowDaoSingleton.getInstance(), PizzaInfoServiceSingleton.getInstance());
     }
 
     public static IMenuRowService getInstance(){

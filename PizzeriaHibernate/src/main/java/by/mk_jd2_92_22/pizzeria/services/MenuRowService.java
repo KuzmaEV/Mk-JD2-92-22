@@ -7,7 +7,6 @@ import by.mk_jd2_92_22.pizzeria.dao.entity.api.IPizzaInfo;
 import by.mk_jd2_92_22.pizzeria.services.api.IMenuRowService;
 import by.mk_jd2_92_22.pizzeria.services.api.IPizzaInfoService;
 import by.mk_jd2_92_22.pizzeria.services.dto.MenuRowDTO;
-import by.mk_jd2_92_22.pizzeria.services.singleton.PizzaInfoServiceSingleton;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -15,11 +14,11 @@ import java.util.List;
 
 public class MenuRowService implements IMenuRowService {
     private final IMenuRowDao dao;
-    private final IPizzaInfoService servicePizzaInfo ;
+    private final IPizzaInfoService servicePizzaInfo;
 
-    public MenuRowService(IMenuRowDao dao) {
+    public MenuRowService(IMenuRowDao dao, IPizzaInfoService servicePizzaInfo) {
         this.dao = dao;
-        this.servicePizzaInfo = PizzaInfoServiceSingleton.getInstance();
+        this.servicePizzaInfo = servicePizzaInfo;
     }
 
 

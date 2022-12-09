@@ -42,6 +42,7 @@
 
     <bean id="menuRowService" class="by.mk_jd2_92_22.pizzeria.services.MenuRowService">
         <constructor-arg name="dao" ref="menuRowDao"/>
+        <constructor-arg name="servicePizzaInfo" ref="pizzaInfoService"/>
     </bean>
 
 
@@ -60,6 +61,7 @@
 
     <bean id="orderService" class="by.mk_jd2_92_22.pizzeria.services.OrderService">
         <constructor-arg name="dao" ref="orderDao"/>
+        <constructor-arg name="menuRowService" ref="menuRowService"/>
     </bean>
 
         <!-- Создает bean DataSource -->
