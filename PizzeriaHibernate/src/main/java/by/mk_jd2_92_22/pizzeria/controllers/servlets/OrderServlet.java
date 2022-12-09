@@ -1,88 +1,75 @@
 package by.mk_jd2_92_22.pizzeria.controllers.servlets;
 
-import by.mk_jd2_92_22.pizzeria.controllers.utils.mapper.ObjectMapperSingleton;
 import by.mk_jd2_92_22.pizzeria.dao.entity.api.IOrder;
 import by.mk_jd2_92_22.pizzeria.services.api.IOrderService;
 import by.mk_jd2_92_22.pizzeria.services.dto.OrderDTO;
-import by.mk_jd2_92_22.pizzeria.services.singleton.OrderServiceSingleton;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.beans.PropertyVetoException;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
-@WebServlet(name = "OrderService", urlPatterns = "/order")
-public class OrderServlet extends HttpServlet {
-
-    private final ObjectMapper mapper;
+@RestController
+@RequestMapping("/order")
+public class OrderServlet{
+    
     private final IOrderService service;
 
 
-    public OrderServlet() throws PropertyVetoException {
-        this.mapper = ObjectMapperSingleton.getInstance();
-        this.service = OrderServiceSingleton.getInstance();
+    public OrderServlet(IOrderService service){
+        this.service = service;
     }
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    @GetMapping
+    @RequestMapping("/{id}")
+    protected ResponseEntity<IOrder> get(@PathVariable long id){
 
-        PrintWriter writer = resp.getWriter();
-
-        String idStr = req.getParameter("id");
-
-        if (idStr != null){
-            long id = Long.parseLong(idStr);
-            IOrder order = service.read(id);
-            String ticketStr = mapper.writeValueAsString(order);
-            writer.write(ticketStr);
-        } else {
-            List<IOrder> tickets = service.get();
-            writer.write(mapper.writeValueAsString(tickets));
-        }
-
-
+        return ResponseEntity.ok(service.read(id));
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    @GetMapping
+    protected ResponseEntity<List<IOrder>> getList(){
 
-        OrderDTO dto = mapper.readValue(req.getInputStream(), OrderDTO.class);
+        return ResponseEntity.ok(service.get());
+    }
 
-        IOrder order = service.create(dto);
 
-        resp.getWriter().write(mapper.writeValueAsString(order));
+    @PostMapping
+    protected ResponseEntity<IOrder> doPost(@RequestBody OrderDTO dto){
+
+        IOrder menu = service.create(dto);
+        return new ResponseEntity<>(menu, HttpStatus.CREATED);
 
     }
 
-    @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    @PutMapping("/{id}/dt_update/{dt_update}")
+    protected ResponseEntity<IOrder> doPut(@PathVariable long id,
+                                          @PathVariable("dt_update") long dtUpdateRow,
+                                          @RequestBody OrderDTO dto){
 
-        String idStr = req.getParameter("id");
-        long id = Long.parseLong(idStr);
+        LocalDateTime dtUpdate = LocalDateTime.ofInstant(
+                Instant.ofEpochMilli(dtUpdateRow),
+                ZoneId.of("UTC")
+        );
 
-        LocalDateTime dtUpdate = mapper.readValue(req.getParameter("dtUpdate"), LocalDateTime.class);
+        return ResponseEntity.ok(service.update(id, dtUpdate, dto));
 
-        OrderDTO orderDTO = mapper.readValue(req.getInputStream(), OrderDTO.class);
-
-        IOrder order = service.update(id, dtUpdate, orderDTO);
-
-        resp.getWriter().write(mapper.writeValueAsString(order));
     }
 
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    @DeleteMapping("/{id}/dt_update/{dt_update}")
+    protected ResponseEntity<?> doDelete(@PathVariable long id,
+                                         @PathVariable("dt_update") long dtUpdateRow){
 
-        String idStr = req.getParameter("id");
-        long id = Long.parseLong(idStr);
-        LocalDateTime dtUpdate = mapper.readValue(req.getParameter("dtUpdate"), LocalDateTime.class);
-
+        LocalDateTime dtUpdate = LocalDateTime.ofInstant(
+                Instant.ofEpochMilli(dtUpdateRow),
+                ZoneId.of("UTC")
+        );
 
         service.delete(id, dtUpdate);
+        return new ResponseEntity<>(HttpStatus.OK);
+
     }
 }
