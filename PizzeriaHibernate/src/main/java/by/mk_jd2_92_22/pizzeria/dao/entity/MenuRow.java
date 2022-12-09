@@ -20,7 +20,7 @@ public class MenuRow implements IMenuRow {
     @Column(name = "dt_update")
     private LocalDateTime dtUpdate;
 
-    @OneToOne(fetch = FetchType.LAZY, targetEntity = PizzaInfo.class)
+    @OneToOne(targetEntity = PizzaInfo.class)
     @JoinColumn(name = "info", referencedColumnName = "id")
     private IPizzaInfo info;
 
