@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="
-        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+        http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <mvc:annotation-driven/>
+
+    <context:component-scan base-package="by.mk_jd2_92_22.pizzeria.controllers.servlets"/>
 
 <!--     bean definitions here -->
 
@@ -24,8 +36,33 @@
     </bean>
 
 
+    <bean name="menuRowDao" class="by.mk_jd2_92_22.pizzeria.dao.MenuRowDao">
+        <constructor-arg name="entityManager" ref="entityManagerUtil"/>
+    </bean>
+
+    <bean id="menuRowService" class="by.mk_jd2_92_22.pizzeria.services.MenuRowService">
+        <constructor-arg name="dao" ref="menuRowDao"/>
+    </bean>
 
 
+    <bean name="menuDao" class="by.mk_jd2_92_22.pizzeria.dao.MenuDao">
+        <constructor-arg name="entityManager" ref="entityManagerUtil"/>
+    </bean>
+
+    <bean id="menuService" class="by.mk_jd2_92_22.pizzeria.services.MenuService">
+        <constructor-arg name="dao" ref="menuDao"/>
+    </bean>
+
+
+    <bean name="orderDao" class="by.mk_jd2_92_22.pizzeria.dao.OrderDao">
+        <constructor-arg name="entityManager" ref="entityManagerUtil"/>
+    </bean>
+
+    <bean id="orderService" class="by.mk_jd2_92_22.pizzeria.services.OrderService">
+        <constructor-arg name="dao" ref="orderDao"/>
+    </bean>
+
+        <!-- Создает bean DataSource -->
 <!--    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">-->
 <!--        <property name="driverClass" value="org.postgresql.Driver"/>-->
 <!--        <property name="jdbcUrl" value="jdbc:postgresql://localhost:5432/company"/>-->
@@ -38,6 +75,7 @@
 <!--    </bean>-->
 
 
+            <!--  Создание EntityManagerFactory  -->
     <!--    Configuring Container Managed Entity Manager-->
     <!--    <bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" id="entityManagerFactory">-->
     <!--        &lt;!&ndash; the data source &ndash;&gt;-->
