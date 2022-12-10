@@ -57,9 +57,7 @@ public class OrderService implements IOrderService {
 
         Order order = dao.getReferenceById(id);
 
-        if (order == null){
-            throw new IllegalArgumentException("Заказ не найдено!");
-        }
+
         if (!order.getDtUpdate().isEqual(dtUpdate)){
             throw new IllegalArgumentException("Не удалось обнавить данные, кто-то отредактировал раньше!");
         }
@@ -78,9 +76,6 @@ public class OrderService implements IOrderService {
 
         Order order = dao.getReferenceById(id);
 
-        if (order == null){
-            throw new IllegalArgumentException("Заказ не найдено!");
-        }
         if (!order.getDtUpdate().isEqual(dtUpdate)){
             throw new IllegalArgumentException("Не удалось удалить данные, кто-то отредактировал раньше!");
         }

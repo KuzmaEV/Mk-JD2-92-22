@@ -26,11 +26,7 @@ public class MenuRowService implements IMenuRowService {
     @Override
     public MenuRow read(long id) {
 
-        MenuRow menuRow = dao.getReferenceById(id);
-        if (menuRow == null){
-            throw new IllegalArgumentException("Пункт меню не найден!");
-        }
-        return menuRow;
+        return dao.getReferenceById(id);
     }
 
     @Override
@@ -67,11 +63,6 @@ public class MenuRowService implements IMenuRowService {
 
         PizzaInfo pizzaInfo = servicePizzaInfo.read(item.getInfo());
 
-        if (menuRow == null){
-            throw new IllegalArgumentException("Пункт меню не найден!");
-        }
-
-
         if (item.getInfo() != 0){           //Если отсуствует Пицца в ДТО, остается старая
             menuRow.setInfo(pizzaInfo);
         }
@@ -96,9 +87,6 @@ public class MenuRowService implements IMenuRowService {
     public void delete(long id, LocalDateTime dtUpdate) {
         MenuRow read = dao.getReferenceById(id);
 
-        if (read == null){
-            throw new IllegalArgumentException("Пункт меню не найден!");
-        }
         if (!read.getDtUpdate().isEqual(dtUpdate)){
             throw new IllegalArgumentException("Не удалось удалить, ктото успел отредактировать!");
         }

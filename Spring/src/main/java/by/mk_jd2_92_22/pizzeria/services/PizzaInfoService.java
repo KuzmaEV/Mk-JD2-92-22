@@ -53,9 +53,6 @@ public class PizzaInfoService implements IPizzaInfoService {
         PizzaInfo pizzaInfo = dao.getReferenceById(id);
 
 
-        if (pizzaInfo == null){
-            throw new IllegalArgumentException("Пицца не найдена");
-        }
 
         if (item.getName() != null){
             pizzaInfo.setName(item.getName());
@@ -81,9 +78,6 @@ public class PizzaInfoService implements IPizzaInfoService {
 
         PizzaInfo read = dao.getReferenceById(id);
 
-        if (read == null){
-            throw new IllegalArgumentException("Пицца не найдена");
-        }
         if (!read.getDtUpdate().isEqual(dtUpdate)){
             throw new IllegalArgumentException("Не удалось удалить, пицца было кем-то отредактирована");
         }

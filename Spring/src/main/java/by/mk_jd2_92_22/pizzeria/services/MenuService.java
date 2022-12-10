@@ -21,11 +21,8 @@ public class MenuService implements IMenuService {
 
     @Override
     public Menu read(long id) {
-        Menu menu = dao.getReferenceById(id);
-        if (menu == null){
-            throw new IllegalArgumentException("Меню не найдено");
-        }
-        return menu;
+
+        return dao.getReferenceById(id);
     }
 
     @Override
@@ -53,9 +50,9 @@ public class MenuService implements IMenuService {
 
         Menu menu = dao.getReferenceById(id);
 
-        if (menu == null){
-            throw new IllegalArgumentException("Меню не найдено!");
-        }
+//        if (menu == null){
+//            throw new IllegalArgumentException("Меню не найдено!");
+//        }
         if (!menu.getDtUpdate().isEqual(dtUpdate)){
             throw new IllegalArgumentException("Не удалось обнавить данные, кто-то отредактировал раньше!");
         }
@@ -76,9 +73,9 @@ public class MenuService implements IMenuService {
     public void delete(long id, LocalDateTime dtUpdate) {
         Menu menu = dao.getReferenceById(id);
 
-        if (menu == null){
-            throw new IllegalArgumentException("Меню не найдено!");
-        }
+//        if (menu == null){
+//            throw new IllegalArgumentException("Меню не найдено!");
+//        }
         if (!menu.getDtUpdate().isEqual(dtUpdate)){
             throw new IllegalArgumentException("Не удалось удалить данные, кто-то отредактировал раньше!");
         }
