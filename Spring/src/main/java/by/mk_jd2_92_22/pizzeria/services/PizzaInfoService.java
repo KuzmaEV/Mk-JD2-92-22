@@ -2,14 +2,15 @@ package by.mk_jd2_92_22.pizzeria.services;
 
 import by.mk_jd2_92_22.pizzeria.dao.api.IPizzaInfoDao;
 import by.mk_jd2_92_22.pizzeria.dao.entity.PizzaInfo;
-import by.mk_jd2_92_22.pizzeria.dao.entity.api.IPizzaInfo;
 import by.mk_jd2_92_22.pizzeria.services.api.IPizzaInfoService;
 import by.mk_jd2_92_22.pizzeria.services.dto.PizzaInfoDTO;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
+@Transactional(readOnly = true)
 public class PizzaInfoService implements IPizzaInfoService {
 
     private final IPizzaInfoDao dao;
@@ -19,21 +20,22 @@ public class PizzaInfoService implements IPizzaInfoService {
     }
 
     @Override
-    public IPizzaInfo read(long id) {
+    public PizzaInfo read(long id) {
 
-        return dao.read(id);
+        return dao.getReferenceById(id);
     }
 
     @Override
-    public List<IPizzaInfo> get() {
+    public List<PizzaInfo> get() {
 
-        return dao.get();
+        return dao.findAll();
     }
 
     @Override
-    public IPizzaInfo create(PizzaInfoDTO item) {
+    @Transactional
+    public PizzaInfo create(PizzaInfoDTO item) {
 
-        IPizzaInfo pizzaInfo = new PizzaInfo(
+        PizzaInfo pizzaInfo = new PizzaInfo(
                 LocalDateTime.now(),
                 LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS),
                 item.getName(),
@@ -41,13 +43,14 @@ public class PizzaInfoService implements IPizzaInfoService {
                 item.getSize()
         );
 
-        return dao.create(pizzaInfo);
+        return dao.save(pizzaInfo);
     }
 
     @Override
-    public IPizzaInfo update(long id, LocalDateTime dtUpdate/*дата последнено изменения*/,
+    @Transactional
+    public PizzaInfo update(long id, LocalDateTime dtUpdate/*дата последнено изменения*/,
                              PizzaInfoDTO item/* dto БЕЗ ид и дт, только параметры для изменения*/) {
-        IPizzaInfo pizzaInfo = dao.read(id);
+        PizzaInfo pizzaInfo = dao.getReferenceById(id);
 
 
         if (pizzaInfo == null){
@@ -69,13 +72,14 @@ public class PizzaInfoService implements IPizzaInfoService {
             throw new IllegalArgumentException("Пицца кем-то отредактирована");
         }
 
-        return dao.update(id, dtUpdate, pizzaInfo);
+        return dao.save(pizzaInfo);
     }
 
     @Override
+    @Transactional
     public void delete(long id, LocalDateTime dtUpdate) {
 
-        IPizzaInfo read = dao.read(id);
+        PizzaInfo read = dao.getReferenceById(id);
 
         if (read == null){
             throw new IllegalArgumentException("Пицца не найдена");
@@ -83,7 +87,7 @@ public class PizzaInfoService implements IPizzaInfoService {
         if (!read.getDtUpdate().isEqual(dtUpdate)){
             throw new IllegalArgumentException("Не удалось удалить, пицца было кем-то отредактирована");
         }
-        dao.delete(id, dtUpdate);
+        dao.deleteById(id);
     }
 
 

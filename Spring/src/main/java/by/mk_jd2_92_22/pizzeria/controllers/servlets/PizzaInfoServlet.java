@@ -34,7 +34,7 @@ public class PizzaInfoServlet{
 
         //Read List
     @GetMapping
-    protected ResponseEntity<List<IPizzaInfo>> getList(){
+    protected ResponseEntity<List<?extends IPizzaInfo>> getList(){
 
         return ResponseEntity.ok(service.get());
     }

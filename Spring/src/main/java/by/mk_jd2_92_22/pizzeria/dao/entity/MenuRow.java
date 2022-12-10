@@ -1,7 +1,6 @@
 package by.mk_jd2_92_22.pizzeria.dao.entity;
 
 import by.mk_jd2_92_22.pizzeria.dao.entity.api.IMenuRow;
-import by.mk_jd2_92_22.pizzeria.dao.entity.api.IPizzaInfo;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -17,12 +16,13 @@ public class MenuRow implements IMenuRow {
     @Column(name = "dt_create")
     private LocalDateTime dtCreate;
 
+    @Version
     @Column(name = "dt_update")
     private LocalDateTime dtUpdate;
 
-    @OneToOne(targetEntity = PizzaInfo.class)
+    @OneToOne/*(targetEntity = PizzaInfo.class)*/
     @JoinColumn(name = "info", referencedColumnName = "id")
-    private IPizzaInfo info;
+    private PizzaInfo info;
 
     private double price;
     private long menu;
@@ -30,7 +30,7 @@ public class MenuRow implements IMenuRow {
     public MenuRow() {
     }
 
-    public MenuRow(LocalDateTime dtCreate, LocalDateTime dtUpdate, IPizzaInfo info, double price, long menu) {
+    public MenuRow(LocalDateTime dtCreate, LocalDateTime dtUpdate, PizzaInfo info, double price, long menu) {
         this.dtCreate = dtCreate;
         this.dtUpdate = dtUpdate;
         this.info = info;
@@ -38,7 +38,7 @@ public class MenuRow implements IMenuRow {
         this.menu = menu;
     }
 
-    public MenuRow(long id, LocalDateTime dtCreate, LocalDateTime dtUpdate, IPizzaInfo info, double price, long menu) {
+    public MenuRow(long id, LocalDateTime dtCreate, LocalDateTime dtUpdate, PizzaInfo info, double price, long menu) {
         this.id = id;
         this.dtCreate = dtCreate;
         this.dtUpdate = dtUpdate;
@@ -62,7 +62,7 @@ public class MenuRow implements IMenuRow {
     }
 
     @Override
-    public IPizzaInfo getInfo() {
+    public PizzaInfo getInfo() {
         return info;
     }
 
@@ -82,7 +82,7 @@ public class MenuRow implements IMenuRow {
     }
 
     @Override
-    public void setInfo(IPizzaInfo info) {
+    public void setInfo(PizzaInfo info) {
         this.info = info;
     }
 

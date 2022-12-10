@@ -1,6 +1,5 @@
 package by.mk_jd2_92_22.pizzeria.dao.entity;
 
-import by.mk_jd2_92_22.pizzeria.dao.entity.api.IMenuRow;
 import by.mk_jd2_92_22.pizzeria.dao.entity.api.ISelectedItem;
 
 import javax.persistence.*;
@@ -13,9 +12,9 @@ public class SelectedItem implements ISelectedItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne(targetEntity = MenuRow.class)
+    @ManyToOne/*(targetEntity = MenuRow.class)*/
     @JoinColumn(name = "menu_row")
-    private IMenuRow menuRow;
+    private MenuRow menuRow;
     @Column
     private int count;
     @Column(name = "\"order\"")
@@ -24,7 +23,7 @@ public class SelectedItem implements ISelectedItem {
     public SelectedItem() {
     }
 
-    public SelectedItem(long id, IMenuRow menuRow, int count, long order) {
+    public SelectedItem(long id, MenuRow menuRow, int count, long order) {
         this.id = id;
         this.menuRow = menuRow;
         this.count = count;
@@ -37,7 +36,7 @@ public class SelectedItem implements ISelectedItem {
     }
 
     @Override
-    public IMenuRow getMenuRow() {
+    public MenuRow getMenuRow() {
         return this.menuRow;
     }
 
@@ -47,7 +46,7 @@ public class SelectedItem implements ISelectedItem {
     }
 
     @Override
-    public void setMenuRow(IMenuRow menuRow) {
+    public void setMenuRow(MenuRow menuRow) {
         this.menuRow = menuRow;
     }
 

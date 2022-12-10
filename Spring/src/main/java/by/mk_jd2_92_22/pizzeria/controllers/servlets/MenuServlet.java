@@ -31,7 +31,7 @@ public class MenuServlet{
         }
 
     @GetMapping
-    protected ResponseEntity<List<IMenu>> getList(){
+    protected ResponseEntity<List<?extends IMenu>> getList(){
 
         return ResponseEntity.ok(service.get());
     }

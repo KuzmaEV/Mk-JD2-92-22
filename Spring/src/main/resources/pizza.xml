@@ -4,28 +4,37 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:p="http://www.springframework.org/schema/p"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
        xsi:schemaLocation="
         http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
         https://www.springframework.org/schema/context/spring-context.xsd
-        http://www.springframework.org/schema/mvc
-        https://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <mvc:annotation-driven/>
+        http://www.springframework.org/schema/mvc
+        https://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/tx
+        https://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/data/jpa
+        https://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+
+    <mvc:annotation-driven />
+        <!-- Транзакции-->
+    <tx:annotation-driven />
+
+        <!--  Для слоя Дао  -->
+    <jpa:repositories base-package="by.mk_jd2_92_22.pizzeria.dao"
+                      entity-manager-factory-ref="myEmf"/>
 
     <context:component-scan base-package="by.mk_jd2_92_22.pizzeria.controllers.servlets"/>
 
 <!--     bean definitions here -->
 
-        <!--    бин для создания EntityManagerFactory?-->
-<!--    <bean class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean" id="entityManagerFactory">-->
-<!--        <property name="persistenceUnitName" value="PizzeriaHibernate"/>-->
-<!--    </bean>-->
-
-    <bean name="entityManagerUtil"
-          class="by.mk_jd2_92_22.pizzeria.dao.EntityManagerUtil"
-          factory-method="getEntityManager"/>
+            <!-- Веременно одключил EntityManager из EntityManagerUtil   -->
+<!--    <bean name="entityManagerUtil"-->
+<!--          class="by.mk_jd2_92_22.pizzeria.dao.EntityManagerUtil"-->
+<!--          factory-method="getEntityManager"/>-->
 
     <bean name="pizzaInfoDao" class="by.mk_jd2_92_22.pizzeria.dao.PizzaInfoDao">
         <constructor-arg name="entityManager" ref="entityManagerUtil"/>
@@ -65,7 +74,7 @@
     </bean>
 
 
-                <!--Подключает Hibernate-->
+                <!--Подключает Hibernate и EntityManagerUtil-->
     <bean id="myEmf"
           class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource" />
@@ -75,59 +84,49 @@
         </property>
         <property name="jpaProperties">
             <props>
-                <prop key="hibernate.hbm2ddl.auto">create-drop</prop>
-                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+                <prop key="hibernate.hbm2ddl.auto">none</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL10Dialect</prop>
+                <prop key="hibernate.default_schema">pizzeria</prop>
             </props>
         </property>
     </bean>
 
-    <bean id="dataSource"
-          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://localhost:3306/spring_jpa" />
-        <property name="username" value="tutorialuser" />
-        <property name="password" value="tutorialmy5ql" />
-    </bean>
+<!--    <bean id="dataSource"-->
+<!--          class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
+<!--        <property name="driverClassName" value="org.postgresql.Driver" />-->
+<!--        <property name="url" value="jdbc:postgresql://localhost:5432/company" />-->
+<!--        <property name="username" value="postgres" />-->
+<!--        <property name="password" value="375256477485" />-->
+<!--    </bean>-->
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="myEmf" />
     </bean>
-    <tx:annotation-driven />
 
     <bean id="persistenceExceptionTranslationPostProcessor" class=
             "org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
 
+            <!--Для настройки ObjectMapper Jakson-->
+    <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+        <property name="objectMapper">
+            <bean class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean"
+                  p:autoDetectFields="false"
+                  p:autoDetectGettersSetters="false">
+            </bean>
+        </property>
+    </bean>
+
         <!-- Создает bean DataSource -->
-<!--    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">-->
-<!--        <property name="driverClass" value="org.postgresql.Driver"/>-->
-<!--        <property name="jdbcUrl" value="jdbc:postgresql://localhost:5432/company"/>-->
-<!--        <property name="user" value="postgres"/>-->
-<!--        <property name="password" value="375256477485"/>-->
-<!--        <property name="minPoolSize" value="5"/>-->
-<!--        <property name="acquireIncrement" value="5"/>-->
-<!--        <property name="minPoolSize" value="20"/>-->
-<!--        <property name="maxStatements" value="180"/>-->
-<!--    </bean>-->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass" value="org.postgresql.Driver"/>
+        <property name="jdbcUrl" value="jdbc:postgresql://localhost:5432/company"/>
+        <property name="user" value="postgres"/>
+        <property name="password" value="375256477485"/>
+        <property name="minPoolSize" value="5"/>
+        <property name="acquireIncrement" value="5"/>
+        <property name="minPoolSize" value="20"/>
+        <property name="maxStatements" value="180"/>
+    </bean>
 
-
-            <!--  Создание EntityManagerFactory  -->
-    <!--    Configuring Container Managed Entity Manager-->
-    <!--    <bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" id="entityManagerFactory">-->
-    <!--        &lt;!&ndash; the data source &ndash;&gt;-->
-    <!--        <property name="dataSource" ref="dataSource"></property>-->
-
-    <!--        &lt;!&ndash; configuration that specifies the JPA Adapter to use &ndash;&gt;-->
-    <!--        <property name="jpaVendorAdapter">-->
-    <!--            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">-->
-    <!--            </bean></property>-->
-
-    <!--        &lt;!&ndash; configuration to specify JPA behaviors &ndash;&gt;-->
-    <!--        <property name="jpaProperties">-->
-    <!--            <props>-->
-    <!--                <prop key="hibernate.hbm2ddl.auto">create-drop</prop>-->
-    <!--                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>-->
-    <!--            </props>-->
-    <!--        </property>-->
-    <!--    </bean>-->
 
 </beans>

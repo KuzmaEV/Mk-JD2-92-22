@@ -31,7 +31,7 @@ public class OrderServlet{
     }
 
     @GetMapping
-    protected ResponseEntity<List<IOrder>> getList(){
+    protected ResponseEntity<List<?extends IOrder>> getList(){
 
         return ResponseEntity.ok(service.get());
     }

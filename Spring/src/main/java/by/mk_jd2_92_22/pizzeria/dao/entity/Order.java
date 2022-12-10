@@ -1,7 +1,6 @@
 package by.mk_jd2_92_22.pizzeria.dao.entity;
 
 import by.mk_jd2_92_22.pizzeria.dao.entity.api.IOrder;
-import by.mk_jd2_92_22.pizzeria.dao.entity.api.ISelectedItem;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -15,22 +14,24 @@ public class Order implements IOrder {
     private long id;
     @Column(name = "dt_create")
     private LocalDateTime dtCreate;
+
+    @Version
     @Column(name = "dt_update")
     private LocalDateTime dtUpdate;
 
-    @OneToMany(targetEntity = SelectedItem.class, mappedBy = "order")
-    private List<ISelectedItem> selectedItem;
+    @OneToMany(/*targetEntity = SelectedItem.class,*/ mappedBy = "order")
+    private List<SelectedItem> selectedItem;
 
     public Order() {
     }
 
-    public Order(LocalDateTime dtCreate, LocalDateTime dtUpdate, List<ISelectedItem> selectedItem) {
+    public Order(LocalDateTime dtCreate, LocalDateTime dtUpdate, List<SelectedItem> selectedItem) {
         this.dtCreate = dtCreate;
         this.dtUpdate = dtUpdate;
         this.selectedItem = selectedItem;
     }
 
-    public Order(long id, LocalDateTime dtCreate, LocalDateTime dtUpdate, List<ISelectedItem> selectedItems) {
+    public Order(long id, LocalDateTime dtCreate, LocalDateTime dtUpdate, List<SelectedItem> selectedItems) {
         this.id = id;
         this.dtCreate = dtCreate;
         this.dtUpdate = dtUpdate;
@@ -53,7 +54,7 @@ public class Order implements IOrder {
     }
 
     @Override
-    public List<ISelectedItem> getSelectedItem() {
+    public List<SelectedItem> getSelectedItem() {
         return selectedItem;
     }
 
@@ -63,7 +64,7 @@ public class Order implements IOrder {
     }
 
     @Override
-    public void setSelectedItem(List<ISelectedItem> selectedItem) {
+    public void setSelectedItem(List<SelectedItem> selectedItem) {
         this.selectedItem = selectedItem;
     }
 

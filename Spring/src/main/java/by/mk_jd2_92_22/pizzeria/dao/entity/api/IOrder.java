@@ -1,5 +1,7 @@
 package by.mk_jd2_92_22.pizzeria.dao.entity.api;
 
+import by.mk_jd2_92_22.pizzeria.dao.entity.SelectedItem;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -17,8 +19,8 @@ public interface IOrder {
      * Список выбранного для заказа
      * @return список выбранного
      */
-    List<ISelectedItem> getSelectedItem();
+    List<SelectedItem> getSelectedItem();
 
     void setDtUpdate(LocalDateTime dtUpdate);
-    void setSelectedItem(List<ISelectedItem> SelectedItem);
+    void setSelectedItem(List<SelectedItem> SelectedItem);
 }

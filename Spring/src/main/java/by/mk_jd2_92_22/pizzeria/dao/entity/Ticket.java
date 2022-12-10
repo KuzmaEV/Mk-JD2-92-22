@@ -1,17 +1,20 @@
 package by.mk_jd2_92_22.pizzeria.dao.entity;
 
-import by.mk_jd2_92_22.pizzeria.dao.entity.api.IOrder;
+
 import by.mk_jd2_92_22.pizzeria.dao.entity.api.ITicket;
 
 import java.time.LocalDateTime;
 
 public class Ticket implements ITicket {
 
-    private final String number;
-    private final LocalDateTime createAt;
-    private final IOrder order;
+    private String number;
+    private LocalDateTime createAt;
+    private Order order;
 
-    public Ticket(String number, LocalDateTime createAt, IOrder order) {
+    public Ticket() {
+    }
+
+    public Ticket(String number, LocalDateTime createAt, Order order) {
         this.number = number;
         this.createAt = createAt;
         this.order = order;
@@ -28,7 +31,19 @@ public class Ticket implements ITicket {
     }
 
     @Override
-    public IOrder getOrder() {
+    public Order getOrder() {
         return order;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public void setCreateAt(LocalDateTime createAt) {
+        this.createAt = createAt;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }

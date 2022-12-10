@@ -1,5 +1,7 @@
 package by.mk_jd2_92_22.pizzeria.dao.entity.api;
 
+import by.mk_jd2_92_22.pizzeria.dao.entity.MenuRow;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -22,7 +24,7 @@ public interface IMenu {
      * Доступные к заказу пункты
      * @return пункты которые можно заказать
      */
-    List<IMenuRow> getItems();
+    List<MenuRow> getItems();
 
     /**
      *
@@ -32,6 +34,6 @@ public interface IMenu {
 
     void setDtUpdate(LocalDateTime dtUpdate);
     void setName(String name);
-    void setItems(List<IMenuRow> items);
+    void setItems(List<MenuRow> items);
     void setEnabled(boolean enable);
 }

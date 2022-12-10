@@ -1,5 +1,7 @@
 package by.mk_jd2_92_22.pizzeria.dao.entity.api;
 
+import by.mk_jd2_92_22.pizzeria.dao.entity.MenuRow;
+
 /**
  * Выбор покупателя
  */
@@ -11,7 +13,7 @@ public interface ISelectedItem {
      * Выбранное из меню
      * @return Выбранное из меню
      */
-    IMenuRow getMenuRow();
+    MenuRow getMenuRow();
 
     /**
      * Количество выбранного
@@ -20,7 +22,7 @@ public interface ISelectedItem {
     int getCount();
     long getOrder();
 
-    void setMenuRow(IMenuRow menuRow);
+    void setMenuRow(MenuRow menuRow);
     void  setCount(int count);
     void  setOrder(long order);
 }

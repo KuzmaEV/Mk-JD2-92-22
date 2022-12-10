@@ -4,17 +4,17 @@ package by.mk_jd2_92_22.pizzeria.services;
 import by.mk_jd2_92_22.pizzeria.dao.api.IOrderDao;
 import by.mk_jd2_92_22.pizzeria.dao.entity.Order;
 import by.mk_jd2_92_22.pizzeria.dao.entity.SelectedItem;
-import by.mk_jd2_92_22.pizzeria.dao.entity.api.IOrder;
-import by.mk_jd2_92_22.pizzeria.dao.entity.api.ISelectedItem;
 import by.mk_jd2_92_22.pizzeria.services.api.IMenuRowService;
 import by.mk_jd2_92_22.pizzeria.services.api.IOrderService;
 import by.mk_jd2_92_22.pizzeria.services.dto.OrderDTO;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
+@Transactional(readOnly = true)
 public class OrderService implements IOrderService {
 
     private final IOrderDao dao;
@@ -26,34 +26,36 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public IOrder read(long id) {
+    public Order read(long id) {
 
-        return dao.read(id);
+        return dao.getReferenceById(id);
     }
 
     @Override
-    public List<IOrder> get() {
-        return dao.get();
+    public List<Order> get() {
+        return dao.findAll();
     }
 
     @Override
-    public IOrder create(OrderDTO item) {
+    @Transactional
+    public Order create(OrderDTO item) {
 
-        List<ISelectedItem> listSelected = mapperListSelectedItem(item.getSelectedItem());
+        List<SelectedItem> listSelected = mapperListSelectedItem(item.getSelectedItem());
 
-        IOrder order = new Order(
+        Order order = new Order(
             LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS),
             LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS),
             listSelected
         );
 
-        return dao.create(order);
+        return dao.save(order);
     }
 
     @Override
-    public IOrder update(long id, LocalDateTime dtUpdate, OrderDTO item) {
+    @Transactional
+    public Order update(long id, LocalDateTime dtUpdate, OrderDTO item) {
 
-        IOrder order = dao.read(id);
+        Order order = dao.getReferenceById(id);
 
         if (order == null){
             throw new IllegalArgumentException("Заказ не найдено!");
@@ -66,14 +68,15 @@ public class OrderService implements IOrderService {
 
         order.setSelectedItem(mapperListSelectedItem(item.getSelectedItem()));
 
-        return dao.update(id, dtUpdate, order);
+        return dao.save(order);
     }
 
 
     @Override
+    @Transactional
     public void delete(long id, LocalDateTime dtUpdate) {
 
-        IOrder order = dao.read(id);
+        Order order = dao.getReferenceById(id);
 
         if (order == null){
             throw new IllegalArgumentException("Заказ не найдено!");
@@ -82,16 +85,16 @@ public class OrderService implements IOrderService {
             throw new IllegalArgumentException("Не удалось удалить данные, кто-то отредактировал раньше!");
         }
 
-        dao.delete(id, dtUpdate);
+        dao.deleteById(id);
 
     }
-    private List<ISelectedItem> mapperListSelectedItem(List<OrderDTO.Selected> selectedItem){
+    private List<SelectedItem> mapperListSelectedItem(List<OrderDTO.Selected> selectedItem){
 
-        List<ISelectedItem> listSelected = new ArrayList<>();
+        List<SelectedItem> listSelected = new ArrayList<>();
 
         for (OrderDTO.Selected row : selectedItem) {
 
-            ISelectedItem selectedRow = new SelectedItem();
+            SelectedItem selectedRow = new SelectedItem();
             selectedRow.setMenuRow(menuRowService.read(row.getMenuRow()));
             selectedRow.setCount(row.getCount());
 

@@ -1,5 +1,7 @@
 package by.mk_jd2_92_22.pizzeria.dao.entity.api;
 
+import by.mk_jd2_92_22.pizzeria.dao.entity.PizzaInfo;
+
 import java.time.LocalDateTime;
 
 /**
@@ -15,7 +17,7 @@ public interface IMenuRow {
      *
      * @return Информация о пицце
      */
-    IPizzaInfo getInfo();
+    PizzaInfo getInfo();
 
     /**
      *
@@ -30,7 +32,7 @@ public interface IMenuRow {
     long getMenu();
 
     void setDtUpdate(LocalDateTime dtUpdate);
-    void setInfo(IPizzaInfo pizzaInfo);
+    void setInfo(PizzaInfo pizzaInfo);
     void setPrice(double price);
     void setMenu(long menu);
 

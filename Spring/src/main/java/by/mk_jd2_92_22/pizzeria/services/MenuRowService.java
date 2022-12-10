@@ -2,16 +2,17 @@ package by.mk_jd2_92_22.pizzeria.services;
 
 import by.mk_jd2_92_22.pizzeria.dao.api.IMenuRowDao;
 import by.mk_jd2_92_22.pizzeria.dao.entity.MenuRow;
-import by.mk_jd2_92_22.pizzeria.dao.entity.api.IMenuRow;
-import by.mk_jd2_92_22.pizzeria.dao.entity.api.IPizzaInfo;
+import by.mk_jd2_92_22.pizzeria.dao.entity.PizzaInfo;
 import by.mk_jd2_92_22.pizzeria.services.api.IMenuRowService;
 import by.mk_jd2_92_22.pizzeria.services.api.IPizzaInfoService;
 import by.mk_jd2_92_22.pizzeria.services.dto.MenuRowDTO;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
+@Transactional(readOnly = true)
 public class MenuRowService implements IMenuRowService {
     private final IMenuRowDao dao;
     private final IPizzaInfoService servicePizzaInfo;
@@ -23,9 +24,9 @@ public class MenuRowService implements IMenuRowService {
 
 
     @Override
-    public IMenuRow read(long id) {
+    public MenuRow read(long id) {
 
-        IMenuRow menuRow = dao.read(id);
+        MenuRow menuRow = dao.getReferenceById(id);
         if (menuRow == null){
             throw new IllegalArgumentException("Пункт меню не найден!");
         }
@@ -33,36 +34,38 @@ public class MenuRowService implements IMenuRowService {
     }
 
     @Override
-    public List<IMenuRow> get() {
-        return dao.get();
+    public List<MenuRow> get() {
+        return dao.findAll();
     }
 
 
     @Override
-    public IMenuRow create(MenuRowDTO item) {
+    @Transactional
+    public MenuRow create(MenuRowDTO item) {
 
-        IPizzaInfo pizzaInfo = servicePizzaInfo.read(item.getInfo());
+        PizzaInfo pizzaInfo = servicePizzaInfo.read(item.getInfo());
 
         if (pizzaInfo == null){
             throw new IllegalArgumentException("Такой пиццы не существует");
         }
 
-        IMenuRow menuRow = new MenuRow(
+        MenuRow menuRow = new MenuRow(
                 LocalDateTime.now(),
                 LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS),
                 pizzaInfo,
                 item.getPrice(),
                 item.getMenu());
 
-        return dao.create(menuRow);
+        return dao.save(menuRow);
     }
 
     @Override
-    public IMenuRow update(long id, LocalDateTime dtUpdate, MenuRowDTO item) {
+    @Transactional
+    public MenuRow update(long id, LocalDateTime dtUpdate, MenuRowDTO item) {
 
-        IMenuRow menuRow = dao.read(id);
+        MenuRow menuRow = dao.getReferenceById(id);
 
-        IPizzaInfo pizzaInfo = servicePizzaInfo.read(item.getInfo());
+        PizzaInfo pizzaInfo = servicePizzaInfo.read(item.getInfo());
 
         if (menuRow == null){
             throw new IllegalArgumentException("Пункт меню не найден!");
@@ -85,12 +88,13 @@ public class MenuRowService implements IMenuRowService {
         menuRow.setDtUpdate(LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS)); //Добавил время обнавления
 
 
-        return dao.update(id, dtUpdate, menuRow);
+        return dao.save(menuRow);
     }
 
     @Override
+    @Transactional
     public void delete(long id, LocalDateTime dtUpdate) {
-        IMenuRow read = dao.read(id);
+        MenuRow read = dao.getReferenceById(id);
 
         if (read == null){
             throw new IllegalArgumentException("Пункт меню не найден!");
@@ -98,7 +102,7 @@ public class MenuRowService implements IMenuRowService {
         if (!read.getDtUpdate().isEqual(dtUpdate)){
             throw new IllegalArgumentException("Не удалось удалить, ктото успел отредактировать!");
         }
-        dao.delete(id,dtUpdate);
+        dao.deleteById(id);
     }
 
 }

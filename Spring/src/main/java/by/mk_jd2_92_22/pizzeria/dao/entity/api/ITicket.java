@@ -1,5 +1,7 @@
 package by.mk_jd2_92_22.pizzeria.dao.entity.api;
 
+import by.mk_jd2_92_22.pizzeria.dao.entity.Order;
+
 import java.time.LocalDateTime;
 
 /**
@@ -23,5 +25,5 @@ public interface ITicket {
      * Заказ для которого выдали квиток
      * @return Заказ для которого выдали квиток
      */
-    IOrder getOrder();
+    Order getOrder();
 }

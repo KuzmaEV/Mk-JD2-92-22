@@ -2,14 +2,15 @@ package by.mk_jd2_92_22.pizzeria.services;
 
 import by.mk_jd2_92_22.pizzeria.dao.api.IMenuDao;
 import by.mk_jd2_92_22.pizzeria.dao.entity.Menu;
-import by.mk_jd2_92_22.pizzeria.dao.entity.api.IMenu;
 import by.mk_jd2_92_22.pizzeria.services.api.IMenuService;
 import by.mk_jd2_92_22.pizzeria.services.dto.MenuDTO;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
+@Transactional(readOnly = true)
 public class MenuService implements IMenuService {
 
     private final IMenuDao dao;
@@ -19,8 +20,8 @@ public class MenuService implements IMenuService {
     }
 
     @Override
-    public IMenu read(long id) {
-        IMenu menu = dao.read(id);
+    public Menu read(long id) {
+        Menu menu = dao.getReferenceById(id);
         if (menu == null){
             throw new IllegalArgumentException("Меню не найдено");
         }
@@ -28,27 +29,29 @@ public class MenuService implements IMenuService {
     }
 
     @Override
-    public List<IMenu> get() {
-        return dao.get();
+    public List<Menu> get() {
+        return dao.findAll();
     }
 
     @Override
-    public IMenu create(MenuDTO item) {
+    @Transactional
+    public Menu create(MenuDTO item) {
 
 
-        IMenu menu = new Menu(
+        Menu menu = new Menu(
                 LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS),
                 LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS),
                 item.getName(),
                 item.isEnabled()
         );
-        return dao.create(menu);
+        return dao.save(menu);
     }
 
     @Override
-    public IMenu update(long id, LocalDateTime dtUpdate, MenuDTO item) {
+    @Transactional
+    public Menu update(long id, LocalDateTime dtUpdate, MenuDTO item) {
 
-        IMenu menu = dao.read(id);
+        Menu menu = dao.getReferenceById(id);
 
         if (menu == null){
             throw new IllegalArgumentException("Меню не найдено!");
@@ -65,12 +68,13 @@ public class MenuService implements IMenuService {
 
         menu.setEnabled(item.isEnabled());
 
-        return dao.update(id, dtUpdate, menu);
+        return dao.save(menu);
     }
 
     @Override
+    @Transactional
     public void delete(long id, LocalDateTime dtUpdate) {
-        IMenu menu = dao.read(id);
+        Menu menu = dao.getReferenceById(id);
 
         if (menu == null){
             throw new IllegalArgumentException("Меню не найдено!");
@@ -79,7 +83,7 @@ public class MenuService implements IMenuService {
             throw new IllegalArgumentException("Не удалось удалить данные, кто-то отредактировал раньше!");
         }
 
-        dao.delete(id, dtUpdate);
+        dao.deleteById(id);
 
     }
 }

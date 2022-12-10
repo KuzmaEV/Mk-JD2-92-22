@@ -1,7 +1,6 @@
 package by.mk_jd2_92_22.pizzeria.dao.entity;
 
 import by.mk_jd2_92_22.pizzeria.dao.entity.api.IMenu;
-import by.mk_jd2_92_22.pizzeria.dao.entity.api.IMenuRow;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -18,14 +17,15 @@ public class Menu implements IMenu {
     @Column(name = "dt_create")
     private LocalDateTime dtCreate;
 
+    @Version
     @Column(name = "dt_update")
     private LocalDateTime dtUpdate;
     @Column
     private String name;
 
-    @OneToMany(targetEntity = MenuRow.class, mappedBy = "menu")
+    @OneToMany(/*targetEntity = MenuRow.class,*/ mappedBy = "menu")
 //    @JoinColumn(name = "id", referencedColumnName = "menu")
-    private List<IMenuRow> items;
+    private List<MenuRow> items;
 
     @Column(name = "enable")
     private boolean enabled;
@@ -33,7 +33,7 @@ public class Menu implements IMenu {
     public Menu() {
     }
 
-    public Menu(long id, LocalDateTime dtCreate, LocalDateTime dtUpdate, String name, List<IMenuRow> menuRowList, boolean enabled) {
+    public Menu(long id, LocalDateTime dtCreate, LocalDateTime dtUpdate, String name, List<MenuRow> menuRowList, boolean enabled) {
         this.id = id;
         this.dtCreate = dtCreate;
         this.dtUpdate = dtUpdate;
@@ -76,7 +76,7 @@ public class Menu implements IMenu {
     }
 
     @Override
-    public List<IMenuRow> getItems() {
+    public List<MenuRow> getItems() {
 //        menuRowList.add(new MenuRow("pepperoni", "sausage/cheese", 40, 12));
         return items;
     }
@@ -92,7 +92,7 @@ public class Menu implements IMenu {
     }
 
     @Override
-    public void setItems(List<IMenuRow> items) {
+    public void setItems(List<MenuRow> items) {
         this.items = items;
     }
 
