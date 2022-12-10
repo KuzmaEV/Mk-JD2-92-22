@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+             xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+    <persistence-unit name="PizzeriaHibernate" transaction-type="RESOURCE_LOCAL">
+        <class>by.mk_jd2_92_22.pizzeria.dao.entity.PizzaInfo</class>
+        <class>by.mk_jd2_92_22.pizzeria.dao.entity.MenuRow</class>
+        <class>by.mk_jd2_92_22.pizzeria.dao.entity.Menu</class>
+        <class>by.mk_jd2_92_22.pizzeria.dao.entity.Order</class>
+        <class>by.mk_jd2_92_22.pizzeria.dao.entity.SelectedItem</class>
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/company" />
+            <property name="javax.persistence.jdbc.user" value="postgres" />
+            <property name="javax.persistence.jdbc.password" value="375256477485" />
+
+            <property name="hibernate.default_schema" value= "pizzeria"/>
+            <!--            <property name="hibernate.hbm2ddl.auto" value="create"/>-->
+            <property name="hibernate.use_sql_comments" value="true"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.connection.pool_size" value="10"/>
+        </properties>
+    </persistence-unit>
+</persistence>
