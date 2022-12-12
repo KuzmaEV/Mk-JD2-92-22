@@ -22,7 +22,7 @@ public class MenuService implements IMenuService {
     @Override
     public Menu read(long id) {
 
-        return dao.findById(id).orElseThrow();
+        return dao.getMenuById(id);
     }
 
     @Override

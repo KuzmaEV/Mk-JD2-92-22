@@ -10,4 +10,7 @@ public interface IMenuDao extends JpaRepository<Menu, Long> {
 
     @Query("SELECT m FROM Menu m JOIN FETCH m.items")
     List<Menu> getListMenu();
+
+    @Query("SELECT m FROM Menu m JOIN FETCH m.items WHERE m.id = ?1")
+    Menu getMenuById(long id);
 }

@@ -25,4 +25,16 @@ public class MenuServiceTest {
             System.out.println(pizzaInfo);
         }
     }
+
+//    @Test
+    public void read(){
+        ApplicationContext context =
+                new ClassPathXmlApplicationContext("pizza.xml");
+
+        IMenuService bean = context.getBean(IMenuService.class);
+
+        System.out.println(bean.read(1));
+
+
+    }
 }
