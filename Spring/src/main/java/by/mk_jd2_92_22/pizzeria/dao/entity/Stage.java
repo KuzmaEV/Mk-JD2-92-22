@@ -22,21 +22,20 @@ public class Stage implements IStage {
     private LocalDateTime dtUpdate;
 
     private String description;
-    private LocalTime time;
+//    private LocalTime time;
 
     public Stage() {
     }
 
-    public Stage(long id, LocalDateTime dtCreate, LocalDateTime dtUpdate, String description) {
-        this.id = id;
+    public Stage(LocalDateTime dtCreate, LocalDateTime dtUpdate, String description) {
         this.dtCreate = dtCreate;
         this.dtUpdate = dtUpdate;
         this.description = description;
     }
 
-    public void setTime(LocalTime time) {
-        this.time = time;
-    }
+//    public void setTime(LocalTime time) {
+//        this.time = time;
+//    }
 
     @Override
     public long getId() {
@@ -58,15 +57,18 @@ public class Stage implements IStage {
         return this.description;
     }
 
-    @Override
-    public LocalTime getTime() {
-        return this.time;
-    }
+//    @Override
+//    public LocalTime getTime() {
+//        return this.time;
+//    }
 
+    @Override
     public void setDtUpdate(LocalDateTime dtUpdate) {
         this.dtUpdate = dtUpdate;
     }
 
+
+    @Override
     public void setDescription(String description) {
         this.description = description;
     }
@@ -78,7 +80,7 @@ public class Stage implements IStage {
                 ", dtCreate=" + dtCreate +
                 ", dtUpdate=" + dtUpdate +
                 ", description='" + description + '\'' +
-                ", time=" + time +
+//                ", time=" + time +
                 '}';
     }
 }

@@ -17,9 +17,12 @@ public interface IStage {
      */
     String getDescription();
 
-    /**
-     * Когда этап был начат
-     * @return Когда этап был начат
-     */
-    LocalTime getTime();
+//    /**
+//     * Когда этап был начат
+//     * @return Когда этап был начат
+//     */
+//    LocalTime getTime();
+
+    void setDtUpdate(LocalDateTime dtUpdate);
+    void setDescription(String description);
 }
