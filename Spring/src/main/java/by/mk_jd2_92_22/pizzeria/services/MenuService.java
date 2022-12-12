@@ -22,12 +22,12 @@ public class MenuService implements IMenuService {
     @Override
     public Menu read(long id) {
 
-        return dao.getReferenceById(id);
+        return dao.findById(id).orElseThrow();
     }
 
     @Override
     public List<Menu> get() {
-        return dao.findAll();
+        return dao.getListMenu();
     }
 
     @Override
@@ -48,7 +48,7 @@ public class MenuService implements IMenuService {
     @Transactional
     public Menu update(long id, LocalDateTime dtUpdate, MenuDTO item) {
 
-        Menu menu = dao.getReferenceById(id);
+        Menu menu = dao.findById(id).orElseThrow();
 
 //        if (menu == null){
 //            throw new IllegalArgumentException("Меню не найдено!");
@@ -71,7 +71,7 @@ public class MenuService implements IMenuService {
     @Override
     @Transactional
     public void delete(long id, LocalDateTime dtUpdate) {
-        Menu menu = dao.getReferenceById(id);
+        Menu menu = dao.findById(id).orElseThrow();
 
 //        if (menu == null){
 //            throw new IllegalArgumentException("Меню не найдено!");

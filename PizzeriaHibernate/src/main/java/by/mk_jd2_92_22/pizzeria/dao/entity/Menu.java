@@ -23,7 +23,7 @@ public class Menu implements IMenu {
     @Column
     private String name;
 
-    @OneToMany(targetEntity = MenuRow.class, mappedBy = "menu")
+    @OneToMany(/*targetEntity = MenuRow.class, */mappedBy = "menu")
 //    @JoinColumn(name = "id", referencedColumnName = "menu")
     private List<IMenuRow> items;
 

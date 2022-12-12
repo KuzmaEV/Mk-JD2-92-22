@@ -26,7 +26,7 @@ public class MenuRowService implements IMenuRowService {
     @Override
     public MenuRow read(long id) {
 
-        return dao.getReferenceById(id);
+        return dao.findById(id).orElseThrow();
     }
 
     @Override
@@ -59,7 +59,7 @@ public class MenuRowService implements IMenuRowService {
     @Transactional
     public MenuRow update(long id, LocalDateTime dtUpdate, MenuRowDTO item) {
 
-        MenuRow menuRow = dao.getReferenceById(id);
+        MenuRow menuRow = dao.findById(id).orElseThrow();
 
         PizzaInfo pizzaInfo = servicePizzaInfo.read(item.getInfo());
 
@@ -85,7 +85,7 @@ public class MenuRowService implements IMenuRowService {
     @Override
     @Transactional
     public void delete(long id, LocalDateTime dtUpdate) {
-        MenuRow read = dao.getReferenceById(id);
+        MenuRow read = dao.findById(id).orElseThrow();
 
         if (!read.getDtUpdate().isEqual(dtUpdate)){
             throw new IllegalArgumentException("Не удалось удалить, ктото успел отредактировать!");

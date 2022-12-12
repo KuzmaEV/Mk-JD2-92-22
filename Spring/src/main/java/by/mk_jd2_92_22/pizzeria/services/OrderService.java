@@ -28,7 +28,7 @@ public class OrderService implements IOrderService {
     @Override
     public Order read(long id) {
 
-        return dao.getReferenceById(id);
+        return dao.findById(id).orElseThrow();
     }
 
     @Override
@@ -55,7 +55,7 @@ public class OrderService implements IOrderService {
     @Transactional
     public Order update(long id, LocalDateTime dtUpdate, OrderDTO item) {
 
-        Order order = dao.getReferenceById(id);
+        Order order = dao.findById(id).orElseThrow();
 
 
         if (!order.getDtUpdate().isEqual(dtUpdate)){
@@ -74,7 +74,7 @@ public class OrderService implements IOrderService {
     @Transactional
     public void delete(long id, LocalDateTime dtUpdate) {
 
-        Order order = dao.getReferenceById(id);
+        Order order = dao.findById(id).orElseThrow();
 
         if (!order.getDtUpdate().isEqual(dtUpdate)){
             throw new IllegalArgumentException("Не удалось удалить данные, кто-то отредактировал раньше!");

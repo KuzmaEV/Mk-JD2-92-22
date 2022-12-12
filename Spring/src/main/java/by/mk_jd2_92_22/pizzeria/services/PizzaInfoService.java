@@ -22,7 +22,7 @@ public class PizzaInfoService implements IPizzaInfoService {
     @Override
     public PizzaInfo read(long id) {
 
-        return dao.getReferenceById(id);
+        return dao.findById(id).orElseThrow();
     }
 
     @Override
@@ -50,7 +50,7 @@ public class PizzaInfoService implements IPizzaInfoService {
     @Transactional
     public PizzaInfo update(long id, LocalDateTime dtUpdate/*дата последнено изменения*/,
                              PizzaInfoDTO item/* dto БЕЗ ид и дт, только параметры для изменения*/) {
-        PizzaInfo pizzaInfo = dao.getReferenceById(id);
+        PizzaInfo pizzaInfo = dao.findById(id).orElseThrow();
 
 
 
@@ -76,7 +76,7 @@ public class PizzaInfoService implements IPizzaInfoService {
     @Transactional
     public void delete(long id, LocalDateTime dtUpdate) {
 
-        PizzaInfo read = dao.getReferenceById(id);
+        PizzaInfo read = dao.findById(id).orElseThrow();
 
         if (!read.getDtUpdate().isEqual(dtUpdate)){
             throw new IllegalArgumentException("Не удалось удалить, пицца было кем-то отредактирована");

@@ -19,14 +19,34 @@
         http://www.springframework.org/schema/data/jpa
         https://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
-    <mvc:annotation-driven />
-        <!-- Транзакции-->
+    <mvc:annotation-driven >
+            <mvc:message-converters>
+                <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                    <property name="objectMapper" ref="jacksonObjectMapper"/>
+
+<!--                                <bean class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean"-->
+<!--                                      p:autoDetectFields="false"-->
+<!--                                      p:autoDetectGettersSetters="false">-->
+<!--                                    <property name=""/>-->
+<!--                                </bean>-->
+<!--                            </property>-->
+                </bean>
+
+            </mvc:message-converters>
+    </mvc:annotation-driven >
+
+    <!-- Транзакции-->
     <tx:annotation-driven />
 
-        <!--  Для слоя Дао  -->
-    <jpa:repositories base-package="by.mk_jd2_92_22.pizzeria.dao"
+    <bean id="jacksonObjectMapper"
+          class="by.mk_jd2_92_22.pizzeria.controllers.utils.mapper.ObjectMapperSingleton"
+          factory-method="getInstance"/>
+
+        <!--  Для слоя Дао (папка где находятся интерфейсы  -->
+    <jpa:repositories base-package="by.mk_jd2_92_22.pizzeria.dao.api"
                       entity-manager-factory-ref="myEmf"/>
 
+            <!--  Указать где находятся Контроллеры  -->
     <context:component-scan base-package="by.mk_jd2_92_22.pizzeria.controllers.servlets"/>
 
 <!--     bean definitions here -->
@@ -36,40 +56,27 @@
 <!--          class="by.mk_jd2_92_22.pizzeria.dao.EntityManagerUtil"-->
 <!--          factory-method="getEntityManager"/>-->
 
-    <bean name="pizzaInfoDao" class="by.mk_jd2_92_22.pizzeria.dao.PizzaInfoDao">
-        <constructor-arg name="entityManager" ref="entityManagerUtil"/>
-    </bean>
+
+
 
     <bean id="pizzaInfoService" class="by.mk_jd2_92_22.pizzeria.services.PizzaInfoService">
-        <constructor-arg name="dao" ref="pizzaInfoDao"/>
+        <constructor-arg name="dao" ref="IPizzaInfoDao"/>
     </bean>
 
-
-    <bean name="menuRowDao" class="by.mk_jd2_92_22.pizzeria.dao.MenuRowDao">
-        <constructor-arg name="entityManager" ref="entityManagerUtil"/>
-    </bean>
 
     <bean id="menuRowService" class="by.mk_jd2_92_22.pizzeria.services.MenuRowService">
-        <constructor-arg name="dao" ref="menuRowDao"/>
+        <constructor-arg name="dao" ref="IMenuRowDao"/>
         <constructor-arg name="servicePizzaInfo" ref="pizzaInfoService"/>
     </bean>
 
 
-    <bean name="menuDao" class="by.mk_jd2_92_22.pizzeria.dao.MenuDao">
-        <constructor-arg name="entityManager" ref="entityManagerUtil"/>
-    </bean>
-
     <bean id="menuService" class="by.mk_jd2_92_22.pizzeria.services.MenuService">
-        <constructor-arg name="dao" ref="menuDao"/>
+        <constructor-arg name="dao" ref="IMenuDao"/>
     </bean>
 
-
-    <bean name="orderDao" class="by.mk_jd2_92_22.pizzeria.dao.OrderDao">
-        <constructor-arg name="entityManager" ref="entityManagerUtil"/>
-    </bean>
 
     <bean id="orderService" class="by.mk_jd2_92_22.pizzeria.services.OrderService">
-        <constructor-arg name="dao" ref="orderDao"/>
+        <constructor-arg name="dao" ref="IOrderDao"/>
         <constructor-arg name="menuRowService" ref="menuRowService"/>
     </bean>
 
@@ -91,13 +98,13 @@
         </property>
     </bean>
 
-<!--    <bean id="dataSource"-->
-<!--          class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
-<!--        <property name="driverClassName" value="org.postgresql.Driver" />-->
-<!--        <property name="url" value="jdbc:postgresql://localhost:5432/company" />-->
-<!--        <property name="username" value="postgres" />-->
-<!--        <property name="password" value="375256477485" />-->
-<!--    </bean>-->
+    <bean id="dataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.postgresql.Driver" />
+        <property name="url" value="jdbc:postgresql://localhost:5432/company" />
+        <property name="username" value="postgres" />
+        <property name="password" value="375256477485" />
+    </bean>
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="myEmf" />
@@ -106,27 +113,20 @@
     <bean id="persistenceExceptionTranslationPostProcessor" class=
             "org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
 
-            <!--Для настройки ObjectMapper Jakson-->
-    <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-        <property name="objectMapper">
-            <bean class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean"
-                  p:autoDetectFields="false"
-                  p:autoDetectGettersSetters="false">
-            </bean>
-        </property>
-    </bean>
+            <!--Для настройки ObjectMapper Jackson-->
+
 
         <!-- Создает bean DataSource -->
-    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
-        <property name="driverClass" value="org.postgresql.Driver"/>
-        <property name="jdbcUrl" value="jdbc:postgresql://localhost:5432/company"/>
-        <property name="user" value="postgres"/>
-        <property name="password" value="375256477485"/>
-        <property name="minPoolSize" value="5"/>
-        <property name="acquireIncrement" value="5"/>
-        <property name="minPoolSize" value="20"/>
-        <property name="maxStatements" value="180"/>
-    </bean>
+<!--    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">-->
+<!--        <property name="driverClass" value="org.postgresql.Driver"/>-->
+<!--        <property name="jdbcUrl" value="jdbc:postgresql://localhost:5432/company"/>-->
+<!--        <property name="user" value="postgres"/>-->
+<!--        <property name="password" value="375256477485"/>-->
+<!--        <property name="minPoolSize" value="5"/>-->
+<!--        <property name="acquireIncrement" value="5"/>-->
+<!--        <property name="maxPoolSize" value="20"/>-->
+<!--        <property name="maxStatements" value="180"/>-->
+<!--    </bean>-->
 
 
 </beans>
