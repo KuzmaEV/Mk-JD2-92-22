@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Version;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 @Entity
 public class Stage implements IStage {

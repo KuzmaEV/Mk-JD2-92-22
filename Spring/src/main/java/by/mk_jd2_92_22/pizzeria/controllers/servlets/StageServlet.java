@@ -2,7 +2,6 @@ package by.mk_jd2_92_22.pizzeria.controllers.servlets;
 
 import by.mk_jd2_92_22.pizzeria.dao.entity.Stage;
 import by.mk_jd2_92_22.pizzeria.services.api.IStageService;
-import by.mk_jd2_92_22.pizzeria.services.dto.PizzaInfoDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
