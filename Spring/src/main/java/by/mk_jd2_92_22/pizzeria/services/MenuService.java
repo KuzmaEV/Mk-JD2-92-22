@@ -80,6 +80,9 @@ public class MenuService implements IMenuService {
             throw new IllegalArgumentException("Не удалось удалить данные, кто-то отредактировал раньше!");
         }
 
+        dao.deleteMenuRowFromMenu(id);
+
+
         dao.deleteById(id);
 
     }

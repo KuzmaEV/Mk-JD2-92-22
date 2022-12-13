@@ -35,7 +35,7 @@ public class MenuRowServlet{
         return ResponseEntity.ok(service.get());
     }
 
-    @PatchMapping
+    @PostMapping
     protected ResponseEntity<IMenuRow> doPost(@RequestBody MenuRowDTO dto){
 
         IMenuRow menuRow = service.create(dto);
