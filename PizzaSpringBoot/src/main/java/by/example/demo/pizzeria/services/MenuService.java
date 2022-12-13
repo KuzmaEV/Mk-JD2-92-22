@@ -1,0 +1,91 @@
+package by.example.demo.pizzeria.services;
+
+import by.example.demo.pizzeria.dao.entity.Menu;
+import by.example.demo.pizzeria.services.api.IMenuService;
+import by.example.demo.pizzeria.services.dto.MenuDTO;
+import by.example.demo.pizzeria.dao.api.IMenuDao;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
+
+@Service
+@Transactional(readOnly = true)
+public class MenuService implements IMenuService {
+
+    private final IMenuDao dao;
+
+    public MenuService(IMenuDao dao) {
+        this.dao = dao;
+    }
+
+    @Override
+    public Menu read(long id) {
+
+        return dao.getMenuById(id);
+    }
+
+    @Override
+    public List<Menu> get() {
+        return dao.getListMenu();
+    }
+
+    @Override
+    @Transactional
+    public Menu create(MenuDTO item) {
+
+
+        Menu menu = new Menu(
+                LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS),
+                LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS),
+                item.getName(),
+                item.isEnabled()
+        );
+        return dao.save(menu);
+    }
+
+    @Override
+    @Transactional
+    public Menu update(long id, LocalDateTime dtUpdate, MenuDTO item) {
+
+        Menu menu = dao.findById(id).orElseThrow();
+
+//        if (menu == null){
+//            throw new IllegalArgumentException("Меню не найдено!");
+//        }
+        if (!menu.getDtUpdate().isEqual(dtUpdate)){
+            throw new IllegalArgumentException("Не удалось обнавить данные, кто-то отредактировал раньше!");
+        }
+
+        menu.setDtUpdate(LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS));
+
+        if (item.getName() != null){
+            menu.setName(item.getName());
+        }
+
+        menu.setEnabled(item.isEnabled());
+
+        return dao.save(menu);
+    }
+
+    @Override
+    @Transactional
+    public void delete(long id, LocalDateTime dtUpdate) {
+        Menu menu = dao.findById(id).orElseThrow();
+
+//        if (menu == null){
+//            throw new IllegalArgumentException("Меню не найдено!");
+//        }
+        if (!menu.getDtUpdate().isEqual(dtUpdate)){
+            throw new IllegalArgumentException("Не удалось удалить данные, кто-то отредактировал раньше!");
+        }
+
+        dao.deleteMenuRowFromMenu(id);
+
+
+        dao.deleteById(id);
+
+    }
+}

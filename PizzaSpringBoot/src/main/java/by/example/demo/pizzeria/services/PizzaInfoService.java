@@ -1,0 +1,90 @@
+package by.example.demo.pizzeria.services;
+
+import by.example.demo.pizzeria.dao.api.IPizzaInfoDao;
+import by.example.demo.pizzeria.dao.entity.PizzaInfo;
+import by.example.demo.pizzeria.services.api.IPizzaInfoService;
+import by.example.demo.pizzeria.services.dto.PizzaInfoDTO;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
+
+@Service
+@Transactional(readOnly = true)
+public class PizzaInfoService implements IPizzaInfoService {
+
+    private final IPizzaInfoDao dao;
+
+    public PizzaInfoService(IPizzaInfoDao dao) {
+        this.dao = dao;
+    }
+
+    @Override
+    public PizzaInfo read(long id) {
+
+        return dao.findById(id).orElseThrow();
+    }
+
+    @Override
+    public List<PizzaInfo> get() {
+
+        return dao.findAll();
+    }
+
+    @Override
+    @Transactional
+    public PizzaInfo create(PizzaInfoDTO item) {
+
+        PizzaInfo pizzaInfo = new PizzaInfo(
+                LocalDateTime.now(),
+                LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS),
+                item.getName(),
+                item.getDescription(),
+                item.getSize()
+        );
+
+        return dao.save(pizzaInfo);
+    }
+
+    @Override
+    @Transactional
+    public PizzaInfo update(long id, LocalDateTime dtUpdate/*дата последнено изменения*/,
+                             PizzaInfoDTO item/* dto БЕЗ ид и дт, только параметры для изменения*/) {
+        PizzaInfo pizzaInfo = dao.findById(id).orElseThrow();
+
+
+
+        if (item.getName() != null){
+            pizzaInfo.setName(item.getName());
+        }
+        if (item.getDescription() != null){
+            pizzaInfo.setDescription(item.getDescription());
+        }
+        if (item.getSize() != 0){
+            pizzaInfo.setSize(item.getSize());
+        }
+        if (pizzaInfo.getDtUpdate().isEqual(dtUpdate)){
+           pizzaInfo.setDtUpdate(LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS));
+        } else {
+            throw new IllegalArgumentException("Пицца кем-то отредактирована");
+        }
+
+        return dao.save(pizzaInfo);
+    }
+
+    @Override
+    @Transactional
+    public void delete(long id, LocalDateTime dtUpdate) {
+
+        PizzaInfo read = dao.findById(id).orElseThrow();
+
+        if (!read.getDtUpdate().isEqual(dtUpdate)){
+            throw new IllegalArgumentException("Не удалось удалить, пицца было кем-то отредактирована");
+        }
+        dao.deleteById(id);
+    }
+
+
+}
