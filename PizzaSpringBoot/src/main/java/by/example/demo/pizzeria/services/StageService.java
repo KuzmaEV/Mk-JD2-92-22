@@ -3,11 +3,12 @@ package by.example.demo.pizzeria.services;
 import by.example.demo.pizzeria.dao.api.IStageDao;
 import by.example.demo.pizzeria.dao.entity.Stage;
 import by.example.demo.pizzeria.services.api.IStageService;
+import by.example.demo.pizzeria.services.dto.StageDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -32,13 +33,10 @@ public class StageService implements IStageService {
 
     @Override
     @Transactional
-    public Stage create(String item) {
+    public Stage create(StageDTO item) {
 
-        LocalDateTime now = LocalDateTime.now();
-        Stage stage = new Stage(
-                now,
-                now,
-                item);
+        LocalTime now = LocalTime.now();
+        Stage stage = new Stage(item.getDescription(), now, item.getOrderStatus());
 
         return dao.save(stage);
     }
@@ -46,32 +44,21 @@ public class StageService implements IStageService {
 
     @Override
     @Transactional
-    public Stage update(long id, LocalDateTime dtUpdate, String item) {
-
-        Stage stage = dao.findById(id).orElseThrow();
+    public Stage update(long id, LocalDateTime dtUpdate, StageDTO item) {
 
 
-        if (stage.getDtUpdate().isEqual(dtUpdate)){
-            stage.setDtUpdate(LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS));
-        } else {
-            throw new IllegalArgumentException("Пицца кем-то отредактирована");
-        }
-
-        return dao.save(stage);
+        return null;
     }
 
     @Override
     @Transactional
     public void delete(long id, LocalDateTime dtUpdate) {
 
-        Stage stage = dao.findById(id).orElseThrow();
+    }
 
-
-        if (stage.getDtUpdate().isEqual(dtUpdate)){
-            stage.setDtUpdate(LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS));
-        } else {
-            throw new IllegalArgumentException("Пицца кем-то отредактирована");
-        }
+    @Override
+    @Transactional
+    public void delete(long id) {
         dao.deleteById(id);
     }
 }
