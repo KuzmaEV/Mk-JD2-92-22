@@ -2,6 +2,7 @@ package by.example.demo.pizzeria.dao.entity.api.x;
 
 import by.example.demo.pizzeria.dao.entity.api.IMenu;
 import by.example.demo.pizzeria.dao.entity.api.IOrder;
+import by.example.demo.pizzeria.dao.entity.api.IOrderStatus;
 import by.example.demo.pizzeria.dao.entity.api.ITicket;
 
 /**
