@@ -13,7 +13,7 @@ public interface ITicket {
      * Уникальный номер заказа
      * @return Уникальный номер заказа
      */
-    String getNumber();
+    long getId();
 
     /**
      * Когда заказ получен
@@ -26,4 +26,6 @@ public interface ITicket {
      * @return Заказ для которого выдали квиток
      */
     Order getOrder();
+
+    void setOrder(Order order);
 }

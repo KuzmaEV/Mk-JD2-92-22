@@ -3,26 +3,41 @@ package by.example.demo.pizzeria.dao.entity;
 
 import by.example.demo.pizzeria.dao.entity.api.ITicket;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import java.time.LocalDateTime;
 
+@Entity
 public class Ticket implements ITicket {
 
-    private String number;
+    @Id
+    private long id;
+
+    @Column(name = "create_at")
     private LocalDateTime createAt;
+
+    @OneToOne
     private Order order;
 
     public Ticket() {
     }
 
-    public Ticket(String number, LocalDateTime createAt, Order order) {
-        this.number = number;
+    public Ticket(LocalDateTime createAt, Order order) {
+        this.createAt = createAt;
+        this.order = order;
+    }
+
+    public Ticket(long number, LocalDateTime createAt, Order order) {
+        this.id = number;
         this.createAt = createAt;
         this.order = order;
     }
 
     @Override
-    public String getNumber() {
-        return this.number;
+    public long getId() {
+        return this.id;
     }
 
     @Override
@@ -35,14 +50,8 @@ public class Ticket implements ITicket {
         return order;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
-    }
 
-    public void setCreateAt(LocalDateTime createAt) {
-        this.createAt = createAt;
-    }
-
+    @Override
     public void setOrder(Order order) {
         this.order = order;
     }
