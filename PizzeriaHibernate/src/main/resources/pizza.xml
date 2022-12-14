@@ -64,6 +64,39 @@
         <constructor-arg name="menuRowService" ref="menuRowService"/>
     </bean>
 
+
+                <!--Подключает Hibernate-->
+    <bean id="myEmf"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="packagesToScan" value="by.mk_jd2_92_22.pizzeria.dao.entity" />
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+        </property>
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.hbm2ddl.auto">create-drop</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="dataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/spring_jpa" />
+        <property name="username" value="tutorialuser" />
+        <property name="password" value="tutorialmy5ql" />
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="myEmf" />
+    </bean>
+
+
+    <bean id="persistenceExceptionTranslationPostProcessor" class=
+            "org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
         <!-- Создает bean DataSource -->
 <!--    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">-->
 <!--        <property name="driverClass" value="org.postgresql.Driver"/>-->
