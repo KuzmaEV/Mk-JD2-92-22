@@ -4,9 +4,13 @@ package by.example.demo.pizzeria.services;
 import by.example.demo.pizzeria.dao.entity.SelectedItem;
 import by.example.demo.pizzeria.dao.api.IOrderDao;
 import by.example.demo.pizzeria.dao.entity.Order;
+import by.example.demo.pizzeria.dao.entity.Ticket;
 import by.example.demo.pizzeria.services.api.IMenuRowService;
 import by.example.demo.pizzeria.services.api.IOrderService;
+import by.example.demo.pizzeria.services.api.IOrderStatusService;
+import by.example.demo.pizzeria.services.api.ITicketService;
 import by.example.demo.pizzeria.services.dto.OrderDTO;
+import by.example.demo.pizzeria.services.dto.OrderStatusDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,10 +25,15 @@ public class OrderService implements IOrderService {
 
     private final IOrderDao dao;
     private final IMenuRowService menuRowService;
+    private final IOrderStatusService orderStatusService;
+    private final ITicketService ticketService;
 
-    public OrderService(IOrderDao dao, IMenuRowService menuRowService) {
+    public OrderService(IOrderDao dao, IMenuRowService menuRowService,
+                        IOrderStatusService orderStatusService, ITicketService ticketService) {
         this.dao = dao;
         this.menuRowService = menuRowService;
+        this.orderStatusService = orderStatusService;
+        this.ticketService = ticketService;
     }
 
     @Override
@@ -50,7 +59,17 @@ public class OrderService implements IOrderService {
             listSelected
         );
 
-        return dao.save(order);
+        Order saveOrder = dao.save(order);
+
+        Ticket ticket = ticketService.create(saveOrder);
+
+        OrderStatusDTO orderStatusDTO = new OrderStatusDTO();
+        orderStatusDTO.setTicket(ticket);
+        orderStatusDTO.setStageDescription("Заказ принят.");
+        orderStatusDTO.setDone(false);
+        orderStatusService.create(orderStatusDTO);
+
+        return saveOrder;
     }
 
     @Override
