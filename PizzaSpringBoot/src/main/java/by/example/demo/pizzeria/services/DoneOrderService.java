@@ -7,10 +7,14 @@ import by.example.demo.pizzeria.dao.entity.core.DoneOrder;
 import by.example.demo.pizzeria.dao.entity.core.Pizza;
 import by.example.demo.pizzeria.services.api.IDoneOrderService;
 import by.example.demo.pizzeria.services.api.ITicketService;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
+@Transactional(readOnly = true)
 public class DoneOrderService implements IDoneOrderService {
 
     private final ITicketService ticketService;
