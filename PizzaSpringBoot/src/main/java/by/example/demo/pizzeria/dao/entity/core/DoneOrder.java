@@ -3,15 +3,18 @@ package by.example.demo.pizzeria.dao.entity.core;
 
 import by.example.demo.pizzeria.dao.entity.api.ITicket;
 import by.example.demo.pizzeria.dao.entity.api.x.IDoneOrder;
-import by.example.demo.pizzeria.dao.entity.api.x.IPizza;
 
 import java.util.List;
 
 public class DoneOrder implements IDoneOrder {
 
-    private ITicket ticket;
-    private List<IPizza> pizzaList;
+    private final ITicket ticket;
+    private final List<Pizza> pizzaList;
 
+    public DoneOrder(ITicket ticket, List<Pizza> pizzaList) {
+        this.ticket = ticket;
+        this.pizzaList = pizzaList;
+    }
 
     @Override
     public ITicket getTicket() {
@@ -19,7 +22,16 @@ public class DoneOrder implements IDoneOrder {
     }
 
     @Override
-    public List<IPizza> getItems() {
+    public List<Pizza> getItems() {
         return this.pizzaList;
     }
+
+    @Override
+    public String toString() {
+        return "DoneOrder{" +
+                "ticket=" + ticket +
+                ", pizzaList=" + pizzaList +
+                '}';
+    }
 }
+

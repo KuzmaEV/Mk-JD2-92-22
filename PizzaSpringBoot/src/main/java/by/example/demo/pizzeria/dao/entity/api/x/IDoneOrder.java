@@ -1,6 +1,7 @@
 package by.example.demo.pizzeria.dao.entity.api.x;
 
 import by.example.demo.pizzeria.dao.entity.api.ITicket;
+import by.example.demo.pizzeria.dao.entity.core.Pizza;
 
 import java.util.List;
 
@@ -19,5 +20,5 @@ public interface IDoneOrder {
      * Готовые пиццы приготовленные по заказу
      * @return список пицц
      */
-    List<IPizza> getItems();
+    List<Pizza> getItems();
 }

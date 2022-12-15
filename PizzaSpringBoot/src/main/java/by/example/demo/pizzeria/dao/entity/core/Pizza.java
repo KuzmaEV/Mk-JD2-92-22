@@ -4,8 +4,13 @@ import by.example.demo.pizzeria.dao.entity.api.x.IPizza;
 
 public class Pizza implements IPizza {
 
-    private String name;
-    private int size;
+    private final String name;
+    private final int size;
+
+    public Pizza(String name, int size) {
+        this.name = name;
+        this.size = size;
+    }
 
     @Override
     public String getName() {
@@ -15,5 +20,13 @@ public class Pizza implements IPizza {
     @Override
     public int getSize() {
         return this.size;
+    }
+
+    @Override
+    public String toString() {
+        return "Pizza{" +
+                "name='" + name + '\'' +
+                ", size=" + size +
+                '}';
     }
 }
