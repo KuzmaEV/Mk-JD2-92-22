@@ -2,6 +2,7 @@ package by.example.demo.pizzeria.controllers.servlets;
 
 import by.example.demo.pizzeria.dao.entity.Stage;
 import by.example.demo.pizzeria.services.api.IStageService;
+import by.example.demo.pizzeria.services.dto.StageDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,9 +23,9 @@ public class StageServlet {
     }
 
     @PostMapping
-    protected ResponseEntity<Stage> doPost(@RequestBody String description){
+    protected ResponseEntity<Stage> doPost(@RequestBody StageDTO dto){
 
-        return ResponseEntity.ok(service.create(description));
+        return ResponseEntity.ok(service.create(dto));
     }
 
     @GetMapping
@@ -44,14 +45,14 @@ public class StageServlet {
     @PutMapping("/{id}/dt_update/{dt_update}")
     protected ResponseEntity<Stage> doPut(@PathVariable long id,
                                           @PathVariable ("dt_update") long dtUpdateRow,
-                                          @RequestBody String description){
+                                          @RequestBody StageDTO dto){
 
         LocalDateTime dtUpdate = LocalDateTime.ofInstant(
                 Instant.ofEpochMilli(dtUpdateRow),
                 ZoneId.of("UTC")
         );
 
-        return ResponseEntity.ok(service.update(id, dtUpdate, description));
+        return ResponseEntity.ok(service.update(id, dtUpdate, dto));
     }
 
     @DeleteMapping("/{id}/dt_update/{dt_update}")
