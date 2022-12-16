@@ -1,4 +1,4 @@
-package by.example.demo.pizzeria.dao.entity.api.x;
+package by.example.demo.pizzeria.dao.entity.api;
 
 /**
  * Приготовленная пицца

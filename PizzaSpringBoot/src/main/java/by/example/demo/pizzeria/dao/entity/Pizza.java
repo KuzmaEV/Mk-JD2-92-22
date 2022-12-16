@@ -1,6 +1,6 @@
-package by.example.demo.pizzeria.dao.entity.core;
+package by.example.demo.pizzeria.dao.entity;
 
-import by.example.demo.pizzeria.dao.entity.api.x.IPizza;
+import by.example.demo.pizzeria.dao.entity.api.IPizza;
 
 public class Pizza implements IPizza {
 

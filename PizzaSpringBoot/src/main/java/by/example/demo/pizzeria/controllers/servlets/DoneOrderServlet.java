@@ -1,7 +1,7 @@
 package by.example.demo.pizzeria.controllers.servlets;
 
 
-import by.example.demo.pizzeria.dao.entity.core.DoneOrder;
+import by.example.demo.pizzeria.dao.entity.DoneOrder;
 import by.example.demo.pizzeria.services.api.IDoneOrderService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

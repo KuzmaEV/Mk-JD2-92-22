@@ -1,8 +1,8 @@
-package by.example.demo.pizzeria.dao.entity.core;
+package by.example.demo.pizzeria.dao.entity;
 
 
 import by.example.demo.pizzeria.dao.entity.api.ITicket;
-import by.example.demo.pizzeria.dao.entity.api.x.IDoneOrder;
+import by.example.demo.pizzeria.dao.entity.api.IDoneOrder;
 
 import java.util.List;
 
