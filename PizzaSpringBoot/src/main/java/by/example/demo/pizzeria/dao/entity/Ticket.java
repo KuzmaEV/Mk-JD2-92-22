@@ -3,10 +3,7 @@ package by.example.demo.pizzeria.dao.entity;
 
 import by.example.demo.pizzeria.dao.entity.api.ITicket;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -19,6 +16,7 @@ public class Ticket implements ITicket {
     private LocalDateTime createAt;
 
     @OneToOne
+    @JoinColumn(name = "\"order\"", referencedColumnName = "id")
     private Order order;
 
     public Ticket() {

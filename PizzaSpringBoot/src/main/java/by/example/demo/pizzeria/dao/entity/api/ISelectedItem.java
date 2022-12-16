@@ -20,9 +20,9 @@ public interface ISelectedItem {
      * @return Количество выбранного
      */
     int getCount();
-    long getOrder();
+//    long getOrder();
 
     void setMenuRow(MenuRow menuRow);
     void  setCount(int count);
-    void  setOrder(long order);
+//    void  setOrder(long order);
 }

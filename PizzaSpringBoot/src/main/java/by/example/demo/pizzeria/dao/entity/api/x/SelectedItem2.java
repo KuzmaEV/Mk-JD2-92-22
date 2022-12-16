@@ -1,4 +1,4 @@
-package by.example.demo.pizzeria.dao.entity.core;
+package by.example.demo.pizzeria.dao.entity.api.x;
 
 import by.example.demo.pizzeria.dao.entity.api.IMenuRow;
 import by.example.demo.pizzeria.dao.entity.api.ISelectedItem2;

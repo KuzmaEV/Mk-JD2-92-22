@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -51,23 +52,31 @@ public class OrderService implements IOrderService {
     @Transactional
     public Order create(OrderDTO item) {
 
-        List<SelectedItem> listSelected = mapperListSelectedItem(item.getSelectedItem());
+//        List<SelectedItem> listSelected = mapperListSelectedItem(item.getSelectedItem());
+
+        LocalDateTime time = LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS);
+        List<SelectedItem> listSelected = item.getSelectedItem().stream()
+                .map(i ->
+                        new SelectedItem(
+                                this.menuRowService.read(i.getMenuRow()),
+                                i.getCount()))
+                .collect(Collectors.toList());
 
         Order order = new Order(
-            LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS),
-            LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS),
+            time,
+            time,
             listSelected
         );
 
         Order saveOrder = dao.save(order);
 
-        Ticket ticket = ticketService.create(saveOrder);
-
-        OrderStatusDTO orderStatusDTO = new OrderStatusDTO();
-        orderStatusDTO.setTicket(ticket);
-        orderStatusDTO.setStageDescription("Заказ принят.");
-        orderStatusDTO.setDone(false);
-        orderStatusService.create(orderStatusDTO);
+//        Ticket ticket = ticketService.create(saveOrder);
+//
+//        OrderStatusDTO orderStatusDTO = new OrderStatusDTO();
+//        orderStatusDTO.setTicket(ticket);
+//        orderStatusDTO.setStageDescription("Заказ принят.");
+//        orderStatusDTO.setDone(false);
+//        orderStatusService.create(orderStatusDTO);
 
         return saveOrder;
     }

@@ -23,10 +23,11 @@ public class OrderStatus implements IOrderStatus {
     @Column(name="dt_update")
     private LocalDateTime dtUpdate;
 
-    @ManyToMany
+    @OneToMany(mappedBy = "orderStatus")
     private List<Stage> history = new ArrayList<>();
 
-    @Column
+    @OneToOne
+    @JoinColumn(name = "ticket", referencedColumnName = "id")
     private Ticket ticket;
     @Column
     private boolean done;

@@ -17,17 +17,21 @@ public class SelectedItem implements ISelectedItem {
     private MenuRow menuRow;
     @Column
     private int count;
-    @Column(name = "\"order\"")
-    private long order;
+//    @Column(name = "\"order\"")
+//    private long order;
 
     public SelectedItem() {
     }
 
-    public SelectedItem(long id, MenuRow menuRow, int count, long order) {
+    public SelectedItem(MenuRow menuRow, int count) {
+        this.menuRow = menuRow;
+        this.count = count;
+    }
+
+    public SelectedItem(long id, MenuRow menuRow, int count) {
         this.id = id;
         this.menuRow = menuRow;
         this.count = count;
-        this.order = order;
     }
 
     @Override
@@ -55,15 +59,6 @@ public class SelectedItem implements ISelectedItem {
         this.count = count;
     }
 
-    @Override
-    public long getOrder() {
-        return order;
-    }
-
-    @Override
-    public void setOrder(long order) {
-        this.order = order;
-    }
 
     @Override
     public String toString() {
@@ -71,7 +66,6 @@ public class SelectedItem implements ISelectedItem {
                 "id=" + id +
                 ", menuRow=" + menuRow +
                 ", count=" + count +
-                ", order=" + order +
                 '}';
     }
 }
