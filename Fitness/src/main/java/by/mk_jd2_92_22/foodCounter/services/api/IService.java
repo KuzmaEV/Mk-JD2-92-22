@@ -6,8 +6,8 @@ import java.util.UUID;
 
 public interface IService<ENTITY, DTO> {
     ENTITY create(DTO item);
-    ENTITY read(UUID id);
-    List<ENTITY> get();
-    ENTITY update(UUID id, LocalDateTime dtUpdate, DTO item);
-    void delete(UUID id, LocalDateTime dtUpdate);
+    ENTITY get(UUID uuid);
+    List<ENTITY> getAll();
+    ENTITY update(UUID uuid, LocalDateTime dtUpdate, DTO item);
+    void delete(UUID uuid, LocalDateTime dtUpdate);
 }

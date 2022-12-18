@@ -14,22 +14,22 @@ public class IngredientService implements IIngredientService {
     }
 
     @Override
-    public Integer read(UUID id) {
+    public Integer get(UUID uuid) {
         return null;
     }
 
     @Override
-    public List<Integer> get() {
+    public List<Integer> getAll() {
         return null;
     }
 
     @Override
-    public Integer update(UUID id, LocalDateTime dtUpdate, IngredientDTO item) {
+    public Integer update(UUID uuid, LocalDateTime dtUpdate, IngredientDTO item) {
         return null;
     }
 
     @Override
-    public void delete(UUID id, LocalDateTime dtUpdate) {
+    public void delete(UUID uuid, LocalDateTime dtUpdate) {
 
     }
 }
