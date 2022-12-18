@@ -1,19 +1,32 @@
 package by.mk_jd2_92_22.foodCounter.dao.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Version;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Entity
 public class Product {
 
+    @Id
     private UUID uuid;
+
+    @Column(name = "dt_create")
     private LocalDateTime dtCreate;
+
+    @Version
+    @Column(name = "dt_update")
     private LocalDateTime dtUpdate;
 
     private String name;
+
     private int kcal;
     private int proteins;
     private int fats;
     private int carbohydrates;
+
     private int weight;
 
     public Product() {

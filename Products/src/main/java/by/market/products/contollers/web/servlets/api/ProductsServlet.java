@@ -2,7 +2,6 @@ package by.market.products.contollers.web.servlets.api;
 
 import by.market.products.core.DTO.ProductCreateDTO;
 import by.market.products.storages.entity.Product;
-import by.market.products.storages.entity.ProductBuilder;
 import by.market.products.services.ProductsService;
 import by.market.products.services.api.IProductsService;
 import com.fasterxml.jackson.databind.ObjectMapper;
