@@ -1,25 +1,27 @@
 package by.mk_jd2_92_22.foodCounter.services.dto;
 
-import by.mk_jd2_92_22.foodCounter.dao.entity.Product;
+
+import java.util.UUID;
 
 public class IngredientDTO {
 
-    private Product product;
+    private UUID product;
     private int weight;
 
     public IngredientDTO() {
     }
 
-    public IngredientDTO(Product product, int weight) {
+    public IngredientDTO(UUID product, int weight) {
         this.product = product;
         this.weight = weight;
     }
 
-    public Product getProduct() {
+
+    public UUID getProduct() {
         return product;
     }
 
-    public void setProduct(Product product) {
+    public void setProduct(UUID product) {
         this.product = product;
     }
 

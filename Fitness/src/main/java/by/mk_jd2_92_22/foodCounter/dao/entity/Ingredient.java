@@ -1,24 +1,29 @@
 package by.mk_jd2_92_22.foodCounter.dao.entity;
 
-import java.time.LocalDateTime;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.util.UUID;
 
+@Entity
 public class Ingredient {
 
+    @Id
     private UUID uuid;
-    private LocalDateTime dtCreate;
-    private LocalDateTime dtUpdate;
 
+
+    @ManyToOne
     private Product product;
+
+
     private int weight;
 
     public Ingredient() {
     }
 
-    public Ingredient(UUID uuid, LocalDateTime dtCreate, LocalDateTime dtUpdate, Product product, int weight) {
+    public Ingredient(UUID uuid, Product product, int weight) {
         this.uuid = uuid;
-        this.dtCreate = dtCreate;
-        this.dtUpdate = dtUpdate;
         this.product = product;
         this.weight = weight;
     }
@@ -29,19 +34,6 @@ public class Ingredient {
 
     public void setUuid(UUID uuid) {
         this.uuid = uuid;
-    }
-
-    public LocalDateTime getDtCreate() {
-        return dtCreate;
-    }
-
-
-    public LocalDateTime getDtUpdate() {
-        return dtUpdate;
-    }
-
-    public void setDtUpdate(LocalDateTime dtUpdate) {
-        this.dtUpdate = dtUpdate;
     }
 
     public Product getProduct() {
@@ -64,8 +56,6 @@ public class Ingredient {
     public String toString() {
         return "Ingredients{" +
                 "uuid=" + uuid +
-                ", dtCreate=" + dtCreate +
-                ", dtUpdate=" + dtUpdate +
                 ", product=" + product +
                 ", weight=" + weight +
                 '}';

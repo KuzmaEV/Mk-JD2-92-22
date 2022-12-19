@@ -1,34 +1,58 @@
 package by.mk_jd2_92_22.foodCounter.services;
 
+import by.mk_jd2_92_22.foodCounter.dao.IIngredientDao;
+import by.mk_jd2_92_22.foodCounter.dao.entity.Ingredient;
 import by.mk_jd2_92_22.foodCounter.services.api.IIngredientService;
+import by.mk_jd2_92_22.foodCounter.services.api.IProductService;
 import by.mk_jd2_92_22.foodCounter.services.dto.IngredientDTO;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
+@Service
+@Transactional(readOnly = true)
 public class IngredientService implements IIngredientService {
+
+    private final IIngredientDao dao;
+    private final IProductService productService;
+
+    public IngredientService(IIngredientDao dao, ProductService productService) {
+        this.dao = dao;
+        this.productService = productService;
+    }
+
+    @Override @Transactional
+    public List<Ingredient> create(List<IngredientDTO> item) {
+
+        Iterable<Ingredient> iterable = item.stream().map(i ->
+                        new Ingredient(UUID.randomUUID(), this.productService.get(i.getProduct()),
+                                i.getWeight()))
+                .collect(Collectors.toList());
+
+
+        return this.dao.saveAll(iterable);
+    }
+
     @Override
-    public Integer create(IngredientDTO item) {
+    public List<Ingredient> get(UUID uuid) {
         return null;
     }
 
     @Override
-    public Integer get(UUID uuid) {
+    public List<List<Ingredient>> getAll() {
         return null;
     }
 
-    @Override
-    public List<Integer> getAll() {
+    @Override @Transactional
+    public List<Ingredient> update(UUID uuid, LocalDateTime dtUpdate, List<IngredientDTO> item) {
         return null;
     }
 
-    @Override
-    public Integer update(UUID uuid, LocalDateTime dtUpdate, IngredientDTO item) {
-        return null;
-    }
-
-    @Override
+    @Override @Transactional
     public void delete(UUID uuid, LocalDateTime dtUpdate) {
 
     }
