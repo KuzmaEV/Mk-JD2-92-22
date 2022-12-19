@@ -1,18 +1,18 @@
 package by.mk_jd2_92_22.foodCounter.services.dto;
 
-import by.mk_jd2_92_22.foodCounter.dao.entity.Ingredient;
 
 import java.util.List;
+
 
 public class DishDTO {
 
     private String name;
-    private List<Ingredient> ingredients;
+    private List<IngredientDTO> ingredients;
 
     public DishDTO() {
     }
 
-    public DishDTO(String name, List<Ingredient> ingredients) {
+    public DishDTO(String name, List<IngredientDTO> ingredients) {
         this.name = name;
         this.ingredients = ingredients;
     }
@@ -25,11 +25,12 @@ public class DishDTO {
         this.name = name;
     }
 
-    public List<Ingredient> getIngredients() {
+    public List<IngredientDTO> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<Ingredient> ingredients) {
+    public void setIngredients(List<IngredientDTO> ingredients) {
         this.ingredients = ingredients;
     }
+
 }
