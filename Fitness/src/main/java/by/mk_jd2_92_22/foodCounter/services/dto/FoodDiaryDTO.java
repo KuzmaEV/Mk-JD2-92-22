@@ -1,36 +1,35 @@
 package by.mk_jd2_92_22.foodCounter.services.dto;
 
-import by.mk_jd2_92_22.foodCounter.dao.entity.Dish;
-import by.mk_jd2_92_22.foodCounter.dao.entity.Product;
+import java.util.UUID;
 
 public class FoodDiaryDTO {
 
-    private Product product;
-    private Dish dish;
+    private UUID product;
+    private UUID dish;
     private int weight;
 
     public FoodDiaryDTO() {
     }
 
-    public FoodDiaryDTO(Product product, Dish dish, int weight) {
+    public FoodDiaryDTO(UUID product, UUID dish, int weight) {
         this.product = product;
         this.dish = dish;
         this.weight = weight;
     }
 
-    public Product getProduct() {
+    public UUID getProduct() {
         return product;
     }
 
-    public void setProduct(Product product) {
+    public void setProduct(UUID product) {
         this.product = product;
     }
 
-    public Dish getDish() {
+    public UUID getDish() {
         return dish;
     }
 
-    public void setDish(Dish dish) {
+    public void setDish(UUID dish) {
         this.dish = dish;
     }
 

@@ -1,16 +1,28 @@
 package by.mk_jd2_92_22.foodCounter.dao.entity;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Entity
+@Table(name = "food_diary")
 public class FoodDiary {
 
+    @Id
     private UUID uuid;
+
+    @Column(name = "dt_create")
     private LocalDateTime dtCreate;
+
+    @Version
+    @Column(name = "dt_update")
     private LocalDateTime dtUpdate;
 
+    @ManyToOne
     private  Product product;
+    @ManyToOne
     private Dish dish;
+
     private int weight;
 
     public FoodDiary() {
