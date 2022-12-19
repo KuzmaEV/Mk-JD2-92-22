@@ -20,6 +20,7 @@ public class Product {
     @Column(name = "dt_update")
     private LocalDateTime dtUpdate;
 
+    @Column(length = 50)
     private String name;
 
     private int kcal;

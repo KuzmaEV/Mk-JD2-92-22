@@ -28,7 +28,7 @@ public class ProductService implements IProductService {
     public Product create(ProductDTO item) {
 
         UUID uuid = UUID.randomUUID();
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS);
 
         return dao.save(ProductBuilder.create()
                 .setUuid(uuid)
