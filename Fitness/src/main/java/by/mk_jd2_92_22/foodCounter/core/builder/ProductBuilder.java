@@ -15,9 +15,9 @@ public class ProductBuilder {
     private String name;
 
     private int kcal;
-    private int proteins;
-    private int fats;
-    private int carbohydrates;
+    private double proteins;
+    private double fats;
+    private double carbohydrates;
 
     private int weight;
 
@@ -69,29 +69,29 @@ public class ProductBuilder {
         return this;
     }
 
-    public int getProteins() {
+    public double getProteins() {
         return proteins;
     }
 
-    public ProductBuilder setProteins(int proteins) {
+    public ProductBuilder setProteins(double proteins) {
         this.proteins = proteins;
         return this;
     }
 
-    public int getFats() {
+    public double getFats() {
         return fats;
     }
 
-    public ProductBuilder setFats(int fats) {
+    public ProductBuilder setFats(double fats) {
         this.fats = fats;
         return this;
     }
 
-    public int getCarbohydrates() {
+    public double getCarbohydrates() {
         return carbohydrates;
     }
 
-    public ProductBuilder setCarbohydrates(int carbohydrates) {
+    public ProductBuilder setCarbohydrates(double carbohydrates) {
         this.carbohydrates = carbohydrates;
         return this;
     }
