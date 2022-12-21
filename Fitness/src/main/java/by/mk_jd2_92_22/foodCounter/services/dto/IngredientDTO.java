@@ -5,23 +5,22 @@ import java.util.UUID;
 
 public class IngredientDTO {
 
-    private UUID product;
+    private Product product;
     private int weight;
 
     public IngredientDTO() {
     }
 
-    public IngredientDTO(UUID product, int weight) {
+    public IngredientDTO(Product product, int weight) {
         this.product = product;
         this.weight = weight;
     }
 
-
-    public UUID getProduct() {
+    public Product getProduct() {
         return product;
     }
 
-    public void setProduct(UUID product) {
+    public void setProduct(Product product) {
         this.product = product;
     }
 
@@ -32,4 +31,19 @@ public class IngredientDTO {
     public void setWeight(int weight) {
         this.weight = weight;
     }
+
+
+
+    public class Product {
+        private UUID uuid;
+
+        public UUID getUuid() {
+            return uuid;
+        }
+
+        public void setUuid(UUID uuid) {
+            this.uuid = uuid;
+        }
+    }
+
 }
