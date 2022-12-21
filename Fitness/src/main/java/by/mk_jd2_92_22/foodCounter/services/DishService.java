@@ -1,5 +1,6 @@
 package by.mk_jd2_92_22.foodCounter.services;
 
+import by.mk_jd2_92_22.foodCounter.core.exception.DishNotFoundException;
 import by.mk_jd2_92_22.foodCounter.dao.IDishDao;
 import by.mk_jd2_92_22.foodCounter.dao.entity.Dish;
 import by.mk_jd2_92_22.foodCounter.dao.entity.Ingredient;
@@ -48,7 +49,7 @@ public class DishService implements IDishService {
     @Override
     public Dish get(UUID uuid) {
 
-        return dao.findById(uuid).orElseThrow();
+        return dao.findById(uuid).orElseThrow(()-> new DishNotFoundException(uuid));
     }
 
     @Override
@@ -60,7 +61,7 @@ public class DishService implements IDishService {
     @Transactional
     public Dish update(UUID uuid, LocalDateTime dtUpdate, DishDTO item) {
 
-        Dish dish = this.dao.findById(uuid).orElseThrow();
+        Dish dish = this.dao.findById(uuid).orElseThrow(()-> new DishNotFoundException(uuid));
 
         if (dish.getDtUpdate().isEqual(dtUpdate)){
 
@@ -80,7 +81,7 @@ public class DishService implements IDishService {
     @Transactional
     public void delete(UUID uuid, LocalDateTime dtUpdate) {
 
-        Dish dish = dao.findById(uuid).orElseThrow();
+        Dish dish = dao.findById(uuid).orElseThrow(()-> new DishNotFoundException(uuid));
         if (dish.getDtUpdate().isEqual(dtUpdate)){
             dao.delete(dish);
         }else {

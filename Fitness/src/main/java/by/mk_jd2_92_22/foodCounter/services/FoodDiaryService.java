@@ -1,5 +1,6 @@
 package by.mk_jd2_92_22.foodCounter.services;
 
+import by.mk_jd2_92_22.foodCounter.core.exception.FoodDiaryNotFoundException;
 import by.mk_jd2_92_22.foodCounter.dao.IFoodDiaryDao;
 import by.mk_jd2_92_22.foodCounter.dao.entity.Dish;
 import by.mk_jd2_92_22.foodCounter.dao.entity.FoodDiary;
@@ -41,11 +42,9 @@ public class FoodDiaryService implements IFoodDiaryService {
 
         if (item.getProduct() != null) {
             product = this.productService.get(item.getProduct().getUuid());
-        }
-
-        if (item.getDish() != null) {
+        } else if (item.getDish() != null) {
             dish = this.dishService.get(item.getDish().getUuid());
-        }
+        } else {throw new IllegalStateException("Запрос некорректен. Сервер не может обработать запрос");}
 
         FoodDiary diary = new FoodDiary(uuid,
                 time,
@@ -60,9 +59,7 @@ public class FoodDiaryService implements IFoodDiaryService {
 
     @Override
     public FoodDiary get(UUID uuid) {
-        this.dao.findById(uuid).orElseThrow();
-
-        return  this.dao.findById(uuid).orElseThrow();
+        return  this.dao.findById(uuid).orElseThrow(()-> new FoodDiaryNotFoundException(uuid));
     }
 
     @Override
@@ -74,7 +71,7 @@ public class FoodDiaryService implements IFoodDiaryService {
     @Override @Transactional
     public FoodDiary update(UUID uuid, LocalDateTime dtUpdate, FoodDiaryDTO item) {
 
-        FoodDiary diary = dao.findById(uuid).orElseThrow();
+        FoodDiary diary = dao.findById(uuid).orElseThrow(()-> new FoodDiaryNotFoundException(uuid));
 
         if (diary.getDtUpdate().isEqual(dtUpdate)){
 
@@ -103,7 +100,7 @@ public class FoodDiaryService implements IFoodDiaryService {
     @Override @Transactional
     public void delete(UUID uuid, LocalDateTime dtUpdate) {
 
-        FoodDiary diary = dao.findById(uuid).orElseThrow();
+        FoodDiary diary = dao.findById(uuid).orElseThrow(()-> new FoodDiaryNotFoundException(uuid));
 
         if (diary.getDtUpdate().isEqual(dtUpdate)){
             dao.delete(diary);
