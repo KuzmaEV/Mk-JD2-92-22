@@ -29,7 +29,7 @@ public class IngredientService implements IIngredientService {
     public List<Ingredient> create(List<IngredientDTO> item) {
 
         Iterable<Ingredient> iterable = item.stream().map(i ->
-                        new Ingredient(UUID.randomUUID(), this.productService.get(i.getProduct()),
+                        new Ingredient(UUID.randomUUID(), this.productService.get(i.getProduct().getUuid()),
                                 i.getWeight()))
                 .collect(Collectors.toList());
 
