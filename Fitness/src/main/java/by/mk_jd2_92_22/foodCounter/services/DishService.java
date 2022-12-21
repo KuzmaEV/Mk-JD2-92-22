@@ -36,12 +36,6 @@ public class DishService implements IDishService {
 
         List<Ingredient> ingredients = ingredientService.create(item.getIngredients());
 
-//        List<Ingredient> ingredients = item.getIngredients().stream().map(i ->
-//                        new Ingredient(UUID.randomUUID(), this.productService.get(i.getProduct()),
-//                                i.getWeight()))
-//                .collect(Collectors.toList());
-
-
         Dish dish = new Dish(uuidDish,
                 time,
                 time,
@@ -54,25 +48,44 @@ public class DishService implements IDishService {
     @Override
     public Dish get(UUID uuid) {
 
-
-
         return dao.findById(uuid).orElseThrow();
     }
 
     @Override
     public List<Dish> getAll() {
-        return null;
+        return dao.findAll();
     }
 
     @Override
     @Transactional
     public Dish update(UUID uuid, LocalDateTime dtUpdate, DishDTO item) {
-        return null;
+
+        Dish dish = this.dao.findById(uuid).orElseThrow();
+
+        if (dish.getDtUpdate().isEqual(dtUpdate)){
+
+            List<Ingredient> ingredients = this.ingredientService.create(item.getIngredients());
+
+            dish.setDtUpdate(LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS));
+            dish.setName(item.getName());
+            dish.setIngredients(ingredients);
+        }else {
+            throw new IllegalArgumentException("Не удалось обнавить, было кем-то изменино раньше." +
+                    " Попробуйте еще раз!");
+        }
+        return this.dao.save(dish);
     }
 
     @Override
     @Transactional
     public void delete(UUID uuid, LocalDateTime dtUpdate) {
 
+        Dish dish = dao.findById(uuid).orElseThrow();
+        if (dish.getDtUpdate().isEqual(dtUpdate)){
+            dao.delete(dish);
+        }else {
+            throw new IllegalArgumentException("Не удалось обнавить, было кемнто изменино раньше." +
+                    " Попробуйте еще раз!");
+        }
     }
 }
