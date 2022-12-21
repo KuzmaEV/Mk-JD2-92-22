@@ -24,9 +24,9 @@ public class Product {
     private String name;
 
     private int kcal;
-    private int proteins;
-    private int fats;
-    private int carbohydrates;
+    private double proteins;
+    private double fats;
+    private double carbohydrates;
 
     private int weight;
 
@@ -34,7 +34,7 @@ public class Product {
     }
 
     public Product(UUID uuid, LocalDateTime dtCreate, LocalDateTime dtUpdate,
-                   String name, int kcal, int proteins, int fats, int carbohydrates, int weight) {
+                   String name, int kcal, double proteins, double fats, double carbohydrates, int weight) {
         this.uuid = uuid;
         this.dtCreate = dtCreate;
         this.dtUpdate = dtUpdate;
@@ -82,27 +82,27 @@ public class Product {
         this.kcal = kcal;
     }
 
-    public int getProteins() {
+    public double getProteins() {
         return proteins;
     }
 
-    public void setProteins(int proteins) {
+    public void setProteins(double proteins) {
         this.proteins = proteins;
     }
 
-    public int getFats() {
+    public double getFats() {
         return fats;
     }
 
-    public void setFats(int fats) {
+    public void setFats(double fats) {
         this.fats = fats;
     }
 
-    public int getCarbohydrates() {
+    public double getCarbohydrates() {
         return carbohydrates;
     }
 
-    public void setCarbohydrates(int carbohydrates) {
+    public void setCarbohydrates(double carbohydrates) {
         this.carbohydrates = carbohydrates;
     }
 
