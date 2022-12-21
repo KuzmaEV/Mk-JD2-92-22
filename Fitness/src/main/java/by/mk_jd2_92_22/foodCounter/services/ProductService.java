@@ -60,8 +60,9 @@ public class ProductService implements IProductService {
         Product product = dao.findById(uuid).orElseThrow();
         if (product.getDtUpdate().isEqual(dtUpdate)){
             product.setDtUpdate(LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS));
+            product.setName(item.getName());
         }else {
-            throw new IllegalArgumentException("Не удалось обнавить, было кемнто изменино раньше." +
+            throw new IllegalArgumentException("Не удалось обнавить, было кем-то изменино раньше." +
                     " Попробуйте еще раз!");
         }
 
