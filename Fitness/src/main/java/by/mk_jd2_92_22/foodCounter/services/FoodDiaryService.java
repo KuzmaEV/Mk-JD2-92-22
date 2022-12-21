@@ -40,16 +40,17 @@ public class FoodDiaryService implements IFoodDiaryService {
         Dish dish = null;
 
         if (item.getProduct() != null) {
-            product = this.productService.get(item.getProduct());
+            product = this.productService.get(item.getProduct().getUuid());
         }
 
         if (item.getDish() != null) {
-            dish = this.dishService.get(item.getDish());
+            dish = this.dishService.get(item.getDish().getUuid());
         }
 
         FoodDiary diary = new FoodDiary(uuid,
                 time,
                 time,
+                item.getDtSupply(),
                 product,
                 dish,
                 item.getWeight());
@@ -59,21 +60,57 @@ public class FoodDiaryService implements IFoodDiaryService {
 
     @Override
     public FoodDiary get(UUID uuid) {
-        return null;
+        this.dao.findById(uuid).orElseThrow();
+
+        return  this.dao.findById(uuid).orElseThrow();
     }
 
     @Override
     public List<FoodDiary> getAll() {
-        return null;
+
+        return this.dao.findAll();
     }
 
     @Override @Transactional
     public FoodDiary update(UUID uuid, LocalDateTime dtUpdate, FoodDiaryDTO item) {
-        return null;
+
+        FoodDiary diary = dao.findById(uuid).orElseThrow();
+
+        if (diary.getDtUpdate().isEqual(dtUpdate)){
+
+            Product product = null;
+            Dish dish = null;
+
+            if (item.getProduct() != null) {
+                product = this.productService.get(item.getProduct().getUuid());
+            }
+            if (item.getDish() != null) {
+                dish = this.dishService.get(item.getDish().getUuid());
+            }
+
+            diary.setDtUpdate(LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS));
+            diary.setProduct(product);
+            diary.setDish(dish);
+            diary.setWeight(item.getWeight());
+
+        }else {
+            throw new IllegalArgumentException("Не удалось обнавить, было кем-то изменино раньше." +
+                    " Попробуйте еще раз!");
+        }
+        return this.dao.save(diary);
     }
 
     @Override @Transactional
     public void delete(UUID uuid, LocalDateTime dtUpdate) {
+
+        FoodDiary diary = dao.findById(uuid).orElseThrow();
+
+        if (diary.getDtUpdate().isEqual(dtUpdate)){
+            dao.delete(diary);
+        }else {
+            throw new IllegalArgumentException("Не удалось обнавить, было кемнто изменино раньше." +
+                    " Попробуйте еще раз!");
+        }
 
     }
 }
