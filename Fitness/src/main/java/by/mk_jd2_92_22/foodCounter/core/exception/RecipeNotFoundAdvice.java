@@ -4,12 +4,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @ControllerAdvice
-public class DishNotFoundAdvice {
+public class RecipeNotFoundAdvice {
 
     @ResponseBody
 
-    @ExceptionHandler(DishNotFoundException.class)
+    @ExceptionHandler(RecipeNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    String dishNotFoundHandler(DishNotFoundException e){ return e.getMessage();}
+    String dishNotFoundHandler(RecipeNotFoundException e){ return e.getMessage();}
 
 }

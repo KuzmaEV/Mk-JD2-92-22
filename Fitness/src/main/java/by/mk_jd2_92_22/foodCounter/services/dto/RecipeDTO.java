@@ -4,25 +4,25 @@ package by.mk_jd2_92_22.foodCounter.services.dto;
 import java.util.List;
 
 
-public class DishDTO {
+public class RecipeDTO {
 
-    private String name;
+    private String title;
     private List<IngredientDTO> ingredients;
 
-    public DishDTO() {
+    public RecipeDTO() {
     }
 
-    public DishDTO(String name, List<IngredientDTO> ingredients) {
-        this.name = name;
+    public RecipeDTO(String name, List<IngredientDTO> ingredients) {
+        this.title = name;
         this.ingredients = ingredients;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public List<IngredientDTO> getIngredients() {

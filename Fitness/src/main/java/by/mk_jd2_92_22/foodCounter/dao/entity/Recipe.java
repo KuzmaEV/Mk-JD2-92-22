@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-public class Dish {
+public class Recipe {
 
     @Id
     private UUID uuid;
@@ -17,20 +17,20 @@ public class Dish {
     @Column(name = "dt_update")
     private LocalDateTime dtUpdate;
 
-    private String name;
+    private String title;
 
     @OneToMany
     @JoinColumn(name = "dish_uuid", referencedColumnName = "uuid")
     private List<Ingredient> ingredients;
 
-    public Dish() {
+    public Recipe() {
     }
 
-    public Dish(UUID uuid, LocalDateTime dtCreate, LocalDateTime dtUpdate, String name, List<Ingredient> ingredients) {
+    public Recipe(UUID uuid, LocalDateTime dtCreate, LocalDateTime dtUpdate, String name, List<Ingredient> ingredients) {
         this.uuid = uuid;
         this.dtCreate = dtCreate;
         this.dtUpdate = dtUpdate;
-        this.name = name;
+        this.title = name;
         this.ingredients = ingredients;
     }
 
@@ -50,12 +50,12 @@ public class Dish {
         this.dtUpdate = dtUpdate;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public List<Ingredient> getIngredients() {
