@@ -5,8 +5,8 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "food_diary")
-public class FoodDiary {
+@Table(name = "journal_food")
+public class JournalFood {
 
     @Id
     private UUID uuid;
@@ -26,15 +26,15 @@ public class FoodDiary {
     @ManyToOne
     private  Product product;
     @ManyToOne
-    private Dish dish;
+    private Recipe dish;
 
     private int weight;
 
-    public FoodDiary() {
+    public JournalFood() {
     }
 
-    public FoodDiary(UUID uuid, LocalDateTime dtCreate, LocalDateTime dtUpdate, LocalDateTime dtSupply,
-                     Product product, Dish dish, int weight) {
+    public JournalFood(UUID uuid, LocalDateTime dtCreate, LocalDateTime dtUpdate, LocalDateTime dtSupply,
+                       Product product, Recipe dish, int weight) {
         this.uuid = uuid;
         this.dtCreate = dtCreate;
         this.dtUpdate = dtUpdate;
@@ -73,11 +73,11 @@ public class FoodDiary {
         this.product = product;
     }
 
-    public Dish getDish() {
+    public Recipe getDish() {
         return dish;
     }
 
-    public void setDish(Dish dish) {
+    public void setDish(Recipe dish) {
         this.dish = dish;
     }
 

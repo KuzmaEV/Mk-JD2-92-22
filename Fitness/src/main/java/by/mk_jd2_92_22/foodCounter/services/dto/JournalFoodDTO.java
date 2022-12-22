@@ -3,17 +3,17 @@ package by.mk_jd2_92_22.foodCounter.services.dto;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class FoodDiaryDTO {
+public class JournalFoodDTO {
 
     private LocalDateTime dtSupply;
     private Product product;
     private Dish dish;
     private int weight;
 
-    public FoodDiaryDTO() {
+    public JournalFoodDTO() {
     }
 
-    public FoodDiaryDTO(LocalDateTime dtSupply, Product product, Dish dish, int weight) {
+    public JournalFoodDTO(LocalDateTime dtSupply, Product product, Dish dish, int weight) {
         this.dtSupply = dtSupply;
         this.product = product;
         this.dish = dish;
@@ -52,7 +52,7 @@ public class FoodDiaryDTO {
         this.dtSupply = dtSupply;
     }
 
-    public class Product{
+    public static class Product{
         private UUID uuid;
 
         public UUID getUuid() {
@@ -64,7 +64,7 @@ public class FoodDiaryDTO {
         }
     }
 
-    public class Dish{
+    public static class Dish{
         private UUID uuid;
 
         public UUID getUuid() {

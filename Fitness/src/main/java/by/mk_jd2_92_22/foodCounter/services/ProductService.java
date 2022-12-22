@@ -35,8 +35,8 @@ public class ProductService implements IProductService {
                 .setUuid(uuid)
                 .setDtCreate(now)
                 .setDtUpdate(now)
-                .setName(item.getName())
-                .setKcal(item.getKcal())
+                .setName(item.getTitle())
+                .setKcal(item.getCalories())
                 .setProteins(item.getProteins())
                 .setFats(item.getFats())
                 .setCarbohydrates(item.getCarbohydrates())
@@ -61,7 +61,7 @@ public class ProductService implements IProductService {
         Product product = dao.findById(uuid).orElseThrow(()->new ProductNotFoundException(uuid));
         if (product.getDtUpdate().isEqual(dtUpdate)){
             product.setDtUpdate(LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS));
-            product.setName(item.getName());
+            product.setTitle(item.getTitle());
         }else {
             throw new IllegalArgumentException("Не удалось обнавить, было кем-то изменино раньше." +
                     " Попробуйте еще раз!");

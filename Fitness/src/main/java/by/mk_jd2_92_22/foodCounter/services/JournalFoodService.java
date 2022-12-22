@@ -1,14 +1,14 @@
 package by.mk_jd2_92_22.foodCounter.services;
 
-import by.mk_jd2_92_22.foodCounter.core.exception.FoodDiaryNotFoundException;
-import by.mk_jd2_92_22.foodCounter.dao.IFoodDiaryDao;
-import by.mk_jd2_92_22.foodCounter.dao.entity.Dish;
-import by.mk_jd2_92_22.foodCounter.dao.entity.FoodDiary;
+import by.mk_jd2_92_22.foodCounter.core.exception.JournalFoodNotFoundException;
+import by.mk_jd2_92_22.foodCounter.dao.IJournalFoodDao;
+import by.mk_jd2_92_22.foodCounter.dao.entity.Recipe;
+import by.mk_jd2_92_22.foodCounter.dao.entity.JournalFood;
 import by.mk_jd2_92_22.foodCounter.dao.entity.Product;
-import by.mk_jd2_92_22.foodCounter.services.api.IDishService;
-import by.mk_jd2_92_22.foodCounter.services.api.IFoodDiaryService;
+import by.mk_jd2_92_22.foodCounter.services.api.IRecipeService;
+import by.mk_jd2_92_22.foodCounter.services.api.IJournalFoodService;
 import by.mk_jd2_92_22.foodCounter.services.api.IProductService;
-import by.mk_jd2_92_22.foodCounter.services.dto.FoodDiaryDTO;
+import by.mk_jd2_92_22.foodCounter.services.dto.JournalFoodDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,26 +19,26 @@ import java.util.UUID;
 
 @Service
 @Transactional(readOnly = true)
-public class FoodDiaryService implements IFoodDiaryService {
+public class JournalFoodService implements IJournalFoodService {
 
-    private final IFoodDiaryDao dao;
+    private final IJournalFoodDao dao;
     private final IProductService productService;
-    private final IDishService dishService;
+    private final IRecipeService dishService;
 
-    public FoodDiaryService(IFoodDiaryDao dao, IProductService productService, IDishService dishService) {
+    public JournalFoodService(IJournalFoodDao dao, IProductService productService, IRecipeService dishService) {
         this.dao = dao;
         this.productService = productService;
         this.dishService = dishService;
     }
 
     @Override @Transactional
-    public FoodDiary create(FoodDiaryDTO item) {
+    public JournalFood create(JournalFoodDTO item) {
 
         UUID uuid = UUID.randomUUID();
         LocalDateTime time = LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS);
 
         Product product = null;
-        Dish dish = null;
+        Recipe dish = null;
 
         if (item.getProduct() != null) {
             product = this.productService.get(item.getProduct().getUuid());
@@ -46,7 +46,7 @@ public class FoodDiaryService implements IFoodDiaryService {
             dish = this.dishService.get(item.getDish().getUuid());
         } else {throw new IllegalStateException("Запрос некорректен. Сервер не может обработать запрос");}
 
-        FoodDiary diary = new FoodDiary(uuid,
+        JournalFood diary = new JournalFood(uuid,
                 time,
                 time,
                 item.getDtSupply(),
@@ -58,25 +58,25 @@ public class FoodDiaryService implements IFoodDiaryService {
     }
 
     @Override
-    public FoodDiary get(UUID uuid) {
-        return  this.dao.findById(uuid).orElseThrow(()-> new FoodDiaryNotFoundException(uuid));
+    public JournalFood get(UUID uuid) {
+        return  this.dao.findById(uuid).orElseThrow(()-> new JournalFoodNotFoundException(uuid));
     }
 
     @Override
-    public List<FoodDiary> getAll() {
+    public List<JournalFood> getAll() {
 
         return this.dao.findAll();
     }
 
     @Override @Transactional
-    public FoodDiary update(UUID uuid, LocalDateTime dtUpdate, FoodDiaryDTO item) {
+    public JournalFood update(UUID uuid, LocalDateTime dtUpdate, JournalFoodDTO item) {
 
-        FoodDiary diary = dao.findById(uuid).orElseThrow(()-> new FoodDiaryNotFoundException(uuid));
+        JournalFood diary = dao.findById(uuid).orElseThrow(()-> new JournalFoodNotFoundException(uuid));
 
         if (diary.getDtUpdate().isEqual(dtUpdate)){
 
             Product product = null;
-            Dish dish = null;
+            Recipe dish = null;
 
             if (item.getProduct() != null) {
                 product = this.productService.get(item.getProduct().getUuid());
@@ -100,7 +100,7 @@ public class FoodDiaryService implements IFoodDiaryService {
     @Override @Transactional
     public void delete(UUID uuid, LocalDateTime dtUpdate) {
 
-        FoodDiary diary = dao.findById(uuid).orElseThrow(()-> new FoodDiaryNotFoundException(uuid));
+        JournalFood diary = dao.findById(uuid).orElseThrow(()-> new JournalFoodNotFoundException(uuid));
 
         if (diary.getDtUpdate().isEqual(dtUpdate)){
             dao.delete(diary);

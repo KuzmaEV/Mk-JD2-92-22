@@ -2,8 +2,8 @@ package by.mk_jd2_92_22.foodCounter.services.dto;
 
 public class ProductDTO {
 
-    private String name;
-    private int kcal;
+    private String title;
+    private int calories;
     private double proteins;
     private double fats;
     private double carbohydrates;
@@ -13,28 +13,28 @@ public class ProductDTO {
     }
 
     public ProductDTO(String name, int kcal, double proteins, double fats, double carbohydrates, int weight) {
-        this.name = name;
-        this.kcal = kcal;
+        this.title = name;
+        this.calories = kcal;
         this.proteins = proteins;
         this.fats = fats;
         this.carbohydrates = carbohydrates;
         this.weight = weight;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public int getKcal() {
-        return kcal;
+    public int getCalories() {
+        return calories;
     }
 
-    public void setKcal(int kcal) {
-        this.kcal = kcal;
+    public void setCalories(int calories) {
+        this.calories = calories;
     }
 
     public double getProteins() {

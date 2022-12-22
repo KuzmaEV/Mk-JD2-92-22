@@ -1,12 +1,8 @@
 package by.mk_jd2_92_22.foodCounter.controllers;
 
-
-
-
-
-import by.mk_jd2_92_22.foodCounter.dao.entity.FoodDiary;
-import by.mk_jd2_92_22.foodCounter.services.FoodDiaryService;
-import by.mk_jd2_92_22.foodCounter.services.dto.FoodDiaryDTO;
+import by.mk_jd2_92_22.foodCounter.dao.entity.JournalFood;
+import by.mk_jd2_92_22.foodCounter.services.JournalFoodService;
+import by.mk_jd2_92_22.foodCounter.services.dto.JournalFoodDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,39 +15,39 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/food_diary")
-public class FoodDiaryController {
+@RequestMapping("/food")
+public class JournalFoodController {
 
     @Autowired
-    private FoodDiaryService service;
+    private JournalFoodService service;
 
     @PostMapping
-    ResponseEntity<FoodDiary> create(@RequestBody FoodDiaryDTO dto){
+    ResponseEntity<JournalFood> create(@RequestBody JournalFoodDTO dto){
         return ResponseEntity.ok(service.create(dto));
     }
 
     @GetMapping
-    ResponseEntity<List<FoodDiary>> getAll(){
+    ResponseEntity<List<JournalFood>> getAll(){
         return ResponseEntity.ok(service.getAll());
     }
 
     @GetMapping
     @RequestMapping("/{uuid}")
-    ResponseEntity<FoodDiary> get(@PathVariable UUID uuid){
+    ResponseEntity<JournalFood> get(@PathVariable UUID uuid){
         return ResponseEntity.ok(service.get(uuid));
     }
 
 
     @PutMapping("/{uuid}/dt_update/{dt_update}")
-    ResponseEntity<FoodDiary> update(@PathVariable UUID uuid,
-                                   @PathVariable ("dt_update") long dtUpdateRow,
-                                   @RequestBody FoodDiaryDTO dto){
+    ResponseEntity<JournalFood> update(@PathVariable UUID uuid,
+                                       @PathVariable ("dt_update") long dtUpdateRow,
+                                       @RequestBody JournalFoodDTO dto){
 
         LocalDateTime dtUpdate = LocalDateTime.ofInstant(
                 Instant.ofEpochMilli(dtUpdateRow),
                 ZoneId.of("UTC"));
 
-        FoodDiary product = service.update(uuid, dtUpdate, dto);
+        JournalFood product = service.update(uuid, dtUpdate, dto);
         return ResponseEntity.ok(product);
     }
 

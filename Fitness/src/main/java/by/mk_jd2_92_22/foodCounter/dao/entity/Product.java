@@ -21,9 +21,9 @@ public class Product {
     private LocalDateTime dtUpdate;
 
     @Column(length = 50)
-    private String name;
+    private String title;
 
-    private int kcal;
+    private int calories;
     private double proteins;
     private double fats;
     private double carbohydrates;
@@ -38,8 +38,8 @@ public class Product {
         this.uuid = uuid;
         this.dtCreate = dtCreate;
         this.dtUpdate = dtUpdate;
-        this.name = name;
-        this.kcal = kcal;
+        this.title = name;
+        this.calories = kcal;
         this.proteins = proteins;
         this.fats = fats;
         this.carbohydrates = carbohydrates;
@@ -66,20 +66,20 @@ public class Product {
         this.dtUpdate = dtUpdate;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public int getKcal() {
-        return kcal;
+    public int getCalories() {
+        return calories;
     }
 
-    public void setKcal(int kcal) {
-        this.kcal = kcal;
+    public void setCalories(int calories) {
+        this.calories = calories;
     }
 
     public double getProteins() {
@@ -120,8 +120,8 @@ public class Product {
                 "uuid=" + uuid +
                 ", dtCreate=" + dtCreate +
                 ", dtUpdate=" + dtUpdate +
-                ", name='" + name + '\'' +
-                ", kcal=" + kcal +
+                ", name='" + title + '\'' +
+                ", kcal=" + calories +
                 ", proteins=" + proteins +
                 ", fats=" + fats +
                 ", carbohydrates=" + carbohydrates +
