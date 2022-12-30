@@ -7,7 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.UUID;
 
@@ -42,9 +44,15 @@ public class UserController {
 
 
     @PutMapping("/{uuid}/dt_update/{dt_update}")
-    ResponseEntity<String> update(@RequestBody AdminDTO dto,
+    ResponseEntity<String> update(
                                   @PathVariable UUID uuid,
-                                  @PathVariable("dt_update") LocalDateTime dtUpdate){
+                                  @PathVariable("dt_update") long dtUpdateMillisecond,
+                                  @RequestBody AdminDTO dto){
+
+        LocalDateTime dtUpdate = LocalDateTime.ofInstant(
+                Instant.ofEpochMilli(dtUpdateMillisecond),
+                ZoneId.of("UTC"));
+
 
         service.update(uuid, dtUpdate, dto);
 
