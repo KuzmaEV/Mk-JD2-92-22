@@ -1,6 +1,6 @@
-package by.mk_jd2_92_22.userSecurity.model;
+package by.mk_jd2_92_22.userSecurity.model.dto;
 
-public class RegistrationDTO {
+public class LoginDTO {
 
     private String mail;
     private String nick;

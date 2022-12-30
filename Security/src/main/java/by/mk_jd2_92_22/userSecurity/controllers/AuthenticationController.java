@@ -1,6 +1,6 @@
 package by.mk_jd2_92_22.userSecurity.controllers;
 
-import by.mk_jd2_92_22.userSecurity.model.AuthenticationDTO;
+import by.mk_jd2_92_22.userSecurity.model.dto.LoginDTO;
 import by.mk_jd2_92_22.userSecurity.security.JwtProvider;
 import by.mk_jd2_92_22.userSecurity.services.CustomUserDetailsService;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +28,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> authenticate(@RequestBody AuthenticationDTO dto){
+    public ResponseEntity<?> authenticate(@RequestBody LoginDTO dto){
 //        try {
 //
 //            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(dto.getMail(), dto.getPassword()));

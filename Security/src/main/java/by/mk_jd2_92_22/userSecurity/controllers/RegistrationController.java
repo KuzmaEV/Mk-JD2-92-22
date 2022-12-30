@@ -1,8 +1,7 @@
 package by.mk_jd2_92_22.userSecurity.controllers;
 
 import by.mk_jd2_92_22.userSecurity.model.UserMe;
-import by.mk_jd2_92_22.userSecurity.model.AuthenticationDTO;
-import by.mk_jd2_92_22.userSecurity.model.RegistrationDTO;
+import by.mk_jd2_92_22.userSecurity.model.dto.LoginDTO;
 import by.mk_jd2_92_22.userSecurity.services.AccountService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,14 +18,14 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    ResponseEntity<?> registration(@RequestBody RegistrationDTO dto){
+    ResponseEntity<?> registration(@RequestBody LoginDTO dto){
 
         service.registration(dto);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     @PostMapping("/login")
-    ResponseEntity<String> login(@RequestBody AuthenticationDTO dto){
+    ResponseEntity<String> login(@RequestBody LoginDTO dto){
 
         return ResponseEntity.ok(service.login(dto));
 

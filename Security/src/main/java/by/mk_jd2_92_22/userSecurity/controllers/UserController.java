@@ -2,7 +2,6 @@ package by.mk_jd2_92_22.userSecurity.controllers;
 
 import by.mk_jd2_92_22.userSecurity.model.Role;
 import by.mk_jd2_92_22.userSecurity.model.UserMe;
-import by.mk_jd2_92_22.userSecurity.model.UserCreate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +22,7 @@ public class UserController {
 //    }
 
     @PostMapping
-    ResponseEntity<?> create(@RequestBody UserCreate dto){
+    ResponseEntity<?> create(@RequestBody UserMe dto){
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
@@ -58,7 +57,7 @@ public class UserController {
 
 
     @PutMapping("/{uuid}/dt_update/{dt_update}")
-    ResponseEntity<UserMe> update(@RequestBody UserCreate dto,
+    ResponseEntity<UserMe> update(@RequestBody UserMe dto,
                                   @PathVariable UUID uuid,
                                   @PathVariable("dt_update") LocalDateTime dtUpdate){
 

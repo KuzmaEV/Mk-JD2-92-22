@@ -3,6 +3,7 @@ package by.mk_jd2_92_22.userSecurity.services;
 import by.mk_jd2_92_22.userSecurity.dao.UserFullRepository;
 import by.mk_jd2_92_22.userSecurity.model.*;
 import by.mk_jd2_92_22.userSecurity.model.builder.MyUserBuilder;
+import by.mk_jd2_92_22.userSecurity.model.dto.LoginDTO;
 import by.mk_jd2_92_22.userSecurity.security.JwtProvider;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -35,7 +36,7 @@ public class AccountService {
         this.holder = holder;
     }
 
-    public void registration(RegistrationDTO item){
+    public void registration(LoginDTO item){
 
         final LocalDateTime now = LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS);
         final UUID uuid = UUID.randomUUID();
@@ -52,7 +53,7 @@ public class AccountService {
 
         this.dao.save(user);
     }
-    public String login(AuthenticationDTO dto){
+    public String login(LoginDTO dto){
 
         final UserDetails user = detailsService.loadUserByUsername(dto.getMail());
 
