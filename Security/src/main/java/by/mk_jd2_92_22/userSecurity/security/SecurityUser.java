@@ -1,6 +1,5 @@
 package by.mk_jd2_92_22.userSecurity.security;
 
-import by.mk_jd2_92_22.userSecurity.model.Status;
 import by.mk_jd2_92_22.userSecurity.model.UserFull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -61,12 +60,21 @@ public class SecurityUser implements UserDetails {
 
     public static UserDetails fromUser(UserFull user){
 
-        return new User(user.getMail(), user.getPassword(),
-                user.getStatus().equals(Status.ACTIVATED),
-                user.getStatus().equals(Status.ACTIVATED),
-                user.getStatus().equals(Status.ACTIVATED),
-                user.getStatus().equals(Status.ACTIVATED),
-                user.getRole().getAuthorities());
+        return User.builder().username(user.getMail())
+                .password(user.getPassword())
+//                .disabled()
+//                .accountExpired()
+//                .credentialsExpired()
+//                .accountLocked()
+                .roles(user.getRole().name())
+                .build();
+
+//        return new User(user.getMail(), user.getPassword(),
+//                user.getStatus().equals(Status.ACTIVATED),
+//                user.getStatus().equals(Status.ACTIVATED),
+//                user.getStatus().equals(Status.ACTIVATED),
+//                user.getStatus().equals(Status.ACTIVATED),
+//                user.getRole().getAuthorities());
     }
 
 
