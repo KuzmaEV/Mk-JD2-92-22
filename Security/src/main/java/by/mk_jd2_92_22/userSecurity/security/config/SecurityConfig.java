@@ -1,5 +1,6 @@
 package by.mk_jd2_92_22.userSecurity.security.config;
 
+import by.mk_jd2_92_22.userSecurity.model.Role;
 import by.mk_jd2_92_22.userSecurity.security.JwtFilter;
 import by.mk_jd2_92_22.userSecurity.services.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
@@ -56,7 +57,9 @@ public class SecurityConfig {
 
         http.authorizeRequests()
                 .antMatchers("/public/**").permitAll()
-                .antMatchers("/api/v1/users/**").permitAll()
+                .antMatchers("/api/v1/users/login", "/api/v1/users/registration").permitAll()
+                .antMatchers("/api/v1/users/me").authenticated()
+                .antMatchers("/api/v1/users/**").hasRole(Role.ADMIN.name())
                 .anyRequest().authenticated();
 
         http.addFilterBefore(
