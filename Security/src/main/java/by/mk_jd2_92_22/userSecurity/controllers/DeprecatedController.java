@@ -16,13 +16,13 @@ import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/public")
-public class AuthenticationController {
+public class DeprecatedController {
 
     private final CustomUserDetailsService detailsService;
     private final JwtProvider jwtProvider;
 //    private PasswordEncoder encoder;
 
-    public AuthenticationController(CustomUserDetailsService detailsService, JwtProvider jwtProvider) {
+    public DeprecatedController(CustomUserDetailsService detailsService, JwtProvider jwtProvider) {
         this.detailsService = detailsService;
         this.jwtProvider = jwtProvider;
     }
