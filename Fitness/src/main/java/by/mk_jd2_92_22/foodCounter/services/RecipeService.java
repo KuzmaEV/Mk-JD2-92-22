@@ -6,7 +6,11 @@ import by.mk_jd2_92_22.foodCounter.dao.entity.Recipe;
 import by.mk_jd2_92_22.foodCounter.dao.entity.Ingredient;
 import by.mk_jd2_92_22.foodCounter.services.api.IRecipeService;
 import by.mk_jd2_92_22.foodCounter.services.api.IIngredientService;
+import by.mk_jd2_92_22.foodCounter.services.dto.PageDTO;
 import by.mk_jd2_92_22.foodCounter.services.dto.RecipeDTO;
+import by.mk_jd2_92_22.foodCounter.services.mappers.MapperPageDTO;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,10 +25,12 @@ public class RecipeService implements IRecipeService {
 
     private final IRecipeDao dao;
     private final IIngredientService ingredientService;
+    private final MapperPageDTO mapperPageDTO;
 
-    public RecipeService(IRecipeDao dao, IIngredientService ingredientService) {
+    public RecipeService(IRecipeDao dao, IIngredientService ingredientService, MapperPageDTO mapperPageDTO) {
         this.dao = dao;
         this.ingredientService = ingredientService;
+        this.mapperPageDTO = mapperPageDTO;
     }
 
     @Override
@@ -53,8 +59,10 @@ public class RecipeService implements IRecipeService {
     }
 
     @Override
-    public List<Recipe> getAll() {
-        return dao.findAll();
+    public PageDTO get(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+
+        return mapperPageDTO.mapper(dao.findAll(pageable));
     }
 
     @Override

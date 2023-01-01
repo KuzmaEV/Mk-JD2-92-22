@@ -3,6 +3,7 @@ package by.mk_jd2_92_22.foodCounter.controllers;
 
 import by.mk_jd2_92_22.foodCounter.dao.entity.Product;
 import by.mk_jd2_92_22.foodCounter.services.ProductService;
+import by.mk_jd2_92_22.foodCounter.services.dto.PageDTO;
 import by.mk_jd2_92_22.foodCounter.services.dto.ProductDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -28,8 +28,9 @@ public class ProductController {
     }
 
     @GetMapping
-    ResponseEntity<List<Product>> getAll(){
-        return ResponseEntity.ok(service.getAll());
+    ResponseEntity<PageDTO> get(@RequestParam int page,
+                                @RequestParam int size){
+        return ResponseEntity.ok(service.get(page, size));
     }
 
     @GetMapping

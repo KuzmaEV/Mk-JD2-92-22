@@ -5,13 +5,16 @@ import by.mk_jd2_92_22.foodCounter.core.exception.ProductNotFoundException;
 import by.mk_jd2_92_22.foodCounter.dao.IProductDao;
 import by.mk_jd2_92_22.foodCounter.dao.entity.Product;
 import by.mk_jd2_92_22.foodCounter.services.api.IProductService;
+import by.mk_jd2_92_22.foodCounter.services.dto.PageDTO;
 import by.mk_jd2_92_22.foodCounter.services.dto.ProductDTO;
+import by.mk_jd2_92_22.foodCounter.services.mappers.MapperPageDTO;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -19,9 +22,11 @@ import java.util.UUID;
 public class ProductService implements IProductService {
 
     private final IProductDao dao;
+    private final MapperPageDTO mapperPageDTO;
 
-    public ProductService(IProductDao dao) {
+    public ProductService(IProductDao dao, MapperPageDTO mapperPageDTO) {
         this.dao = dao;
+        this.mapperPageDTO = mapperPageDTO;
     }
 
     @Override
@@ -45,13 +50,15 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Product get(UUID uuid) {
-        return dao.findById(uuid).orElseThrow(()->new ProductNotFoundException(uuid));
+    public PageDTO get(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+
+        return mapperPageDTO.mapper(dao.findAll(pageable));
     }
 
     @Override
-    public List<Product> getAll() {
-        return dao.findAll();
+    public Product get(UUID uuid) {
+        return dao.findById(uuid).orElseThrow(()->new ProductNotFoundException(uuid));
     }
 
     @Override

@@ -9,12 +9,15 @@ import by.mk_jd2_92_22.foodCounter.services.api.IRecipeService;
 import by.mk_jd2_92_22.foodCounter.services.api.IJournalFoodService;
 import by.mk_jd2_92_22.foodCounter.services.api.IProductService;
 import by.mk_jd2_92_22.foodCounter.services.dto.JournalFoodDTO;
+import by.mk_jd2_92_22.foodCounter.services.dto.PageDTO;
+import by.mk_jd2_92_22.foodCounter.services.mappers.MapperPageDTO;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -24,11 +27,13 @@ public class JournalFoodService implements IJournalFoodService {
     private final IJournalFoodDao dao;
     private final IProductService productService;
     private final IRecipeService dishService;
+    private final MapperPageDTO mapperPageDTO;
 
-    public JournalFoodService(IJournalFoodDao dao, IProductService productService, IRecipeService dishService) {
+    public JournalFoodService(IJournalFoodDao dao, IProductService productService, IRecipeService dishService, MapperPageDTO mapperPageDTO) {
         this.dao = dao;
         this.productService = productService;
         this.dishService = dishService;
+        this.mapperPageDTO = mapperPageDTO;
     }
 
     @Override @Transactional
@@ -63,9 +68,10 @@ public class JournalFoodService implements IJournalFoodService {
     }
 
     @Override
-    public List<JournalFood> getAll() {
+    public PageDTO get(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
 
-        return this.dao.findAll();
+        return mapperPageDTO.mapper(dao.findAll(pageable));
     }
 
     @Override @Transactional

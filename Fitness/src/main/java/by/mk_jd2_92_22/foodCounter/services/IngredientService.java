@@ -8,7 +8,6 @@ import by.mk_jd2_92_22.foodCounter.services.dto.IngredientDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -35,25 +34,5 @@ public class IngredientService implements IIngredientService {
 
 
         return this.dao.saveAll(iterable);
-    }
-
-    @Override
-    public List<Ingredient> get(UUID uuid) {
-        return null;
-    }
-
-    @Override
-    public List<List<Ingredient>> getAll() {
-        return null;
-    }
-
-    @Override @Transactional
-    public List<Ingredient> update(UUID uuid, LocalDateTime dtUpdate, List<IngredientDTO> item) {
-        return null;
-    }
-
-    @Override @Transactional
-    public void delete(UUID uuid, LocalDateTime dtUpdate) {
-
     }
 }
