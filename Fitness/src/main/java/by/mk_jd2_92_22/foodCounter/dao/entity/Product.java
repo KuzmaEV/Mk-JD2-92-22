@@ -13,6 +13,7 @@ public class Product {
     @Id
     private UUID uuid;
 
+
     @Column(name = "dt_create")
     private LocalDateTime dtCreate;
 

@@ -27,9 +27,12 @@ public class JournalFoodService implements IJournalFoodService {
     private final IJournalFoodDao dao;
     private final IProductService productService;
     private final IRecipeService dishService;
-    private final MapperPageDTO mapperPageDTO;
+    private final MapperPageDTO<JournalFood> mapperPageDTO;
 
-    public JournalFoodService(IJournalFoodDao dao, IProductService productService, IRecipeService dishService, MapperPageDTO mapperPageDTO) {
+    public JournalFoodService(IJournalFoodDao dao,
+                              IProductService productService,
+                              IRecipeService dishService,
+                              MapperPageDTO<JournalFood> mapperPageDTO) {
         this.dao = dao;
         this.productService = productService;
         this.dishService = dishService;
@@ -68,7 +71,7 @@ public class JournalFoodService implements IJournalFoodService {
     }
 
     @Override
-    public PageDTO get(int page, int size) {
+    public PageDTO<JournalFood> get(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
 
         return mapperPageDTO.mapper(dao.findAll(pageable));

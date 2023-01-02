@@ -22,9 +22,9 @@ import java.util.UUID;
 public class ProductService implements IProductService {
 
     private final IProductDao dao;
-    private final MapperPageDTO mapperPageDTO;
+    private final MapperPageDTO<Product> mapperPageDTO;
 
-    public ProductService(IProductDao dao, MapperPageDTO mapperPageDTO) {
+    public ProductService(IProductDao dao, MapperPageDTO<Product> mapperPageDTO) {
         this.dao = dao;
         this.mapperPageDTO = mapperPageDTO;
     }
@@ -50,7 +50,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public PageDTO get(int page, int size) {
+    public PageDTO<Product> get(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
 
         return mapperPageDTO.mapper(dao.findAll(pageable));

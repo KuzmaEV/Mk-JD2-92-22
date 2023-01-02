@@ -1,9 +1,12 @@
 package by.mk_jd2_92_22.foodCounter.dao.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Table(name = "journal_food")
 public class JournalFood {

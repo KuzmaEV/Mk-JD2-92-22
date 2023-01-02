@@ -25,9 +25,9 @@ public class RecipeService implements IRecipeService {
 
     private final IRecipeDao dao;
     private final IIngredientService ingredientService;
-    private final MapperPageDTO mapperPageDTO;
+    private final MapperPageDTO<Recipe> mapperPageDTO;
 
-    public RecipeService(IRecipeDao dao, IIngredientService ingredientService, MapperPageDTO mapperPageDTO) {
+    public RecipeService(IRecipeDao dao, IIngredientService ingredientService, MapperPageDTO<Recipe> mapperPageDTO) {
         this.dao = dao;
         this.ingredientService = ingredientService;
         this.mapperPageDTO = mapperPageDTO;
@@ -59,7 +59,7 @@ public class RecipeService implements IRecipeService {
     }
 
     @Override
-    public PageDTO get(int page, int size) {
+    public PageDTO<Recipe> get(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
 
         return mapperPageDTO.mapper(dao.findAll(pageable));

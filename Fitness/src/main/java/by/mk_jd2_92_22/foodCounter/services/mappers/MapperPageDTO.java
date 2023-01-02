@@ -1,15 +1,16 @@
 package by.mk_jd2_92_22.foodCounter.services.mappers;
 
 import by.mk_jd2_92_22.foodCounter.services.dto.PageDTO;
+
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MapperPageDTO {
+public class MapperPageDTO<T> {
 
-    public PageDTO mapper(Page page){
+    public PageDTO<T> mapper(Page<T> page){
 
-        return new PageDTO(
+        return new PageDTO<>(
                 page.getNumber(),
                 page.getSize(),
                 page.getTotalPages(),

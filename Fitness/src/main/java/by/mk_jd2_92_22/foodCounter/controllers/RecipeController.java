@@ -27,7 +27,7 @@ public class RecipeController {
     }
 
     @GetMapping
-    ResponseEntity<PageDTO> get(@RequestParam int page,
+    ResponseEntity<PageDTO<Recipe>> get(@RequestParam int page,
                                 @RequestParam int size){
         return ResponseEntity.ok(service.get(page, size));
     }

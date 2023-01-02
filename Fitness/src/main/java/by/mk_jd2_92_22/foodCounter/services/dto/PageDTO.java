@@ -1,17 +1,22 @@
 package by.mk_jd2_92_22.foodCounter.services.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
-public class PageDTO {
+public class PageDTO<T> implements IPageDTO<T>{
 
     private int number;
     private int size;
+    @JsonProperty("total_pages")
     private int totalPages;
+    @JsonProperty("total_element")
     private int totalElements;
     private boolean first;
-    private int number_of_elements;
+    @JsonProperty("number_of_element")
+    private int numberOfElements;
     private boolean last;
-    private List<Object> content;
+    private List<T> content;
 
     public PageDTO() {
     }
@@ -23,78 +28,94 @@ public class PageDTO {
                    boolean first,
                    int number_of_elements,
                    boolean last,
-                   List<Object> content) {
+                   List<T> content) {
         this.number = number;
         this.size = size;
         this.totalPages = totalPages;
         this.totalElements = totalElements;
         this.first = first;
-        this.number_of_elements = number_of_elements;
+        this.numberOfElements = number_of_elements;
         this.last = last;
         this.content = content;
     }
 
+    @Override
     public int getNumber() {
         return number;
     }
 
+    @Override
     public void setNumber(int number) {
         this.number = number;
     }
 
+    @Override
     public int getSize() {
         return size;
     }
 
+    @Override
     public void setSize(int size) {
         this.size = size;
     }
 
+    @Override
     public int getTotalPages() {
         return totalPages;
     }
 
+    @Override
     public void setTotalPages(int totalPages) {
         this.totalPages = totalPages;
     }
 
+    @Override
     public int getTotalElements() {
         return totalElements;
     }
 
+    @Override
     public void setTotalElements(int totalElements) {
         this.totalElements = totalElements;
     }
 
+    @Override
     public boolean isFirst() {
         return first;
     }
 
+    @Override
     public void setFirst(boolean first) {
         this.first = first;
     }
 
-    public int getNumber_of_elements() {
-        return number_of_elements;
+    @Override
+    public int getNumberOfElements() {
+        return numberOfElements;
     }
 
-    public void setNumber_of_elements(int number_of_elements) {
-        this.number_of_elements = number_of_elements;
+    @Override
+    public void setNumberOfElements(int numberOfElements) {
+        this.numberOfElements = numberOfElements;
     }
 
+    @Override
     public boolean isLast() {
         return last;
     }
 
+    @Override
     public void setLast(boolean last) {
         this.last = last;
     }
 
-    public List<Object> getContent() {
+    @Override
+    public List<T> getContent() {
         return content;
     }
 
-    public void setContent(List<Object> content) {
+    @Override
+    public void setContent(List<T> content) {
         this.content = content;
     }
 }

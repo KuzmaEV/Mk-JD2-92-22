@@ -1,6 +1,5 @@
 package by.mk_jd2_92_22.foodCounter.controllers;
 
-
 import by.mk_jd2_92_22.foodCounter.dao.entity.Product;
 import by.mk_jd2_92_22.foodCounter.services.ProductService;
 import by.mk_jd2_92_22.foodCounter.services.dto.PageDTO;
@@ -28,7 +27,7 @@ public class ProductController {
     }
 
     @GetMapping
-    ResponseEntity<PageDTO> get(@RequestParam int page,
+    ResponseEntity<PageDTO<Product>> get(@RequestParam int page,
                                 @RequestParam int size){
         return ResponseEntity.ok(service.get(page, size));
     }
