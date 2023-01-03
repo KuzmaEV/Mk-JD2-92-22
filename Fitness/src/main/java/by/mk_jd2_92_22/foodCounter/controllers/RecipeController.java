@@ -9,13 +9,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/recipe")
+@RequestMapping("/api/v1/recipe")
 public class RecipeController {
 
     @Autowired
@@ -40,12 +38,8 @@ public class RecipeController {
 
     @PutMapping("/{uuid}/dt_update/{dt_update}")
     ResponseEntity<Recipe> update(@PathVariable UUID uuid,
-                                  @PathVariable ("dt_update") long dtUpdateRow,
+                                  @PathVariable ("dt_update") LocalDateTime dtUpdate,
                                   @RequestBody RecipeDTO dto){
-
-        LocalDateTime dtUpdate = LocalDateTime.ofInstant(
-                Instant.ofEpochMilli(dtUpdateRow),
-                ZoneId.of("UTC"));
 
         Recipe product = service.update(uuid, dtUpdate, dto);
         return ResponseEntity.ok(product);
@@ -53,11 +47,8 @@ public class RecipeController {
 
     @DeleteMapping("/{uuid}/dt_update/{dt_update}")
     ResponseEntity<?> delete(@PathVariable UUID uuid,
-                             @PathVariable ("dt_update") long dtUpdateRow){
+                             @PathVariable ("dt_update") LocalDateTime dtUpdate){
 
-        LocalDateTime dtUpdate = LocalDateTime.ofInstant(
-                Instant.ofEpochMilli(dtUpdateRow),
-                ZoneId.of("UTC"));
         service.delete(uuid, dtUpdate);
 
         return new ResponseEntity<>(HttpStatus.OK);

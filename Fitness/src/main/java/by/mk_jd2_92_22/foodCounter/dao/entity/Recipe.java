@@ -1,5 +1,7 @@
 package by.mk_jd2_92_22.foodCounter.dao.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -11,9 +13,12 @@ public class Recipe {
     @Id
     private UUID uuid;
 
+    @JsonProperty("dt_create")
     @Column(name = "dt_create")
     private LocalDateTime dtCreate;
+
     @Version
+    @JsonProperty("dt_update")
     @Column(name = "dt_update")
     private LocalDateTime dtUpdate;
 

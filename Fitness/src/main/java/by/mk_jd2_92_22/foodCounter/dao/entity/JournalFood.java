@@ -1,6 +1,8 @@
 package by.mk_jd2_92_22.foodCounter.dao.entity;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -14,15 +16,16 @@ public class JournalFood {
     @Id
     private UUID uuid;
 
-//    @JsonSerialize()
-//    @JsonDeserialize
+    @JsonProperty("dt_create")
     @Column(name = "dt_create")
     private LocalDateTime dtCreate;
 
     @Version
+    @JsonProperty("dt_update")
     @Column(name = "dt_update")
     private LocalDateTime dtUpdate;
 
+    @JsonProperty("dt_supply")
     @Column(name = "dt_supply")
     private LocalDateTime dtSupply;
 
@@ -91,6 +94,7 @@ public class JournalFood {
     public void setWeight(int weight) {
         this.weight = weight;
     }
+
 
     public LocalDateTime getDtSupply() {
         return dtSupply;

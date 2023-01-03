@@ -9,13 +9,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/product")
+@RequestMapping("/api/v1/product")
 public class ProductController {
 
     @Autowired
@@ -41,12 +39,8 @@ public class ProductController {
 
     @PutMapping("/{uuid}/dt_update/{dt_update}")
     ResponseEntity<Product> update(@PathVariable UUID uuid,
-                                   @PathVariable ("dt_update") long dtUpdateRow,
+                                   @PathVariable ("dt_update") LocalDateTime dtUpdate,
                                    @RequestBody ProductDTO dto){
-
-        LocalDateTime dtUpdate = LocalDateTime.ofInstant(
-                Instant.ofEpochMilli(dtUpdateRow),
-                ZoneId.of("UTC"));
 
         Product product = service.update(uuid, dtUpdate, dto);
         return ResponseEntity.ok(product);
@@ -54,11 +48,8 @@ public class ProductController {
 
     @DeleteMapping("/{uuid}/dt_update/{dt_update}")
     ResponseEntity<?> delete(@PathVariable UUID uuid,
-                             @PathVariable ("dt_update") long dtUpdateRow){
+                             @PathVariable ("dt_update") LocalDateTime dtUpdate){
 
-        LocalDateTime dtUpdate = LocalDateTime.ofInstant(
-                Instant.ofEpochMilli(dtUpdateRow),
-                ZoneId.of("UTC"));
         service.delete(uuid, dtUpdate);
 
         return new ResponseEntity<>(HttpStatus.OK);

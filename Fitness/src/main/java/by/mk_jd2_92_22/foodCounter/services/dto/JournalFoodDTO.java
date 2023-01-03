@@ -1,10 +1,13 @@
 package by.mk_jd2_92_22.foodCounter.services.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class JournalFoodDTO {
 
+    @JsonProperty("dt_supply")
     private LocalDateTime dtSupply;
     private Product product;
     private Dish dish;
