@@ -1,6 +1,6 @@
 package by.mk_jd2_92_22.foodCounter.services;
 
-import by.mk_jd2_92_22.foodCounter.core.exception.RecipeNotFoundException;
+import by.mk_jd2_92_22.foodCounter.core.exception.ProductNotFoundException;
 import by.mk_jd2_92_22.foodCounter.dao.IRecipeDao;
 import by.mk_jd2_92_22.foodCounter.dao.entity.Recipe;
 import by.mk_jd2_92_22.foodCounter.dao.entity.Ingredient;
@@ -55,7 +55,8 @@ public class RecipeService implements IRecipeService {
     @Override
     public Recipe get(UUID uuid) {
 
-        return dao.findById(uuid).orElseThrow(()-> new RecipeNotFoundException(uuid));
+        return dao.findById(uuid).orElseThrow(()->
+                new ProductNotFoundException("Не удалось найти блюдо "));
     }
 
     @Override
@@ -69,7 +70,8 @@ public class RecipeService implements IRecipeService {
     @Transactional
     public Recipe update(UUID uuid, LocalDateTime dtUpdate, RecipeDTO item) {
 
-        Recipe dish = this.dao.findById(uuid).orElseThrow(()-> new RecipeNotFoundException(uuid));
+        Recipe dish = this.dao.findById(uuid).orElseThrow(()->
+                new ProductNotFoundException("Не удалось найти блюдо "));
 
         if (dish.getDtUpdate().isEqual(dtUpdate)){
 
@@ -89,7 +91,8 @@ public class RecipeService implements IRecipeService {
     @Transactional
     public void delete(UUID uuid, LocalDateTime dtUpdate) {
 
-        Recipe dish = dao.findById(uuid).orElseThrow(()-> new RecipeNotFoundException(uuid));
+        Recipe dish = dao.findById(uuid).orElseThrow(()->
+                new ProductNotFoundException("Не удалось найти блюдо "));
         if (dish.getDtUpdate().isEqual(dtUpdate)){
             dao.delete(dish);
         }else {

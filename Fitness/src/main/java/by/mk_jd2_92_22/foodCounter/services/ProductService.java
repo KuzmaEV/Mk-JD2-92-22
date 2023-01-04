@@ -58,14 +58,17 @@ public class ProductService implements IProductService {
 
     @Override
     public Product get(UUID uuid) {
-        return dao.findById(uuid).orElseThrow(()->new ProductNotFoundException(uuid));
+        return dao.findById(uuid).orElseThrow(()->
+                new ProductNotFoundException("Не удалось найти продукт "));
     }
 
     @Override
     @Transactional
     public Product update(UUID uuid, LocalDateTime dtUpdate, ProductDTO item) {
 
-        Product product = dao.findById(uuid).orElseThrow(()->new ProductNotFoundException(uuid));
+        Product product = dao.findById(uuid).orElseThrow(()->
+                new ProductNotFoundException("Не удалось найти продукт "));
+
         if (product.getDtUpdate().isEqual(dtUpdate)){
             product.setDtUpdate(LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS));
             product.setTitle(item.getTitle());
@@ -81,7 +84,9 @@ public class ProductService implements IProductService {
     @Transactional
     public void delete(UUID uuid, LocalDateTime dtUpdate) {
 
-        Product product = dao.findById(uuid).orElseThrow(()->new ProductNotFoundException(uuid));
+        Product product = dao.findById(uuid).orElseThrow(()->
+                new ProductNotFoundException("Не удалось найти продукт "));
+
         if (product.getDtUpdate().isEqual(dtUpdate)){
             dao.delete(product);
         }else {
