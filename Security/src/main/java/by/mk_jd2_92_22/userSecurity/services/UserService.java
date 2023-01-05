@@ -6,8 +6,12 @@ import by.mk_jd2_92_22.userSecurity.model.UserFull;
 import by.mk_jd2_92_22.userSecurity.model.UserMe;
 import by.mk_jd2_92_22.userSecurity.model.builder.MyUserBuilder;
 import by.mk_jd2_92_22.userSecurity.model.dto.AdminDTO;
+import by.mk_jd2_92_22.userSecurity.model.dto.PageDTO;
 import by.mk_jd2_92_22.userSecurity.services.api.IUserService;
-import by.mk_jd2_92_22.userSecurity.services.mapper.UserMeMapper;
+import by.mk_jd2_92_22.userSecurity.services.mappers.UserMeMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -20,11 +24,11 @@ import java.util.UUID;
 public class UserService implements IUserService {
 
     private final UserFullRepository dao;
-    private final UserMeMapper mapper;
+    private final UserMeMapper mapperUser;
 
-    public UserService(UserFullRepository dao, UserMeMapper mapper) {
+    public UserService(UserFullRepository dao, UserMeMapper mapperUser) {
         this.dao = dao;
-        this.mapper = mapper;
+        this.mapperUser = mapperUser;
     }
 
     @Override
@@ -62,9 +66,22 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public List<UserMe> getAll() {
-        List<UserFull> users = dao.findAll();
-        return mapper.mapperList(users);
+    public PageDTO<UserMe> get(int page, int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<UserFull> pageUsers = dao.findAll(pageable);
+
+        List<UserMe> content = mapperUser.mapperList(pageUsers.getContent());
+
+        return new PageDTO<>(
+                pageUsers.getNumber(),
+                pageUsers.getSize(),
+                pageUsers.getTotalPages(),
+                (int)pageUsers.getTotalElements(),
+                pageUsers.isFirst(),
+                pageUsers.getNumberOfElements(),
+                pageUsers.isLast(),
+                content);
     }
 
     @Override

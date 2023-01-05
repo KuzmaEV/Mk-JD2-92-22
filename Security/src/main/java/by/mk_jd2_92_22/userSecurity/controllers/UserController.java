@@ -2,6 +2,7 @@ package by.mk_jd2_92_22.userSecurity.controllers;
 
 import by.mk_jd2_92_22.userSecurity.model.UserMe;
 import by.mk_jd2_92_22.userSecurity.model.dto.AdminDTO;
+import by.mk_jd2_92_22.userSecurity.model.dto.PageDTO;
 import by.mk_jd2_92_22.userSecurity.services.api.IUserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,9 +32,11 @@ public class UserController {
 
 
     @GetMapping
-    ResponseEntity<List<UserMe>> getAll(){
+    ResponseEntity<PageDTO<UserMe>> get(@RequestParam int page,
+                                        @RequestParam int size){
 
-        return ResponseEntity.ok(service.getAll());
+
+        return ResponseEntity.ok(service.get( page, size));
     }
 
     @GetMapping("/{uuid}")
