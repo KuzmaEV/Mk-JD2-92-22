@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-public class PageDTO<T> implements IPageDTO<T>{
+public class PageDTO<T>{
 
     private int number;
     private int size;
@@ -39,82 +39,66 @@ public class PageDTO<T> implements IPageDTO<T>{
         this.content = content;
     }
 
-    @Override
     public int getNumber() {
         return number;
     }
 
-    @Override
     public void setNumber(int number) {
         this.number = number;
     }
 
-    @Override
     public int getSize() {
         return size;
     }
 
-    @Override
     public void setSize(int size) {
         this.size = size;
     }
 
-    @Override
     public int getTotalPages() {
         return totalPages;
     }
 
-    @Override
     public void setTotalPages(int totalPages) {
         this.totalPages = totalPages;
     }
 
-    @Override
     public int getTotalElements() {
         return totalElements;
     }
 
-    @Override
     public void setTotalElements(int totalElements) {
         this.totalElements = totalElements;
     }
 
-    @Override
     public boolean isFirst() {
         return first;
     }
 
-    @Override
     public void setFirst(boolean first) {
         this.first = first;
     }
-
-    @Override
+    
     public int getNumberOfElements() {
         return numberOfElements;
     }
 
-    @Override
     public void setNumberOfElements(int numberOfElements) {
         this.numberOfElements = numberOfElements;
     }
 
-    @Override
     public boolean isLast() {
         return last;
     }
-
-    @Override
+    
     public void setLast(boolean last) {
         this.last = last;
     }
-
-    @Override
+    
     public List<T> getContent() {
         return content;
     }
 
-    @Override
     public void setContent(List<T> content) {
         this.content = content;
     }
