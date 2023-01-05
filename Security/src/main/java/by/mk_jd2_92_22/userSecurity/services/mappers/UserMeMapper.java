@@ -1,4 +1,4 @@
-package by.mk_jd2_92_22.userSecurity.services.mapper;
+package by.mk_jd2_92_22.userSecurity.services.mappers;
 
 import by.mk_jd2_92_22.userSecurity.model.UserFull;
 import by.mk_jd2_92_22.userSecurity.model.UserMe;
