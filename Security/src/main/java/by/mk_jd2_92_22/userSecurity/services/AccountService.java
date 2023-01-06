@@ -9,12 +9,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 @Service
+@Transactional(readOnly = true)
 public class AccountService {
 
     private final CustomUserDetailsService detailsService;
@@ -36,6 +38,7 @@ public class AccountService {
         this.holder = holder;
     }
 
+    @Transactional
     public void registration(LoginDTO item){
 
         final LocalDateTime now = LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS);
@@ -53,6 +56,8 @@ public class AccountService {
 
         this.dao.save(user);
     }
+
+    @Transactional
     public String login(LoginDTO dto){
 
         final UserDetails user = detailsService.loadUserByUsername(dto.getMail());

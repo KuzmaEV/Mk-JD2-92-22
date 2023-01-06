@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -21,6 +22,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@Transactional(readOnly = true)
 public class UserService implements IUserService {
 
     private final UserFullRepository dao;
@@ -32,6 +34,7 @@ public class UserService implements IUserService {
     }
 
     @Override
+    @Transactional
     public void create(AdminDTO item) {
 
         final LocalDateTime now = LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS);
@@ -85,6 +88,7 @@ public class UserService implements IUserService {
     }
 
     @Override
+    @Transactional
     public void update(UUID uuid, LocalDateTime dtUpdate, AdminDTO item) {
 
         UserFull user = dao.findById(uuid).orElseThrow(() ->
