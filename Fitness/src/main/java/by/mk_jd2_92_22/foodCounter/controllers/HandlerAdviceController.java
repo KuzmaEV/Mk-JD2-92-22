@@ -15,9 +15,9 @@ import java.util.List;
 @RestControllerAdvice
 public class HandlerAdviceController {
 
-        @ExceptionHandler
+        @ExceptionHandler({ProductNotFoundException.class, IllegalStateException.class})
         @ResponseStatus(HttpStatus.BAD_REQUEST)
-        public SingleErrorResponse productNotFoundHandler(ProductNotFoundException e) {
+        public SingleErrorResponse singleErrorBadRequest(RuntimeException e) {
                 return new SingleErrorResponse(
                         "error",
                         e.getMessage());
@@ -25,7 +25,7 @@ public class HandlerAdviceController {
 
         @ExceptionHandler/*({ProductNotFoundException.class})*/
         @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-        public SingleErrorResponse updateException(IllegalArgumentException e) {
+        public SingleErrorResponse singleErrorServer(IllegalArgumentException e) {
                 return new SingleErrorResponse(
                         "error",
                         e.getMessage());
