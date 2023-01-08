@@ -1,12 +1,28 @@
 package by.mk_jd2_92_22.foodCounter.services.dto;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
+
 public class ProductDTO {
 
+    @NotBlank(message = "Title is mandatory")
     private String title;
+    @NotNull(message = "Calories is mandatory")
+    @PositiveOrZero(message = "Calories cannot be less than 0")
     private int calories;
+    @NotNull(message = "Proteins is mandatory")
+    @PositiveOrZero(message = "Proteins cannot be less than 0")
     private double proteins;
+    @NotNull(message = "Fats is mandatory")
+    @PositiveOrZero(message = "Fats cannot be less than 0")
     private double fats;
+    @NotNull(message = "Carbohydrates is mandatory")
+    @PositiveOrZero(message = "Carbohydrates cannot be less than 0")
     private double carbohydrates;
+    @NotNull(message = "Weight is mandatory")
+    @Positive(message = "Weight cannot be less than 1")
     private int weight;
 
     public ProductDTO() {

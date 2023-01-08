@@ -4,30 +4,31 @@ import java.util.List;
 
 public class MultipleErrorResponse {
 
-    private final String logref;
-    private final List<Error> errors;
+    private String logref;
+    private List<ErrorForMultipleErrorResponse> errors;
 
-    public MultipleErrorResponse(String logref, String field, String message) {
-        this.logref = logref;
-        this.errors = List.of(new Error(field, message));
+    public MultipleErrorResponse() {
     }
 
-    private static class Error{
-        private  final String field;
-        private  final String message;
+    public MultipleErrorResponse(String logref, List<ErrorForMultipleErrorResponse> errors) {
+        this.logref = logref;
+        this.errors = errors;
+    }
 
-        public Error(String field, String message) {
-            this.field = field;
-            this.message = message;
-        }
+    public String getLogref() {
+        return logref;
+    }
 
-        public String getField() {
-            return field;
-        }
+    public List<ErrorForMultipleErrorResponse> getErrors() {
+        return errors;
+    }
 
-        public String getMessage() {
-            return message;
-        }
+    public void setLogref(String logref) {
+        this.logref = logref;
+    }
+
+    public void setErrors(List<ErrorForMultipleErrorResponse> errors) {
+        this.errors = errors;
     }
 }
 

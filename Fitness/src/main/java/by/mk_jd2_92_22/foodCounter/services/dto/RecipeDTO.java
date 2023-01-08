@@ -1,12 +1,14 @@
 package by.mk_jd2_92_22.foodCounter.services.dto;
 
-
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
-
 
 public class RecipeDTO {
 
+    @NotBlank(message = "Title is mandatory")
     private String title;
+    @NotEmpty(message = "Ingredients is mandatory")
     private List<IngredientDTO> ingredients;
 
     public RecipeDTO() {

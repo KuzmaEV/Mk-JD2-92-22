@@ -2,15 +2,20 @@ package by.mk_jd2_92_22.foodCounter.services.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class JournalFoodDTO {
 
+    @NotNull(message = "dt_supply is mandatory")
     @JsonProperty("dt_supply")
     private LocalDateTime dtSupply;
+
     private Product product;
     private Dish dish;
+    @Positive(message = "Weight cannot be less than 1")
     private int weight;
 
     public JournalFoodDTO() {

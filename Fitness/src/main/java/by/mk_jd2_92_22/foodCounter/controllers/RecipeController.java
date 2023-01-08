@@ -4,11 +4,11 @@ import by.mk_jd2_92_22.foodCounter.dao.entity.Recipe;
 import by.mk_jd2_92_22.foodCounter.services.RecipeService;
 import by.mk_jd2_92_22.foodCounter.services.dto.PageDTO;
 import by.mk_jd2_92_22.foodCounter.services.dto.RecipeDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -16,11 +16,14 @@ import java.util.UUID;
 @RequestMapping("/api/v1/recipe")
 public class RecipeController {
 
-    @Autowired
-    private RecipeService service;
+    private final RecipeService service;
+
+    public RecipeController(RecipeService service) {
+        this.service = service;
+    }
 
     @PostMapping
-    ResponseEntity<Recipe> create(@RequestBody RecipeDTO dto){
+    ResponseEntity<Recipe> create(@Valid @RequestBody RecipeDTO dto){
         return ResponseEntity.ok(service.create(dto));
     }
 
@@ -39,7 +42,7 @@ public class RecipeController {
     @PutMapping("/{uuid}/dt_update/{dt_update}")
     ResponseEntity<Recipe> update(@PathVariable UUID uuid,
                                   @PathVariable ("dt_update") LocalDateTime dtUpdate,
-                                  @RequestBody RecipeDTO dto){
+                                  @Valid @RequestBody RecipeDTO dto){
 
         Recipe product = service.update(uuid, dtUpdate, dto);
         return ResponseEntity.ok(product);
