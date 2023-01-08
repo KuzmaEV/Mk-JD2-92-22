@@ -13,7 +13,6 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional(readOnly = true)
 public class IngredientService implements IIngredientService {
 
     private final IIngredientDao dao;
@@ -25,9 +24,9 @@ public class IngredientService implements IIngredientService {
     }
 
     @Override @Transactional
-    public List<Ingredient> create(List<IngredientDTO> item) {
+    public List<Ingredient> create(List<IngredientDTO> items) {
 
-        Iterable<Ingredient> iterable = item.stream().map(i ->
+        Iterable<Ingredient> iterable = items.stream().map(i ->
                         new Ingredient(UUID.randomUUID(), this.productService.get(i.getProduct().getUuid()),
                                 i.getWeight()))
                 .collect(Collectors.toList());
@@ -35,4 +34,15 @@ public class IngredientService implements IIngredientService {
 
         return this.dao.saveAll(iterable);
     }
+
+    @Override @Transactional
+    public void delete(List<UUID> items){
+        try {
+            dao.deleteAllById(items);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

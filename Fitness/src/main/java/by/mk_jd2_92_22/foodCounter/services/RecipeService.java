@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -74,6 +75,11 @@ public class RecipeService implements IRecipeService {
                 new ProductNotFoundException("Не удалось найти блюдо "));
 
         if (dish.getDtUpdate().isEqual(dtUpdate)){
+
+            List<UUID> deleteIngredients = dish.getIngredients()
+                    .stream().map(Ingredient::getUuid).collect(Collectors.toList());
+
+            this.ingredientService.delete(deleteIngredients);
 
             List<Ingredient> ingredients = this.ingredientService.create(item.getIngredients());
 

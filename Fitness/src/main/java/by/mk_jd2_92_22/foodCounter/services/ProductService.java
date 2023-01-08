@@ -72,6 +72,11 @@ public class ProductService implements IProductService {
         if (product.getDtUpdate().isEqual(dtUpdate)){
             product.setDtUpdate(LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS));
             product.setTitle(item.getTitle());
+            product.setCalories(item.getCalories());
+            product.setProteins(item.getProteins());
+            product.setCarbohydrates(item.getCarbohydrates());
+            product.setFats(item.getFats());
+            product.setWeight(item.getWeight());
         }else {
             throw new IllegalArgumentException("Не удалось обнавить, было кем-то изменино раньше." +
                     " Попробуйте еще раз!");
