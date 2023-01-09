@@ -24,25 +24,25 @@ public class ProductController {
     }
 
     @PostMapping
-    ResponseEntity<Product> create(@Valid @RequestBody ProductDTO dto){
+    public ResponseEntity<Product> create(@Valid @RequestBody ProductDTO dto){
         return ResponseEntity.ok(service.create(dto));
     }
 
     @GetMapping
-    ResponseEntity<PageDTO<Product>> get(@RequestParam int page,
+    public ResponseEntity<PageDTO<Product>> get(@RequestParam int page,
                                 @RequestParam int size){
         return ResponseEntity.ok(service.get(page, size));
     }
 
     @GetMapping
     @RequestMapping("/{uuid}")
-    ResponseEntity<Product> get(@PathVariable UUID uuid){
+    public ResponseEntity<Product> get(@PathVariable UUID uuid){
         return ResponseEntity.ok(service.get(uuid));
     }
 
 
     @PutMapping("/{uuid}/dt_update/{dt_update}")
-    ResponseEntity<Product> update(@PathVariable UUID uuid,
+    public ResponseEntity<Product> update(@PathVariable UUID uuid,
                                    @PathVariable ("dt_update") LocalDateTime dtUpdate,
                                    @Valid @RequestBody ProductDTO dto){
 
@@ -51,7 +51,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/{uuid}/dt_update/{dt_update}")
-    ResponseEntity<?> delete(@PathVariable UUID uuid,
+    public ResponseEntity<?> delete(@PathVariable UUID uuid,
                              @PathVariable ("dt_update") LocalDateTime dtUpdate){
 
         service.delete(uuid, dtUpdate);
