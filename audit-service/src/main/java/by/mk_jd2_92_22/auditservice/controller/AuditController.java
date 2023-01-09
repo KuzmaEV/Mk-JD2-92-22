@@ -7,6 +7,8 @@ import by.mk_jd2_92_22.auditservice.service.api.IAuditService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/v1/audit")
 public class AuditController {
@@ -31,7 +33,7 @@ public class AuditController {
     }
 
     @PostMapping
-    public ResponseEntity<Audit> create(@RequestBody AuditRequestDTO dto){
+    public ResponseEntity<Audit> create(@Valid @RequestBody AuditRequestDTO dto){
 
         Audit audit = this.service.create(dto);
         return ResponseEntity.ok(audit);
