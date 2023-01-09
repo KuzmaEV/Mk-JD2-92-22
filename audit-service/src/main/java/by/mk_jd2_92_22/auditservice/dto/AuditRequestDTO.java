@@ -1,30 +1,21 @@
-package by.mk_jd2_92_22.auditservice.model;
+package by.mk_jd2_92_22.auditservice.dto;
 
 import by.mk_jd2_92_22.auditservice.model.Type;
 
-import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
-@Entity
-public class Audit {
+public class AuditRequestDTO {
 
-    @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private String id;
-
-    @Column(name = "user")
+    @NotNull
     private UUID user;
-    @Column(name = "text")
+    @NotBlank
     private String text;
-    @Column(name = "type")
-    @Enumerated(value = EnumType.STRING)
+    @NotNull
     private Type type;
 
-    public Audit() {
-    }
-
-    public String getId() {
-        return id;
+    public AuditRequestDTO() {
     }
 
     public UUID getUser() {

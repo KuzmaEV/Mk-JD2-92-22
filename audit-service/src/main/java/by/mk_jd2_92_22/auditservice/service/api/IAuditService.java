@@ -1,12 +1,11 @@
 package by.mk_jd2_92_22.auditservice.service.api;
 
+import by.mk_jd2_92_22.auditservice.dto.AuditRequestDTO;
+import by.mk_jd2_92_22.auditservice.dto.PageDTO;
 import by.mk_jd2_92_22.auditservice.model.Audit;
-import by.mk_jd2_92_22.auditservice.service.AudinService;
-
-import java.util.List;
-import java.util.UUID;
 
 public interface IAuditService {
-    List<Audit> get();
-    Audit get(UUID uuid);
+    PageDTO<Audit> get(int page, int size);
+    Audit get(String id);
+    Audit create(AuditRequestDTO dto);
 }
