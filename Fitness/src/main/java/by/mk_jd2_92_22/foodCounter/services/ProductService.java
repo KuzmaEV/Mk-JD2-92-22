@@ -1,7 +1,7 @@
 package by.mk_jd2_92_22.foodCounter.services;
 
 import by.mk_jd2_92_22.foodCounter.core.builder.ProductBuilder;
-import by.mk_jd2_92_22.foodCounter.core.exception.ProductNotFoundException;
+import by.mk_jd2_92_22.foodCounter.core.exception.NotFoundException;
 import by.mk_jd2_92_22.foodCounter.dao.IProductDao;
 import by.mk_jd2_92_22.foodCounter.dao.entity.Product;
 import by.mk_jd2_92_22.foodCounter.services.api.IProductService;
@@ -59,7 +59,7 @@ public class ProductService implements IProductService {
     @Override
     public Product get(UUID uuid) {
         return dao.findById(uuid).orElseThrow(()->
-                new ProductNotFoundException("Не удалось найти продукт "));
+                new NotFoundException("Не удалось найти продукт "));
     }
 
     @Override
@@ -67,7 +67,7 @@ public class ProductService implements IProductService {
     public Product update(UUID uuid, LocalDateTime dtUpdate, ProductDTO item) {
 
         Product product = dao.findById(uuid).orElseThrow(()->
-                new ProductNotFoundException("Не удалось найти продукт "));
+                new NotFoundException("Не удалось найти продукт "));
 
         if (product.getDtUpdate().isEqual(dtUpdate)){
             product.setDtUpdate(LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS));
@@ -90,7 +90,7 @@ public class ProductService implements IProductService {
     public void delete(UUID uuid, LocalDateTime dtUpdate) {
 
         Product product = dao.findById(uuid).orElseThrow(()->
-                new ProductNotFoundException("Не удалось найти продукт "));
+                new NotFoundException("Не удалось найти продукт "));
 
         if (product.getDtUpdate().isEqual(dtUpdate)){
             dao.delete(product);

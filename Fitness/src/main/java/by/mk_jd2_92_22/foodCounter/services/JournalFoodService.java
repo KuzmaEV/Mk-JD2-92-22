@@ -1,6 +1,6 @@
 package by.mk_jd2_92_22.foodCounter.services;
 
-import by.mk_jd2_92_22.foodCounter.core.exception.ProductNotFoundException;
+import by.mk_jd2_92_22.foodCounter.core.exception.NotFoundException;
 import by.mk_jd2_92_22.foodCounter.dao.IJournalFoodDao;
 import by.mk_jd2_92_22.foodCounter.dao.entity.Recipe;
 import by.mk_jd2_92_22.foodCounter.dao.entity.JournalFood;
@@ -68,7 +68,7 @@ public class JournalFoodService implements IJournalFoodService {
     @Override
     public JournalFood get(UUID uuid) {
         return  this.dao.findById(uuid).orElseThrow(()->
-                new ProductNotFoundException("Не удалось найти запись дневника питания "));
+                new NotFoundException("Не удалось найти запись дневника питания "));
     }
 
     @Override
@@ -82,7 +82,7 @@ public class JournalFoodService implements IJournalFoodService {
     public JournalFood update(UUID uuid, LocalDateTime dtUpdate, JournalFoodDTO item) {
 
         JournalFood diary = dao.findById(uuid).orElseThrow(()->
-                new ProductNotFoundException("Не удалось найти запись дневника питания "));
+                new NotFoundException("Не удалось найти запись дневника питания "));
 
         if (diary.getDtUpdate().isEqual(dtUpdate)){
 
@@ -112,7 +112,7 @@ public class JournalFoodService implements IJournalFoodService {
     public void delete(UUID uuid, LocalDateTime dtUpdate) {
 
         JournalFood diary = dao.findById(uuid).orElseThrow(()->
-                new ProductNotFoundException("Не удалось найти запись дневника питания "));
+                new NotFoundException("Не удалось найти запись дневника питания "));
 
         if (diary.getDtUpdate().isEqual(dtUpdate)){
             dao.delete(diary);

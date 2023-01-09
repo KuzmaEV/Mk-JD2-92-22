@@ -1,9 +1,9 @@
 package by.mk_jd2_92_22.foodCounter.controllers;
 
-import by.mk_jd2_92_22.foodCounter.core.exception.ProductNotFoundException;
-import by.mk_jd2_92_22.foodCounter.core.exception.handlers.ErrorForMultipleErrorResponse;
-import by.mk_jd2_92_22.foodCounter.core.exception.handlers.MultipleErrorResponse;
-import by.mk_jd2_92_22.foodCounter.core.exception.handlers.SingleErrorResponse;
+import by.mk_jd2_92_22.foodCounter.core.exception.NotFoundException;
+import by.mk_jd2_92_22.foodCounter.core.exception.entity.ErrorForMultipleErrorResponse;
+import by.mk_jd2_92_22.foodCounter.core.exception.entity.MultipleErrorResponse;
+import by.mk_jd2_92_22.foodCounter.core.exception.entity.SingleErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -15,7 +15,7 @@ import java.util.List;
 @RestControllerAdvice
 public class HandlerAdviceController {
 
-        @ExceptionHandler({ProductNotFoundException.class, IllegalStateException.class})
+        @ExceptionHandler({NotFoundException.class, IllegalStateException.class})
         @ResponseStatus(HttpStatus.BAD_REQUEST)
         public SingleErrorResponse singleErrorBadRequest(RuntimeException e) {
                 return new SingleErrorResponse(

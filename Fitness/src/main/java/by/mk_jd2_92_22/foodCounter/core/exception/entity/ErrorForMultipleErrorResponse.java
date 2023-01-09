@@ -1,4 +1,4 @@
-package by.mk_jd2_92_22.foodCounter.core.exception.handlers;
+package by.mk_jd2_92_22.foodCounter.core.exception.entity;
 
 public class ErrorForMultipleErrorResponse {
 
