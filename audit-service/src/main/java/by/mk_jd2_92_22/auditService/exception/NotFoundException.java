@@ -1,4 +1,4 @@
-package by.mk_jd2_92_22.auditservice.exception;
+package by.mk_jd2_92_22.auditService.exception;
 
 
 public class NotFoundException extends RuntimeException{

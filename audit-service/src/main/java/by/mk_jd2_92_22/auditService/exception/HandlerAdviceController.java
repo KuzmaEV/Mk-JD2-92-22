@@ -1,8 +1,8 @@
-package by.mk_jd2_92_22.auditservice.exception;
+package by.mk_jd2_92_22.auditService.exception;
 
-import by.mk_jd2_92_22.auditservice.exception.entity.ErrorForMultipleErrorResponse;
-import by.mk_jd2_92_22.auditservice.exception.entity.MultipleErrorResponse;
-import by.mk_jd2_92_22.auditservice.exception.entity.SingleErrorResponse;
+import by.mk_jd2_92_22.auditService.exception.entity.ErrorForMultipleErrorResponse;
+import by.mk_jd2_92_22.auditService.exception.entity.MultipleErrorResponse;
+import by.mk_jd2_92_22.auditService.exception.entity.SingleErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;

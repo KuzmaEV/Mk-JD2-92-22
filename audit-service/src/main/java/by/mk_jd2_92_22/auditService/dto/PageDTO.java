@@ -1,4 +1,4 @@
-package by.mk_jd2_92_22.auditservice.dto;
+package by.mk_jd2_92_22.auditService.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

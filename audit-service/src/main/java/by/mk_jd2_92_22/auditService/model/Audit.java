@@ -1,9 +1,6 @@
-package by.mk_jd2_92_22.auditservice.model;
-
-import by.mk_jd2_92_22.auditservice.model.Type;
+package by.mk_jd2_92_22.auditService.model;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 @Entity
 public class Audit {
@@ -12,8 +9,9 @@ public class Audit {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private String id;
 
-    @Column(name = "user")
-    private UUID user;
+    @ManyToOne
+    private UserAudit user;
+
     @Column(name = "text")
     private String text;
     @Column(name = "type")
@@ -27,11 +25,11 @@ public class Audit {
         return id;
     }
 
-    public UUID getUser() {
+    public UserAudit getUser() {
         return user;
     }
 
-    public void setUser(UUID user) {
+    public void setUser(UserAudit user) {
         this.user = user;
     }
 

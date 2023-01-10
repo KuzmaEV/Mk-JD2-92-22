@@ -1,9 +1,9 @@
-package by.mk_jd2_92_22.auditservice.controller;
+package by.mk_jd2_92_22.auditService.controller;
 
-import by.mk_jd2_92_22.auditservice.dto.AuditRequestDTO;
-import by.mk_jd2_92_22.auditservice.dto.PageDTO;
-import by.mk_jd2_92_22.auditservice.model.Audit;
-import by.mk_jd2_92_22.auditservice.service.api.IAuditService;
+import by.mk_jd2_92_22.auditService.dto.AuditRequestDTO;
+import by.mk_jd2_92_22.auditService.dto.PageDTO;
+import by.mk_jd2_92_22.auditService.model.Audit;
+import by.mk_jd2_92_22.auditService.service.api.IAuditService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

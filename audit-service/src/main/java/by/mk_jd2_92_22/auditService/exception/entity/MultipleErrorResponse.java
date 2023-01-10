@@ -1,4 +1,4 @@
-package by.mk_jd2_92_22.auditservice.exception.entity;
+package by.mk_jd2_92_22.auditService.exception.entity;
 
 import java.util.List;
 

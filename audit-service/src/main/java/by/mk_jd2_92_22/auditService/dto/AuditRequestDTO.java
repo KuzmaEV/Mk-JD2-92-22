@@ -1,6 +1,6 @@
-package by.mk_jd2_92_22.auditservice.dto;
+package by.mk_jd2_92_22.auditService.dto;
 
-import by.mk_jd2_92_22.auditservice.model.Type;
+import by.mk_jd2_92_22.auditService.model.Type;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

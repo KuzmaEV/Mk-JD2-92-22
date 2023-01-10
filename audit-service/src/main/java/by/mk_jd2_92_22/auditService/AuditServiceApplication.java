@@ -1,4 +1,4 @@
-package by.mk_jd2_92_22.auditservice;
+package by.mk_jd2_92_22.auditService;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
