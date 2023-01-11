@@ -1,5 +1,8 @@
-package by.mk_jd2_92_22.foodCounter.profile;
+package by.mk_jd2_92_22.foodCounter.services.dto;
 
+import by.mk_jd2_92_22.foodCounter.model.ActivityType;
+import by.mk_jd2_92_22.foodCounter.model.ProfileSex;
+import by.mk_jd2_92_22.foodCounter.model.UserProfile;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDate;

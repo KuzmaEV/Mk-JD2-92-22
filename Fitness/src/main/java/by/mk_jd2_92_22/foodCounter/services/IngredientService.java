@@ -1,7 +1,7 @@
 package by.mk_jd2_92_22.foodCounter.services;
 
-import by.mk_jd2_92_22.foodCounter.dao.IIngredientDao;
-import by.mk_jd2_92_22.foodCounter.dao.entity.Ingredient;
+import by.mk_jd2_92_22.foodCounter.repositories.IIngredientDao;
+import by.mk_jd2_92_22.foodCounter.model.Ingredient;
 import by.mk_jd2_92_22.foodCounter.services.api.IIngredientService;
 import by.mk_jd2_92_22.foodCounter.services.api.IProductService;
 import by.mk_jd2_92_22.foodCounter.services.dto.IngredientDTO;

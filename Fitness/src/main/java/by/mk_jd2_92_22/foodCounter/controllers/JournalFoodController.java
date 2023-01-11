@@ -1,6 +1,6 @@
 package by.mk_jd2_92_22.foodCounter.controllers;
 
-import by.mk_jd2_92_22.foodCounter.dao.entity.JournalFood;
+import by.mk_jd2_92_22.foodCounter.model.JournalFood;
 import by.mk_jd2_92_22.foodCounter.services.JournalFoodService;
 import by.mk_jd2_92_22.foodCounter.services.dto.JournalFoodDTO;
 import by.mk_jd2_92_22.foodCounter.services.dto.PageDTO;

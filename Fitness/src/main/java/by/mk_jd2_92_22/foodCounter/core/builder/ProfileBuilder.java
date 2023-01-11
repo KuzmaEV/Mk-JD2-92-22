@@ -1,4 +1,8 @@
-package by.mk_jd2_92_22.foodCounter.profile;
+package by.mk_jd2_92_22.foodCounter.core.builder;
+
+import by.mk_jd2_92_22.foodCounter.model.ActivityType;
+import by.mk_jd2_92_22.foodCounter.model.Profile;
+import by.mk_jd2_92_22.foodCounter.model.ProfileSex;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

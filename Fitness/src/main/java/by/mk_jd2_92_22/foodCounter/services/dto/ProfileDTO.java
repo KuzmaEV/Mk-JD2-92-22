@@ -1,6 +1,9 @@
-package by.mk_jd2_92_22.foodCounter.profile;
+package by.mk_jd2_92_22.foodCounter.services.dto;
 
-import javax.validation.constraints.NotBlank;
+import by.mk_jd2_92_22.foodCounter.model.ActivityType;
+import by.mk_jd2_92_22.foodCounter.model.ProfileSex;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Positive;
@@ -8,17 +11,28 @@ import java.time.LocalDate;
 
 public class ProfileDTO {
 
-    @Positive
+    @Positive(message = "Height must be a positive number")
+    @NotNull(message = "Height is mandatory")
     private int height;
-    @Positive
+
+    @Positive(message = "Weight must be a positive number")
+    @NotNull(message = "Weight is mandatory")
     private double weight;
-    @Past @NotNull
+
+    @JsonProperty("dt_birthday")
+    @Past(message = "Birthday is the date of birth")
+    @NotNull(message = "Birthday is mandatory")
     private LocalDate dtBirthday;
-    @Positive
+
+    @Positive(message = "Target must be a positive number")
+    @NotNull(message = "Target is mandatory")
     private double target;
-    @NotBlank
+
+    @JsonProperty("activity_type")
+    @NotNull(message = "ActivityType is mandatory")
     private ActivityType activityType;
-    @NotBlank
+
+    @NotNull(message = "ProfileSex is mandatory")
     private ProfileSex sex;
 
     public ProfileDTO() {

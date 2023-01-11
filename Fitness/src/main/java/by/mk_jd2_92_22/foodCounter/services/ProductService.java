@@ -2,8 +2,8 @@ package by.mk_jd2_92_22.foodCounter.services;
 
 import by.mk_jd2_92_22.foodCounter.core.builder.ProductBuilder;
 import by.mk_jd2_92_22.foodCounter.core.exception.NotFoundException;
-import by.mk_jd2_92_22.foodCounter.dao.IProductDao;
-import by.mk_jd2_92_22.foodCounter.dao.entity.Product;
+import by.mk_jd2_92_22.foodCounter.repositories.IProductDao;
+import by.mk_jd2_92_22.foodCounter.model.Product;
 import by.mk_jd2_92_22.foodCounter.services.api.IProductService;
 import by.mk_jd2_92_22.foodCounter.services.dto.*;
 import by.mk_jd2_92_22.foodCounter.services.mappers.MapperPageDTO;
@@ -11,7 +11,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -48,11 +47,11 @@ public class ProductService implements IProductService {
                 .setWeight(item.getWeight())
                 .build());
 
-                RestTemplate restTemplate = new RestTemplate();
-         restTemplate
-                .postForEntity("http://user-service:8080/api/v1/audit", new AuditDTO(product.getUuid(),
-                        "create product", Type.PRODUCT), Audit.class)
-                ;
+        //TODO
+//                RestTemplate restTemplate = new RestTemplate();
+//         restTemplate
+//                .postForEntity("http://user-service:8080/api/v1/audit", new AuditDTO(product.getUuid(),
+//                        "create product", Type.PRODUCT), String.class);
 
         return product;
     }

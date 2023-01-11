@@ -1,5 +1,7 @@
 package by.mk_jd2_92_22.foodCounter.services.dto;
 
+import by.mk_jd2_92_22.foodCounter.model.Type;
+
 import java.util.UUID;
 
 public class AuditDTO {

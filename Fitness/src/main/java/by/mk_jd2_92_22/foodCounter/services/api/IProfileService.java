@@ -1,4 +1,8 @@
-package by.mk_jd2_92_22.foodCounter.profile;
+package by.mk_jd2_92_22.foodCounter.services.api;
+
+import by.mk_jd2_92_22.foodCounter.model.Profile;
+import by.mk_jd2_92_22.foodCounter.services.dto.ProfileDTO;
+import by.mk_jd2_92_22.foodCounter.services.dto.ProfileResponseDTO;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

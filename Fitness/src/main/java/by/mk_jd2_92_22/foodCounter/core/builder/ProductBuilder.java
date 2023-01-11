@@ -1,6 +1,6 @@
 package by.mk_jd2_92_22.foodCounter.core.builder;
 
-import by.mk_jd2_92_22.foodCounter.dao.entity.Product;
+import by.mk_jd2_92_22.foodCounter.model.Product;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

@@ -1,5 +1,12 @@
-package by.mk_jd2_92_22.foodCounter.profile;
+package by.mk_jd2_92_22.foodCounter.services;
 
+import by.mk_jd2_92_22.foodCounter.core.builder.ProfileBuilder;
+import by.mk_jd2_92_22.foodCounter.repositories.ProfileRepository;
+import by.mk_jd2_92_22.foodCounter.model.Profile;
+import by.mk_jd2_92_22.foodCounter.model.UserProfile;
+import by.mk_jd2_92_22.foodCounter.services.api.IProfileService;
+import by.mk_jd2_92_22.foodCounter.services.dto.ProfileDTO;
+import by.mk_jd2_92_22.foodCounter.services.dto.ProfileResponseDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -9,7 +16,7 @@ import java.util.UUID;
 
 @Service
 @Transactional(readOnly = true)
-public class ProfileService implements IProfileService{
+public class ProfileService implements IProfileService {
 
     private final ProfileRepository dao;
 
@@ -43,11 +50,15 @@ public class ProfileService implements IProfileService{
     @Override
     public ProfileResponseDTO get(UUID uuid) {
 
-        //TODO restTemplate get from user-service
-        UserProfile userProfile = new UserProfile();
 
         Profile profile = dao.findById(uuid).orElseThrow(() ->
                 new IllegalArgumentException("Profile is not found"));
+
+        //TODO restTemplate get from user-service
+        UserProfile userProfile = new UserProfile();
+        userProfile.setUuid(profile.getUuid());
+        userProfile.setDtCreate(LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS));
+        userProfile.setDtUpdate(LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS));
 
         return new ProfileResponseDTO(profile.getUuid(),
                 profile.getDtCreate(),
@@ -72,6 +83,12 @@ public class ProfileService implements IProfileService{
             throw new IllegalArgumentException("wasn't update, try again");
         }
 
+        profile.setWeight(item.getWeight());
+        profile.setHeight(item.getHeight());
+        profile.setTarget(item.getTarget());
+        profile.setDtBirthday(item.getDtBirthday());
+        profile.setActivityType(item.getActivityType());
+        profile.setSex(item.getSex());
 
         return dao.save(profile);
     }

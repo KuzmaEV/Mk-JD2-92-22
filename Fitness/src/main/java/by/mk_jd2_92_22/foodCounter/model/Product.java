@@ -1,4 +1,4 @@
-package by.mk_jd2_92_22.foodCounter.dao.entity;
+package by.mk_jd2_92_22.foodCounter.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

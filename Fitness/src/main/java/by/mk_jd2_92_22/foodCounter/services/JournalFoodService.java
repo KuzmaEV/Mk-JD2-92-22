@@ -1,10 +1,10 @@
 package by.mk_jd2_92_22.foodCounter.services;
 
 import by.mk_jd2_92_22.foodCounter.core.exception.NotFoundException;
-import by.mk_jd2_92_22.foodCounter.dao.IJournalFoodDao;
-import by.mk_jd2_92_22.foodCounter.dao.entity.Recipe;
-import by.mk_jd2_92_22.foodCounter.dao.entity.JournalFood;
-import by.mk_jd2_92_22.foodCounter.dao.entity.Product;
+import by.mk_jd2_92_22.foodCounter.repositories.IJournalFoodDao;
+import by.mk_jd2_92_22.foodCounter.model.Recipe;
+import by.mk_jd2_92_22.foodCounter.model.JournalFood;
+import by.mk_jd2_92_22.foodCounter.model.Product;
 import by.mk_jd2_92_22.foodCounter.services.api.IRecipeService;
 import by.mk_jd2_92_22.foodCounter.services.api.IJournalFoodService;
 import by.mk_jd2_92_22.foodCounter.services.api.IProductService;

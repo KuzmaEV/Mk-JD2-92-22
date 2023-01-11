@@ -4,6 +4,7 @@ import by.mk_jd2_92_22.foodCounter.core.exception.NotFoundException;
 import by.mk_jd2_92_22.foodCounter.core.exception.entity.ErrorForMultipleErrorResponse;
 import by.mk_jd2_92_22.foodCounter.core.exception.entity.MultipleErrorResponse;
 import by.mk_jd2_92_22.foodCounter.core.exception.entity.SingleErrorResponse;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -22,6 +23,13 @@ public class HandlerAdviceController {
                         "error",
                         e.getMessage());
         }
+        @ExceptionHandler
+        @ResponseStatus(HttpStatus.BAD_REQUEST)
+        public SingleErrorResponse jsonException(InvalidFormatException e) {
+                return new SingleErrorResponse(
+                        "error",
+                        e.getMessage());
+        }
 
         @ExceptionHandler/*({ProductNotFoundException.class})*/
         @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -34,11 +42,11 @@ public class HandlerAdviceController {
         @ExceptionHandler
         @ResponseStatus(HttpStatus.BAD_REQUEST)
         public MultipleErrorResponse handleValidationExceptions(
-                MethodArgumentNotValidException ex) {
+                MethodArgumentNotValidException e) {
 
                 List<ErrorForMultipleErrorResponse> errors = new ArrayList<>();
 
-                ex.getBindingResult().getAllErrors()
+                e.getBindingResult().getAllErrors()
                         .forEach((error) -> {
 
                         String fieldName = ((FieldError) error).getField();
@@ -48,6 +56,8 @@ public class HandlerAdviceController {
 
                 return new MultipleErrorResponse("structured_error", errors);
         }
+
+
 }
 
 

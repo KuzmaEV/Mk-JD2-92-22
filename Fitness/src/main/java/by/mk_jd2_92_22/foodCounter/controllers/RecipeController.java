@@ -1,6 +1,6 @@
 package by.mk_jd2_92_22.foodCounter.controllers;
 
-import by.mk_jd2_92_22.foodCounter.dao.entity.Recipe;
+import by.mk_jd2_92_22.foodCounter.model.Recipe;
 import by.mk_jd2_92_22.foodCounter.services.RecipeService;
 import by.mk_jd2_92_22.foodCounter.services.dto.PageDTO;
 import by.mk_jd2_92_22.foodCounter.services.dto.RecipeDTO;

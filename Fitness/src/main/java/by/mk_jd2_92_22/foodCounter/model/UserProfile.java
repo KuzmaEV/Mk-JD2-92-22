@@ -1,4 +1,6 @@
-package by.mk_jd2_92_22.foodCounter.profile;
+package by.mk_jd2_92_22.foodCounter.model;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -9,8 +11,10 @@ public class UserProfile {
     private UUID uuid;
 
 //    @Column(name = "dt_create")
+    @JsonProperty("dt_create")
     private LocalDateTime dtCreate;
 //    @Column(name = "dt_update")
+    @JsonProperty("dt_update")
     private LocalDateTime dtUpdate;
 
     public UserProfile() {

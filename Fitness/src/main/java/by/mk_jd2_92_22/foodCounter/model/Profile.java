@@ -1,4 +1,4 @@
-package by.mk_jd2_92_22.foodCounter.profile;
+package by.mk_jd2_92_22.foodCounter.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
+@Table(name = "profiles")
 public class Profile {
 
     @Id
@@ -37,6 +38,7 @@ public class Profile {
     @Enumerated(value = EnumType.STRING)
     private ProfileSex sex;
 
+    @Column(name = "profile_user")
     private UUID user;
 
     public Profile() {
@@ -57,6 +59,30 @@ public class Profile {
         this.activityType = activityType;
         this.sex = sex;
         this.user = user;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public void setDtBirthday(LocalDate dtBirthday) {
+        this.dtBirthday = dtBirthday;
+    }
+
+    public void setTarget(double target) {
+        this.target = target;
+    }
+
+    public void setActivityType(ActivityType activityType) {
+        this.activityType = activityType;
+    }
+
+    public void setSex(ProfileSex sex) {
+        this.sex = sex;
     }
 
     public UUID getUuid() {
