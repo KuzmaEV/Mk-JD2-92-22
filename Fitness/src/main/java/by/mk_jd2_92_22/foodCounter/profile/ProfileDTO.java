@@ -4,7 +4,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Positive;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class ProfileDTO {
 
@@ -13,7 +13,7 @@ public class ProfileDTO {
     @Positive
     private double weight;
     @Past @NotNull
-    private Date dtBirthday;
+    private LocalDate dtBirthday;
     @Positive
     private double target;
     @NotBlank
@@ -40,11 +40,11 @@ public class ProfileDTO {
         this.weight = weight;
     }
 
-    public Date getDtBirthday() {
+    public LocalDate getDtBirthday() {
         return dtBirthday;
     }
 
-    public void setDtBirthday(Date dtBirthday) {
+    public void setDtBirthday(LocalDate dtBirthday) {
         this.dtBirthday = dtBirthday;
     }
 

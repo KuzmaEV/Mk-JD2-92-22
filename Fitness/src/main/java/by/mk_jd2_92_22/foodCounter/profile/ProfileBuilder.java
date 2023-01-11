@@ -1,7 +1,7 @@
 package by.mk_jd2_92_22.foodCounter.profile;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.UUID;
 
 public class ProfileBuilder {
@@ -11,7 +11,7 @@ public class ProfileBuilder {
     private LocalDateTime dtUpdate;
     private int height;
     private double weight;
-    private Date dtBirthday;
+    private LocalDate dtBirthday;
     private double target;
     private ActivityType activityType;
     private ProfileSex sex;
@@ -65,11 +65,11 @@ public class ProfileBuilder {
         return this;
     }
 
-    public Date getDtBirthday() {
+    public LocalDate getDtBirthday() {
         return dtBirthday;
     }
 
-    public ProfileBuilder setDtBirthday(Date dtBirthday) {
+    public ProfileBuilder setDtBirthday(LocalDate dtBirthday) {
         this.dtBirthday = dtBirthday;
         return this;
     }
