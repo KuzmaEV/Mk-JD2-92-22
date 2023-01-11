@@ -11,20 +11,28 @@ public class Profile {
     @Id
     private UUID uuid;
 
+//    @JsonProperty("dt_create")
     @Column(name = "dt_create")
     private LocalDateTime dtCreate;
+
+    @Version
+//    @JsonProperty("dt_update")
     @Column(name = "dt_update")
     private LocalDateTime dtUpdate;
 
     private int height;
     private double weight;
+
+//    @JsonProperty("dt_birthday")
     @Column(name = "dt_birthday")
     private Date dtBirthday;
     private double target;
 
+//    @JsonProperty("activity_type")
     @Column(name = "activity_type")
     @Enumerated(value = EnumType.STRING)
     private ActivityType activityType;
+
     @Column(name = "sex")
     @Enumerated(value = EnumType.STRING)
     private ProfileSex sex;

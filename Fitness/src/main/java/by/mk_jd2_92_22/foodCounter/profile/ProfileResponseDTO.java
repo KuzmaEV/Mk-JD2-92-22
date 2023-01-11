@@ -1,5 +1,7 @@
 package by.mk_jd2_92_22.foodCounter.profile;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
@@ -8,14 +10,18 @@ public class ProfileResponseDTO {
 
     private UUID uuid;
 
+    @JsonProperty("dt_create")
     private LocalDateTime dtCreate;
+    @JsonProperty("dt_update")
     private LocalDateTime dtUpdate;
 
     private int height;
     private double weight;
+    @JsonProperty("dt_birthday")
     private Date dtBirthday;
     private double target;
 
+    @JsonProperty("activity_type")
     private ActivityType activityType;
     private ProfileSex sex;
 
