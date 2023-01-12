@@ -1,8 +1,9 @@
-package by.mk_jd2_92_22.userSecurity.security.config;
+package by.mk_jd2_92_22.auditService.security.config;
 
-import by.mk_jd2_92_22.userSecurity.model.Role;
-import by.mk_jd2_92_22.userSecurity.security.JwtFilter;
+import by.mk_jd2_92_22.auditService.model.Role;
+import by.mk_jd2_92_22.auditService.security.JwtFilter;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -55,11 +56,8 @@ public class SecurityConfig {
                 .and();
 
         http.authorizeRequests()
-                .antMatchers("/public/**").permitAll()
-                .antMatchers("/api/v1/users/login", "/api/v1/users/registration").permitAll()
-                .antMatchers("/api/v1/users/me").authenticated()
-                .antMatchers("/api/v1/users/**").hasRole(Role.ADMIN.name())
-                .anyRequest().authenticated();
+                .antMatchers(HttpMethod.POST).authenticated()
+                .anyRequest().hasRole(Role.ADMIN.name());
 
         http.addFilterBefore(
                 filter,

@@ -1,40 +1,28 @@
-package by.mk_jd2_92_22.auditService.model;
+package by.mk_jd2_92_22.auditService.security.customDatail;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Entity
-@Table(name = ("user"))
-public class UserAudit {
+public class UserMe {
 
-    @Id
     private UUID uuid;
-    @Column(name = "dt_create")
     private LocalDateTime dtCreate;
-    @Column(name = "dt_update")
     private LocalDateTime dtUpdate;
-
-    @Column(name = "mail")
     private String mail;
-    @Column(name = "nick")
     private String nick;
-
-    @Column(name = "role")
-    @Enumerated(value = EnumType.STRING)
     private Role role;
-    @Column(name = "status")
-    @Enumerated(value = EnumType.STRING)
     private Status status;
 
-    public UserAudit() {
+    public UserMe() {
     }
 
-    public UUID getUuid() {
-        return uuid;
+    public UserMe(UUID uuid, Role role, Status status) {
+        this.uuid = uuid;
+        this.role = role;
+        this.status = status;
     }
 
-    public UserAudit(UUID uuid, LocalDateTime dtCreate, LocalDateTime dtUpdate, String mail, String nick, Role role, Status status) {
+    public UserMe(UUID uuid, LocalDateTime dtCreate, LocalDateTime dtUpdate, String mail, String nick, Role role, Status status) {
         this.uuid = uuid;
         this.dtCreate = dtCreate;
         this.dtUpdate = dtUpdate;
@@ -42,6 +30,10 @@ public class UserAudit {
         this.nick = nick;
         this.role = role;
         this.status = status;
+    }
+
+    public UUID getUuid() {
+        return uuid;
     }
 
     public void setUuid(UUID uuid) {
@@ -96,3 +88,4 @@ public class UserAudit {
         this.status = status;
     }
 }
+
